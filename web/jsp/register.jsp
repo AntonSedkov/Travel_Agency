@@ -10,7 +10,8 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-<h1>Register form</h1>
+
+<h2 class="text-center">Register form</h2>
 <form name="registerForm" method="post" action="controller/">
     <input type="hidden" name="command" value="register">
     <div class="form-group">
@@ -28,13 +29,16 @@
         </label>
     </div>
     <div class="form-group">
-        <label>Email:</label>
+        <label class="text-uppercase">Email:</label>
         <label>
             <input type="email" name="email" placeholder="Em@il.me" required
-            <%--pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"--%>/>
+                   pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
         </label>
     </div>
     <input type="submit" class="btn btn-login float-center" value="Go"/>
+    <div>
+        ${registererror}<br/>
+    </div>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

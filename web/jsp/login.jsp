@@ -1,31 +1,48 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language"
+       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
+       scope="session"/>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css">
-<html>
+<html lang="${language}">
 <head>
-    <title>Start Page</title>
+    <title><fmt:message key="loginpage.title"/></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
+
+<form>
+
+    <label for="language"><select id="language" name="language" onchange="submit()">
+        <option><fmt:message key="label.language"/></option>
+        <option value="en_US" ${language == 'en' ? 'selected' : ''}>English</option>
+        <option value="ru_RU" ${language == 'ru' ? 'selected' : ''}>Русский</option>
+    </select></label>
+</form>
+
 <section class="login-block">
     <div class="container">
         <div class="row">
             <div class="col-md-4 login-sec">
-                <h2 class="text-center">Login Now</h2>
+                <h2 class="text-center"><fmt:message key="loginpage.formtitle"/></h2>
                 <form name="loginForm" method="post" action="controller/">
                     <input type="hidden" name="command" value="login"/>
                     <div class="form-group">
-                        <label class="text-uppercase">Login</label>
+                        <label class="text-uppercase"><fmt:message key="loginpage.login"/></label>
                         <label>
                             <input type="text" name="login" class="form-control" placeholder="User" required
                                    pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                         </label>
                     </div>
                     <div class="form-group">
-                        <label class="text-uppercase">Password</label>
+                        <label class="text-uppercase"><fmt:message key="loginpage.password"/></label>
                         <label>
                             <input type="password" name="password" class="form-control" placeholder="Pass"
                                    required pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
@@ -34,10 +51,11 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input type="checkbox" class="form-check-input"/>
-                            <small>Remember Me</small>
+                            <small><fmt:message key="loginpage.rememberme"/></small>
                         </label>
                     </div>
-                    <input type="submit" class="btn btn-login float-right" value="Submit"/>
+                    <fmt:message key="label.submit" var="submitValue"/>
+                    <input type="submit" class="btn btn-login float-right" value="${submitValue}"/>
                     <div>
                         ${loginerror}<br/>
                         ${wrongaction}<br/>
@@ -74,6 +92,13 @@
                     <input type="submit" class="btn btn-login float-center" value="Go"/>
                     <div>
                         ${registererror}<br/>
+                    </div>
+                </form>
+
+                <form>
+                    <div>
+                        <a href="controller?command=change_page&targetpage=path.page.register"
+                           class="btn btn-login float-right">To Register</a>
                     </div>
                 </form>
 
