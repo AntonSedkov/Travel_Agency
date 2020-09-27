@@ -35,7 +35,7 @@ public class RegisterCommand implements Command {
             } else {
                 request.setAttribute(AttributeName.REGISTER_ERROR,
                         AlertManager.getProperty(AlertManager.KEY_REGISTER_ERROR));
-                page = PathManager.getProperty(PathManager.KEY_PAGE_LOGIN);
+                page = PathManager.getProperty(PathManager.KEY_PAGE_START);
             }
         } catch (ServiceException e) {
             logger.error(e);

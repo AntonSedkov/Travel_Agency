@@ -90,7 +90,7 @@
                         </label>
                     </div>
                     <input type="submit" class="btn btn-login float-center" value="Go"/>
-                    <div>
+                    <div class = "text-uppercase">
                         ${registererror}<br/>
                     </div>
                 </form>
