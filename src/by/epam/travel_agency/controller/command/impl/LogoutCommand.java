@@ -12,9 +12,9 @@ public class LogoutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = PathManager.getProperty(PathManager.KEY_PAGE_INDEX);
+        String page = PathManager.getProperty(PathManager.PAGE_INDEX);
         request.getSession().invalidate();
-        logger.info("Log out");
+        logger.info("User log out.");
         return page;
     }
 

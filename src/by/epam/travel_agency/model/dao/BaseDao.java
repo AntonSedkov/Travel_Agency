@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface BaseDao<K, T extends Entity> {
 
-    boolean create(T entity) throws DaoException;
-
     default void close(ResultSet resultSet) throws DaoException {
         if (resultSet != null) {
             try {

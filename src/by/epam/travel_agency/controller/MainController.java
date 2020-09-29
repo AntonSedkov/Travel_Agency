@@ -27,16 +27,14 @@ public class MainController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String page = null;
+        String page;
         Command command = ActionProvider.defineCommand(request);
-        if (command != null) {
-            page = command.execute(request);
-        }
+        page = command.execute(request);
         if (page != null && !page.isBlank()) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } else {
-            page = PathManager.getProperty(PathManager.KEY_PAGE_INDEX);
+            page = PathManager.getProperty(PathManager.PAGE_INDEX);
             request.getSession().setAttribute(AttributeName.NULL_PAGE,
                     AlertManager.getProperty(AlertManager.KEY_NULL_PAGE));
             response.sendRedirect(request.getContextPath() + page);

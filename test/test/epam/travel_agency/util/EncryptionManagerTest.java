@@ -1,20 +1,20 @@
 package test.epam.travel_agency.util;
 
 import by.epam.travel_agency.exception.ServiceException;
-import by.epam.travel_agency.util.Encryption;
+import by.epam.travel_agency.util.EncryptionManager;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class EncryptionTest {
+public class EncryptionManagerTest {
     String oneString = "Hello_Java!!!";
 
     @Test
     public void testGetSaltedHashDifferentForOne() {
         try {
-            String actualOne = Encryption.getSaltedHash(oneString);
+            String actualOne = EncryptionManager.getSaltedHash(oneString);
             System.out.println(actualOne);
-            String actualTwo = Encryption.getSaltedHash(oneString);
+            String actualTwo = EncryptionManager.getSaltedHash(oneString);
             System.out.println(actualTwo);
             assertNotEquals(actualOne, actualTwo);
         } catch (ServiceException e) {
@@ -25,8 +25,8 @@ public class EncryptionTest {
     @Test(dependsOnMethods = "testGetSaltedHashDifferentForOne")
     public void testCheckPassword() {
         try {
-            String encryptedString = Encryption.getSaltedHash(oneString);
-            boolean actual = Encryption.checkPassword(oneString, encryptedString);
+            String encryptedString = EncryptionManager.getSaltedHash(oneString);
+            boolean actual = EncryptionManager.checkPassword(oneString, encryptedString);
             assertTrue(actual);
         } catch (ServiceException e) {
             fail();

@@ -4,6 +4,6 @@
     <title>Start Page</title>
 </head>
 <body>
-<jsp:forward page="jsp/start.jsp"/>
+<jsp:forward page="jsp/ghome.jsp"/>
 </body>
 </html>

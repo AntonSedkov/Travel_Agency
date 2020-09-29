@@ -5,8 +5,14 @@ import by.epam.travel_agency.model.entity.User;
 
 public interface UserDao extends BaseDao<Integer, User> {
 
-    User findByLogin(String login) throws DaoException;
+    boolean findStatusByLogin(String login) throws DaoException;
+
+    String findPassByLogin(String login) throws DaoException;
+
+    String findRoleByLogin(String login) throws DaoException;
 
     boolean isUniqueLogin(String login) throws DaoException;
+
+    boolean createNewUser(User user, String password) throws DaoException;
 
 }

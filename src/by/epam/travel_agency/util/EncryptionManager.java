@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-public class Encryption {
+public class EncryptionManager {
     private static final int ITERATIONS = 20 * 1000;
     private static final int SALT_LENGTH = 32;
     private static final int DESIRED_KEY_LENGTH = 256;
@@ -20,7 +20,7 @@ public class Encryption {
     private static final String TWO_SLASHES_FOR_SCREENING = "\\";
     private static final String ENCRYPTION_DELIMITER = "$";
 
-    private Encryption() {
+    private EncryptionManager() {
     }
 
     public static String getSaltedHash(String password) throws ServiceException {

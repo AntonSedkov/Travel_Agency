@@ -15,6 +15,8 @@ public class PageChangeCommand implements Command {
     public String execute(HttpServletRequest request) {
         String pageProperty = request.getParameter(PARAM_TARGET_PAGE);
         String page = PathManager.getProperty(pageProperty);
+        logger.info("Page has been changed successfully to " + page);
         return page;
     }
+
 }

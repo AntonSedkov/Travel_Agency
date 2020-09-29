@@ -5,8 +5,9 @@ import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.dao.UserDao;
 import by.epam.travel_agency.model.dao.impl.UserDaoImpl;
 import by.epam.travel_agency.model.entity.User;
+import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.model.service.UserService;
-import by.epam.travel_agency.util.Encryption;
+import by.epam.travel_agency.util.EncryptionManager;
 import by.epam.travel_agency.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,11 +30,14 @@ public class UserServiceImpl implements UserService {
         if (UserValidator.isValidLogin(enterLogin) && UserValidator.isValidPassword(enterPassword)) {
             try {
                 UserDao dao = UserDaoImpl.getInstance();
-                User user = dao.findByLogin(enterLogin);
-                if (user.isStatus()) {
-                    String encryptedPassword = user.getPassword();
-                    result = Encryption.checkPassword(enterPassword, encryptedPassword);
-                    logger.info("Checked password");
+                boolean userStatus = dao.findStatusByLogin(enterLogin);
+                if (userStatus) {
+                    String encryptedPassword = dao.findPassByLogin(enterLogin);
+                    if (encryptedPassword == null || encryptedPassword.isBlank()) {
+                        throw new ServiceException("Password from database is Empty for login " + enterLogin);
+                    }
+                    result = EncryptionManager.checkPassword(enterPassword, encryptedPassword);
+                    logger.info("Checked password successfully");
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
@@ -47,21 +51,43 @@ public class UserServiceImpl implements UserService {
         boolean result = false;
         UserDao dao = UserDaoImpl.getInstance();
         if (UserValidator.isValidLogin(enterLogin) && UserValidator.isValidPassword(enterPass) && UserValidator.isValidEmail(enterEmail)) {
-            try {
-                result = dao.isUniqueLogin(enterLogin);
-                logger.info("Checked login for unique value");
-            } catch (DaoException e) {
-                throw new ServiceException(e);
+            result = checkUniqueLogin(enterLogin);
+            if (result) {
+                User newUser = new User(enterLogin, enterEmail);
+                String encryptedPassword = EncryptionManager.getSaltedHash(enterPass);
+                try {
+                    result = dao.createNewUser(newUser, encryptedPassword);
+                    logger.info("Create new user - client");
+                } catch (DaoException e) {
+                    throw new ServiceException(e);
+                }
             }
         }
-        if (result) {
-            User newUser = new User(enterLogin, Encryption.getSaltedHash(enterPass), enterEmail);
-            try {
-                result = dao.create(newUser);
-                logger.info("Create new user");
-            } catch (DaoException e) {
-                throw new ServiceException(e);
+        return result;
+    }
+
+    @Override
+    public UserType findRoleByLogin(String enterLogin) throws ServiceException {
+        try {
+            String strRole = UserDaoImpl.getInstance().findRoleByLogin(enterLogin);
+            if (strRole == null || strRole.isBlank()) {
+                throw new ServiceException("Role from database is Empty for login " + enterLogin);
             }
+            UserType role = UserType.valueOf(strRole.toUpperCase());
+            logger.info("User type has been defined successfully");
+            return role;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    private boolean checkUniqueLogin(String login) throws ServiceException {
+        boolean result;
+        try {
+            result = UserDaoImpl.getInstance().isUniqueLogin(login);
+            logger.info("Checked login for unique value successfully");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
         return result;
     }

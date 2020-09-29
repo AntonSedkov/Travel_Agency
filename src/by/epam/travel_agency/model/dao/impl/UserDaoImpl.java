@@ -6,7 +6,6 @@ import by.epam.travel_agency.model.dao.ColumnName;
 import by.epam.travel_agency.model.dao.StatementSql;
 import by.epam.travel_agency.model.dao.UserDao;
 import by.epam.travel_agency.model.entity.User;
-import by.epam.travel_agency.model.entity.UserType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,31 +24,58 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByLogin(String login) throws DaoException {
-        User resultUser = new User();
-        resultUser.setStatus(false);
+    public boolean findStatusByLogin(String login) throws DaoException {
+        boolean result = false;
         try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.SQL_FIND_USER_BY_LOGIN)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_STATUS_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                resultUser.setLogin(login);
-                resultUser.setPassword(resultSet.getString(ColumnName.COLUMN_PASSWORD));
-                UserType userType = UserType.valueOf(resultSet.getString(ColumnName.COLUMN_ROLE).toUpperCase());
-                resultUser.setRole(userType);
-                resultUser.setStatus(resultSet.getBoolean(ColumnName.COLUMN_STATUS));
+            if (resultSet.next()) {
+                result = resultSet.getBoolean(ColumnName.COLUMN_STATUS);
             }
         } catch (SQLException ex) {
-            throw new DaoException("Exception of finding user by login. ", ex);
+            throw new DaoException("Exception of finding user status by login. ", ex);
         }
-        return resultUser;
+        return result;
+    }
+
+    @Override
+    public String findPassByLogin(String login) throws DaoException {
+        String resultPass = null;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_PASS_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                resultPass = resultSet.getString(ColumnName.COLUMN_PASSWORD);
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of finding password by login. ", ex);
+        }
+        return resultPass;
+    }
+
+    @Override
+    public String findRoleByLogin(String login) throws DaoException {
+        String resultRole = null;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_ROLE_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                resultRole = resultSet.getString(ColumnName.COLUMN_ROLE);
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of finding role by login. ", ex);
+        }
+        return resultRole;
     }
 
     @Override
     public boolean isUniqueLogin(String login) throws DaoException {
         boolean result = false;
         try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.SQL_CHECK_LOGIN_UNIQUE)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CHECK_LOGIN_UNIQUE)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -62,13 +88,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean create(User entity) throws DaoException {
-        boolean result = false;
+    public boolean createNewUser(User user, String encryptedPassword) throws DaoException {
+        boolean result;
         try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.SQL_CREATE_USER)) {
-            preparedStatement.setString(1, entity.getLogin());
-            preparedStatement.setString(2, entity.getPassword());
-            preparedStatement.setString(3, entity.getEmail());
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CREATE_USER)) {
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, encryptedPassword);
+            preparedStatement.setString(3, user.getEmail());
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoException("Exception of creating new User in database", e);

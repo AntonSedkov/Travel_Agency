@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css">
 <html>
 <head>
     <title>Welcome Page</title>
@@ -15,6 +14,11 @@
         <h3 class="text-center">Welcome!!!</h3>
         <br/>
         <h2 class="text-center">${user}, hello!</h2>
+        <br/>
+        <h2 class="text-center">${email}, hello!</h2>
+        <br/>
+        <h2 class="text-center">${role}, hello!</h2>
+        <br/>
         <div class="copy-text">
             Created with <i class="fa fa-heart"></i> from Antonius :)
         </div>

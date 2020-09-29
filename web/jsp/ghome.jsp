@@ -9,7 +9,7 @@
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bs_login.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ta_login.css" type="text/css">
 
 <html lang="${language}">
 
@@ -22,7 +22,7 @@
 <body style="background-color: burlywood">
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: cornflowerblue">
-    <a href="controller?command=change_page&targetpage=path.page.start" class="navbar-brand">
+    <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand">
         <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -33,7 +33,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a href="controller?command=change_page&targetpage=path.page.start" class="nav-link">
+                <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">
                     <fmt:message key="startpage.homebutton"/></a>
             </li>
             <li class="nav-item">
@@ -356,5 +356,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/js/script_bs.js"></script>
+<script src="${pageContext.request.contextPath}/js/ta_script.js"></script>
 </html>

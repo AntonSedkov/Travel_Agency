@@ -13,8 +13,7 @@ public class SessionRequestContent {
     private boolean validSession;
 
     public SessionRequestContent(HttpServletRequest request) {
-        validSession = request.isRequestedSessionIdValid();     // TODO: 26.08.2020      Where check session valid?
-
+        validSession = request.isRequestedSessionIdValid();
         if (validSession) {
             requestAttributes = new HashMap<>();
             Enumeration<String> reqAttributeNames = request.getAttributeNames();
@@ -51,8 +50,14 @@ public class SessionRequestContent {
         return validSession;
     }
 
-    public void restore(HttpServletRequest request) {
-        validSession = request.isRequestedSessionIdValid();     // TODO: 26.08.2020      Where check session valid?
+    public void restore() {
+     /*   HttpServletRequest restoredRequest = new HttpServletRequest();
+        Iterator<String> reqIterator = requestAttributes.keySet().iterator();
+        while (reqIterator.hasNext()){
+
+        }
+
+
         if (validSession) {
             Iterator<String> reqIterator = requestAttributes.keySet().iterator();
             while (reqIterator.hasNext()) {
@@ -65,7 +70,7 @@ public class SessionRequestContent {
                 String attributeName = sesIterator.next();
                 request.getSession().setAttribute(attributeName, sessionAttributes.get(attributeName));
             }
-        }
+        }*/
     }
 
 }
