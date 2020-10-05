@@ -10,4 +10,6 @@ public class ColumnName {
     public static final String COLUMN_ROLE = "role";
     public static final String COLUMN_STATUS = "status";
 
+
+
 }
