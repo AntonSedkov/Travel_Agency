@@ -1,5 +1,6 @@
 <%--users previous and next tours--%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <html>
@@ -16,6 +17,9 @@
         <br/>
         <h2 class="text-center">${user}, hello!</h2>
         <br/>
+        <h2 class="text-center">${login}, Sun rise hello!</h2>
+        <br/>
+
         <h2 class="text-center">${email}, hello!</h2>
         <br/>
         <h2 class="text-center">${role}, hello!</h2>
@@ -31,6 +35,27 @@
             <a href="controller?command=logout" class="btn btn-login float-right">Logout</a>
         </div>
     </div>
+
+    <table>
+        <c:forEach var="tour" items="${tours}">
+            <tr>
+                <td><c:out value="${tour.id}"/></td>
+                <td><c:out value="${tour.tourType}"/></td>
+                <td><c:out value="${tour.country}"/></td>
+                <td><c:out value="${tour.hotelName}"/></td>
+                <td><c:out value="${tour.hotelType}"/></td>
+                <td><c:out value="${tour.transport}"/></td>
+                <td><c:out value="${tour.startDate}"/></td>
+                <td><c:out value="${tour.days}"/></td>
+                <td><c:out value="${tour.price}"/></td>
+                <td><c:out value="${tour.availableQuantity}"/></td>
+                <td><c:out value="${tour.description}"/></td>
+                <td><c:out value="${tour.imagePath}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+
+
 </section>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -3,11 +3,11 @@ package by.epam.travel_agency.model.entity;
 public enum HotelType {
     HOSTEL("hostel"),
 
-    THREESTAR("3"),
+    THREE("three"),
 
-    FOURSTAR("4"),
+    FOUR("four"),
 
-    FIFESTAR("5");
+    FIVE("five");
 
     private final String category;
 

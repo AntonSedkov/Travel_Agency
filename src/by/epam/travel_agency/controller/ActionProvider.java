@@ -22,7 +22,7 @@ public class ActionProvider {
             }
         } catch (IllegalArgumentException e) {
             logger.error("Wrong command parameter: " + action, e);
-            request.setAttribute(AttributeName.WRONG_ACTION,
+            request.setAttribute(AttributeName.WRONG_ACTION,                                    // TODO: 13.10.2020 TO ERROR PAGE
                     action + AlertManager.getProperty(AlertManager.KEY_WRONG_ACTION));
         }
         return currentCommand;

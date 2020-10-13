@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface BaseDao<K, T extends Entity> {
 
+    List<T> findAll() throws DaoException;
+
     default void close(ResultSet resultSet) throws DaoException {
         if (resultSet != null) {
             try {

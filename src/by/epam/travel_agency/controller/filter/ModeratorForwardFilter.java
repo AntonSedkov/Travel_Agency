@@ -9,17 +9,16 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/jsp/admin/*"})
+@WebFilter(urlPatterns = {"/jsp/moderator/*"})
 
-public class AdminForwardFilter implements Filter {
-
+public class ModeratorForwardFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String role = (String) httpRequest.getSession().getAttribute(AttributeName.ROLE);
-        if (role == null || !role.equals(UserType.ADMIN.toString().toLowerCase())) {
+        if (role == null || !role.equals(UserType.MODERATOR.toString().toLowerCase())) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(PathManager.PAGE_INDEX);
             dispatcher.forward(request, response);
         }
@@ -28,5 +27,4 @@ public class AdminForwardFilter implements Filter {
 
     public void destroy() {
     }
-
 }

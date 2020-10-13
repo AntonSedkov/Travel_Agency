@@ -1,4 +1,7 @@
 package by.epam.travel_agency.model.dao;
 
-public interface TourDao {
+import by.epam.travel_agency.model.entity.Tour;
+
+public interface TourDao extends BaseDao<Integer, Tour> {
+
 }

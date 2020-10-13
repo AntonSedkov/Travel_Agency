@@ -12,6 +12,8 @@ import by.epam.travel_agency.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 
 public class UserServiceImpl implements UserService {
     private static final UserServiceImpl INSTANCE = new UserServiceImpl();
@@ -79,6 +81,84 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public boolean activateUser(int id) throws ServiceException {
+        boolean result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.activateUser(id);
+            logger.info("User with id: " + id + " has been activated.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deactivateUser(int id) throws ServiceException {
+        boolean result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.deactivateUser(id);
+            logger.info("User with id: " + id + " has been deactivated.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean activateUserEmail(String login) throws ServiceException {
+        boolean result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.activateUserEmail(login);
+            logger.info("Email: " + login + " has been activated.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public List<User> findAllUsers() throws ServiceException {
+        List<User> result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.findAll();
+            logger.info("Find all users.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean changePassword(String login, String password) throws ServiceException {
+        boolean result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.changePassword(login, password);
+            logger.info("Password for login: " + login + " is " + result);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean changeEmail(String login, String email) throws ServiceException {
+        boolean result;
+        UserDaoImpl dao = UserDaoImpl.getInstance();
+        try {
+            result = dao.changeEmail(login, email);
+            logger.info("Email for login: " + login + " is " + result);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 
     private boolean checkUniqueLogin(String login) throws ServiceException {

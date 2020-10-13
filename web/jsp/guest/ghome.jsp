@@ -2,71 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="language"
-       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ta_login.css" type="text/css">
-
-<html lang="${language}">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><fmt:message key="startpage.title"/></title>
 </head>
 
 <body style="background-color: burlywood">
 
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: cornflowerblue">
-    <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand">
-        <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle-navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">
-                    <fmt:message key="startpage.homebutton"/></a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-toggle="modal" data-target="#authModal">
-                    <fmt:message key="startpage.authbutton" var="authVal"/> ${authVal}</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-toggle="modal" data-target="#regModal">
-                    <fmt:message key="startpage.registerbutton" var="regVal"/> ${regVal}</a>
-            </li>
-            <li class="nav-item">
-                <a href="controller?command=change_page&targetpage=path.page.about" class="nav-link">
-                    <fmt:message key="startpage.aboutusbutton"/></a>
-            </li>
-        </ul>
-        <form class="form-inline m-2 my-lg-0">
-            <label for="language"><select class="btn btn-outline-success my-2 my-sm-0"
-                                          style="background-color: lightgreen"
-                                          id="language" name="language" onchange="submit()">
-                <option><fmt:message key="label.language"/></option>
-                <option value="en_US" ${language == 'en' ? 'selected' : ''}>English</option>
-                <option value="ru_RU" ${language == 'ru' ? 'selected' : ''}>Русский</option>
-            </select></label>
-        </form>
+<%@include file="../header.jsp"%>
 
-        <form class="form-inline my-2 my-lg-0" action="http://www.google.com/search" method="get">
-            <fmt:message key="button.search" var="search"/>
-            <input type="text" name="q" class="form-control mr-sm-2" placeholder="${search}" aria-label="${search}">
-            <input type="submit" class="btn btn-outline-success my-2 my-sm-0" style="background-color: lightgreen"
-                   value="${search}">
-        </form>
-    </div>
-</nav>
+
 
 <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -82,16 +32,16 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <form name="loginForm" method="post" action="controller/">
-                        <input type="hidden" name="command" value="login"/>
+                        <input type="hidden" name="command" value="user"/>
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="exampleInputAuth">
-                                        <fmt:message key="authpage.login" var="login"/>
-                                        ${login}
+                                        <fmt:message key="authpage.user" var="user"/>
+                                        ${user}
                                     </label>
-                                    <input type="text" name="login" class="form-control" id="exampleInputAuth"
-                                           placeholder="${login}" required
+                                    <input type="text" name="user" class="form-control" id="exampleInputAuth"
+                                           placeholder="${user}" required
                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                     <small id="loginHelp" class="form-text text-muted">
                                         <fmt:message key="authpage.loginhelp" var="loginhelp"/>
@@ -151,10 +101,10 @@
                             <div class="col">
                                 <div class="form-froup">
                                     <label for="exampleInputReg">
-                                        ${login}
+                                        ${user}
                                     </label>
-                                    <input type="text" name="login" class="form-control" id="exampleInputReg"
-                                           placeholder="${login}" required
+                                    <input type="text" name="user" class="form-control" id="exampleInputReg"
+                                           placeholder="${user}" required
                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                     <small id="loginHelpReg" class="form-text text-muted">
                                         ${loginhelp}
@@ -248,6 +198,23 @@
     </div>
 </div>
 
+<div>
+    <br/>User=><br/>
+    ${user}
+    <br/>Role=><br/>
+    ${role}
+    <br/>Lang=><br/>
+    ${language}
+    <br/>Email=><br/>
+    ${email}
+    <br/>CurrentPage=><br/>
+    ${currentpage}
+    <br/>Tours<br/>
+    ${tours}
+    <br/>
+    ${users}
+    <br/>
+</div>
 
 <div class="container-fluid mt-5" style="background-color:lightseagreen">
     <div class="container p-5">
@@ -356,5 +323,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/js/ta_script.js"></script>
+<script src="${pageContext.request.contextPath}/js/travel_agency.js"></script>
 </html>

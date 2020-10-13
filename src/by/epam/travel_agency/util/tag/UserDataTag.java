@@ -1,0 +1,38 @@
+package by.epam.travel_agency.util.tag;
+
+import by.epam.travel_agency.controller.AttributeName;
+
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.TagSupport;
+import java.io.IOException;
+
+public class UserDataTag extends TagSupport {
+
+    @Override
+    public int doStartTag() throws JspException {
+        HttpSession session = pageContext.getSession();
+        String defaultSheet = "0";
+        String sheet = (String) session.getAttribute(AttributeName.SHEET_SUM);
+        sheet = sheet != null ? sheet : defaultSheet;
+        String defaultUsername = "Traveler";
+        String username = (String) session.getAttribute(AttributeName.USER);
+        username = username != null ? username : defaultUsername;
+        String defaultRole = "Guest";
+        String role = (String) session.getAttribute(AttributeName.ROLE);
+        role = role != null ? role : defaultRole;
+        String top = "<li class=\"nav-item nav-text m-2\" style=\"color: orange; font-weight: bold\">";
+        String endLiStartLi = "</li><li class=\"text-center m-2\">";
+        StringBuilder buildData = new StringBuilder(sheet).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
+                .append(role).append("</li>");
+        try {
+            JspWriter out = pageContext.getOut();
+            out.write(top + buildData.toString());
+        } catch (IOException e) {
+            throw new JspException(e.getMessage());
+        }
+        return SKIP_BODY;
+    }
+
+}

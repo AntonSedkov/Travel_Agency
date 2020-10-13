@@ -9,24 +9,23 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/jsp/admin/*"})
+@WebFilter(urlPatterns = {"/jsp/*"})
 
-public class AdminForwardFilter implements Filter {
-
-    public void init(FilterConfig fConfig) throws ServletException {
-    }
+public class UserForwardFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String role = (String) httpRequest.getSession().getAttribute(AttributeName.ROLE);
-        if (role == null || !role.equals(UserType.ADMIN.toString().toLowerCase())) {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(PathManager.PAGE_INDEX);
-            dispatcher.forward(request, response);
+        String page;
+        switch (UserType.valueOf(role.toUpperCase())) {
+            case USER -> page = PathManager.PAGE_USER_HOME;
+            case MODERATOR -> page = PathManager.PAGE_MODERATOR_HOME;
+            case ADMIN -> page = PathManager.PAGE_ADMIN_HOME;
+            default -> page = PathManager.PAGE_GUEST_HOME;
         }
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
         chain.doFilter(request, response);
-    }
-
-    public void destroy() {
     }
 
 }

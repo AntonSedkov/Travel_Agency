@@ -4,8 +4,6 @@ import java.util.ResourceBundle;
 
 public class PathManager {
     public static final String PAGE_INDEX = "path.page.index";
-    public static final String PAGE_START = "path.page.start";
-    public static final String PAGE_MAIN = "path.page.main";
 
     public static final String PAGE_GUEST_HOME = "path.guest.home";
     public static final String PAGE_GUEST_AUTH = "path.guest.auth";

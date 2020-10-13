@@ -8,10 +8,10 @@
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ta_login.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 <html lang="${language}">
 <head>
-    <title><fmt:message key="authpage.title"/></title>
+    <title><fmt:message key="regpage.title"/></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -25,46 +25,64 @@
         <option value="ru_RU" ${language == 'ru' ? 'selected' : ''}>Русский</option>
     </select></label>
 </form>
-<h2 class="text-center" style="background-color: fuchsia"><fmt:message key="startpage.authbutton"/></h2>
+<h2 class="text-center" style="background-color: darkmagenta"><fmt:message key="startpage.registerbutton"/></h2>
+
+
 <div class="container-fluid">
-    <form name="loginForm" method="post" action="controller/">
-        <input type="hidden" name="command" value="login"/>
+    <form name="registerForm" method="post" action="controller/">
+        <input type="hidden" name="command" value="register">
         <div class="form-row">
             <div class="col">
-                <div class="form-group">
-                    <label for="exampleInputAuth">
-                        <fmt:message key="authpage.login" var="login"/>
-                        ${login}
+                <div class="form-froup">
+                    <label for="exampleInputReg">
+                        <fmt:message key="authpage.user" var="user"/>
+                        ${user}
                     </label>
-                    <input type="text" name="login" class="form-control" id="exampleInputAuth"
-                           placeholder="${login}" required
+                    <input type="text" name="user" class="form-control" id="exampleInputReg"
+                           placeholder="${user}" required
                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                    <small id="loginHelp" class="form-text text-muted">
-                        <fmt:message key="authpage.loginhelp" var="loginhelp"/>
+                    <small id="loginHelpReg" class="form-text text-muted">
+                        <fmt:message key="authpage.loginhelp"/>
                     </small>
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="exampleInputAuth">
+                <div class="form-froup">
+                    <label for="exampleInputReg">
                         <fmt:message key="authpage.password" var="pass"/>
                         ${pass}
                     </label>
-                    <input type="password" name="password"
-                           class="form-control" id="exampleInputPass"
+                    <input type="password" name="password" class="form-control"
+                           id="exampleInputPassReg"
                            placeholder="${pass}" required
                            pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                    <small id="passHelp" class="form-text text-muted">
-                        <fmt:message key="authpage.passhelp" var="passhelp"/>
+                    <small id="passHelpReg" class="form-text text-muted">
+                        <fmt:message key="authpage.passhelp"/>
+                    </small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-froup">
+                    <label for="exampleInputReg">
+                        <fmt:message key="regpage.email" var="emailVal"/>
+                        ${emailVal}
+                    </label>
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail"
+                           placeholder="${emailVal}" required
+                           pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
+                    <small id="emailHelp" class="form-text text-muted">
+                        <fmt:message key="regpage.emailhelp"/>
                     </small>
                 </div>
             </div>
         </div>
-        <fmt:message key="button.enter" var="enter"/>
+        <fmt:message key="button.register" var="register"/>
         <input type="submit" class="btn btn-primary float-center"
-               value="${enter}">
+               value="${register}">
         <div class="text-uppercase">
-            ${loginerror}<br/>
+            <c:if test="${registererror}"> <fmt:message key="regpage.registererror"/></c:if> <br/><br/>
+            <c:if test="${activateemailerror}"> <fmt:message key="regpage.activateemailerror"/></c:if> <br/>
+            <c:if test="${activateemailsuccess}"> <fmt:message key="regpage.activateemailsuccess"/></c:if> <br/>
         </div>
     </form>
 </div>
@@ -78,7 +96,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/js/ta_script.js"></script>
+<script src="${pageContext.request.contextPath}/js/travel_agency.js"></script>
 
 </body>
 </html>

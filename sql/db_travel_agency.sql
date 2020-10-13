@@ -59,42 +59,42 @@ VALUES ('Woodpecker0',
 create table tours
 (
     id_tour          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    tour_purpose     ENUM ('rest', 'excursion','shopping' ) NOT NULL,
-    country          VARCHAR(32)                            NOT NULL,
-    hotel_name       VARCHAR(32)                            NOT NULL,
-    hotel_stars      ENUM ('hostel','3','4','5')            NOT NULL,
-    transport        ENUM ('bus','airplane')                NOT NULL,
-    date_start_sec   LONG                                   NOT NULL,
-    quantity_of_days SMALLINT(3) UNSIGNED                   NOT NULL,
-    price            INT(5) UNSIGNED                        NOT NULL,
-    quantity_tours   TINYINT(2) UNSIGNED                    NOT NULL,
-    description      TEXT                                   NOT NULL,
-    image_path       VARCHAR(64)                            NOT NULL DEFAULT 'img/tours/default.jpg'
+    tour_purpose     ENUM ('rest', 'excursion','shopping' )     NOT NULL,
+    country          VARCHAR(32)                                NOT NULL,
+    hotel_name       VARCHAR(32)                                NOT NULL,
+    hotel_stars      ENUM('hostel', 'three', 'four', 'five')    NOT NULL,
+    transport        ENUM ('bus','airplane')                    NOT NULL,
+    date_start       LONG                                       NOT NULL,
+    quantity_of_days SMALLINT(3) UNSIGNED                       NOT NULL,
+    price            INT(5) UNSIGNED                            NOT NULL,
+    quantity_tours   TINYINT(2) UNSIGNED                        NOT NULL,
+    description      TEXT                                       NOT NULL,
+    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'img/tours/default.jpg'
 );
 
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('rest', 'Belarus', 'Zvezda', '3', 'bus', 28944000, 14, 950, 17, 'Healthy rest in sanatorium',
+VALUES ('rest', 'Belarus', 'Zvezda', 'three', 'bus', 28944000, 14, 950, 17, 'Healthy rest in sanatorium',
         'img/tours/default.jpg');
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('excursion', 'Belarus', 'Nyasvizh', '4', 'bus', 27648000, 7, 450, 30, 'Medieval beautiful history',
+VALUES ('excursion', 'Belarus', 'Nyasvizh', 'four', 'bus', 27648000, 7, 450, 30, 'Medieval beautiful history',
         'img/tours/default.jpg');
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
 VALUES ('shopping', 'Belarus', 'Cosmos', 'hostel', 'bus', 28944000, 2, 300, 10, 'Shopping tour',
         'img/tours/default.jpg');
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('rest', 'Chile', 'Remota', '5', 'airplane', 27648000, 16, 4500, 21, 'Rest and extremes',
+VALUES ('rest', 'Chile', 'Remota', 'five', 'airplane', 27648000, 16, 4500, 21, 'Rest and extremes',
         'img/tours/default.jpg');
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
 VALUES ('excursion', 'Chile', 'Takarua Lodge', 'hostel', 'airplane', 28944000, 10, 3200, 14, 'Far away history',
         'img/tours/default.jpg');
-INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start_sec, quantity_of_days,
+INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('shopping', 'Chile', 'UGO Hotel', '4', 'airplane', 27648000, 6, 2700, 7, 'Shopping tour in the capital',
+VALUES ('shopping', 'Chile', 'UGO Hotel', 'four', 'airplane', 27648000, 6, 2700, 7, 'Shopping tour in the capital',
         'img/tours/default.jpg');
 
 /*one tour - one tour_hot */
@@ -265,50 +265,50 @@ create table orders
     id_order       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     id_user_fk     INT UNSIGNED NOT NULL,
     id_tour_fk     INT UNSIGNED NOT NULL,
-    date_order_sec LONG         NOT NULL,
+    date_order LONG         NOT NULL,
     quantity       INT UNSIGNED NOT NULL,
     tour_paid      BOOLEAN      NOT NULL DEFAULT false,
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user),
     FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour)
 );
 
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (3, 1, 320787, 3, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (3, 5, 340787, 3, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (3, 3, 340787, 3, false);
 
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (4, 2, 330500, 2, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (4, 4, 335500, 2, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (4, 6, 340500, 2, false);
 
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 3, 320000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 6, 325000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 1, 330000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 5, 335000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 2, 340000, 1, false);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order_sec, quantity, tour_paid)
+INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
 VALUES (5, 4, 345000, 1, false);
 
 
 create table tours_unavailable
 (   id_tour          INT UNSIGNED UNIQUE,
-    tour_purpose     ENUM ('rest', 'excursion','shopping' ) NOT NULL,
-    country          VARCHAR(32)                            NOT NULL,
-    hotel_name       VARCHAR(32)                            NOT NULL,
-    hotel_stars      ENUM ('hostel','3','4','5')            NOT NULL,
-    transport        ENUM ('bus','airplane')                NOT NULL,
-    price            INT(5) UNSIGNED                        NOT NULL,
-    image_path       VARCHAR(64)                            NOT NULL DEFAULT 'img/tours/default.jpg'
+    tour_purpose     ENUM ('rest', 'excursion','shopping' )     NOT NULL,
+    country          VARCHAR(32)                                NOT NULL,
+    hotel_name       VARCHAR(32)                                NOT NULL,
+    hotel_stars      ENUM('hostel', 'three', 'four', 'five')    NOT NULL,
+    transport        ENUM ('bus','airplane')                    NOT NULL,
+    price            INT(5) UNSIGNED                            NOT NULL,
+    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'img/tours/default.jpg'
 );
 
 

@@ -15,4 +15,14 @@ public interface UserDao extends BaseDao<Integer, User> {
 
     boolean createNewUser(User user, String password) throws DaoException;
 
+    boolean deactivateUser(int id) throws DaoException;
+
+    boolean activateUser(int id) throws DaoException;
+
+    boolean activateUserEmail(String login) throws DaoException;
+
+    boolean changePassword(String login, String password) throws DaoException;
+
+    boolean changeEmail(String login, String email) throws DaoException;
+
 }
