@@ -15,17 +15,19 @@ public class UserDataTag extends TagSupport {
         HttpSession session = pageContext.getSession();
         String defaultSheet = "0";
         String sheet = (String) session.getAttribute(AttributeName.SHEET_SUM);
-        sheet = sheet != null ? sheet : defaultSheet;
+        sheet = (sheet != null) ? sheet : defaultSheet;
         String defaultUsername = "Traveler";
         String username = (String) session.getAttribute(AttributeName.USER);
-        username = username != null ? username : defaultUsername;
+        username = (username != null) ? username : defaultUsername;
+        String email = (String) session.getAttribute(AttributeName.EMAIL);
+        email = (email != null) ? email : "";
         String defaultRole = "Guest";
         String role = (String) session.getAttribute(AttributeName.ROLE);
-        role = role != null ? role : defaultRole;
-        String top = "<li class=\"nav-item nav-text m-2\" style=\"color: orange; font-weight: bold\">";
+        role = (role != null) ? role : defaultRole;
+        String top = "<li class=\"nav-item nav-text m-2\">";
         String endLiStartLi = "</li><li class=\"text-center m-2\">";
         StringBuilder buildData = new StringBuilder(sheet).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
-                .append(role).append("</li>");
+                .append(email).append(endLiStartLi).append(role).append("</li>");
         try {
             JspWriter out = pageContext.getOut();
             out.write(top + buildData.toString());

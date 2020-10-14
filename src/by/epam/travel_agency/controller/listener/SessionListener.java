@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSessionListener;
 @WebListener
 public class SessionListener implements HttpSessionListener {
     private static final String DEFAULT_USER = "Traveler";
-    private static final String DEFAULT_ROLE = "Guest";
+    private static final String DEFAULT_ROLE = "guest";
     private static final String DEFAULT_LANGUAGE = "en_EN";
 
     @Override

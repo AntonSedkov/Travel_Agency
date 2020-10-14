@@ -33,9 +33,7 @@ public class LoginCommand implements Command {
                 HttpSession session = request.getSession();
                 session.setAttribute(AttributeName.USER, login);
                 UserType role = service.findRoleByLogin(login);
-                session.setAttribute(AttributeName.ROLE, role.toString());
-                request.setAttribute("URL", request.getRequestURL().toString());
-                request.setAttribute("URI", request.getRequestURI());
+                session.setAttribute(AttributeName.ROLE, role.toString().toLowerCase());
                 switch (role) {
                     case USER:
                         TourService tourService = TourServiceImpl.getInstance();

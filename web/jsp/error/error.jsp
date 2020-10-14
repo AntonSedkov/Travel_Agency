@@ -8,6 +8,7 @@
         Request from ${pageContext.errorData.requestURI} is failed <br/>
         Servlet name or type ${pageContext.errorData.servletName} <br/>
         Status code: ${pageContext.errorData.statusCode} <br/>
-        Exception: ${pageContext.errorData.throwable}
+        Exception: ${pageContext.errorData.throwable} <br/>
+        Exception Message: ${pageContext.exception.message} <br/>
     </body>
 </html>

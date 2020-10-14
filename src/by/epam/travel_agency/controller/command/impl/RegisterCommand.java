@@ -3,6 +3,7 @@ package by.epam.travel_agency.controller.command.impl;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
+import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.AlertManager;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 public class RegisterCommand implements Command {
 
     private static Logger logger = LogManager.getLogger(RegisterCommand.class);
-    private static final String DEFAULT_USER_TYPE = "user";
     public static final String MAIL_SUBJECT = "Hi, you are with Mereteny team: you are registered.";
     public static final String MAIL_TEXT_GREETINGS = "<div style=\"background-color: lightblue\"><b>Hello, dear friend &#128521;. We are happy to salute you in our travel family &#128526;<br/><br/>";
     public static final String MAIL_TEXT_AUTH_DATA = "Your authenticating data:<br/><b>Login: %s<br/>Password: %s</b><br/><br/>";
@@ -34,7 +34,7 @@ public class RegisterCommand implements Command {
             if (service.createNewUser(user, password, email)) {
                 request.getSession().setAttribute(AttributeName.USER, user);
                 request.getSession().setAttribute(AttributeName.EMAIL, email);
-                request.getSession().setAttribute(AttributeName.ROLE, DEFAULT_USER_TYPE);
+                request.getSession().setAttribute(AttributeName.ROLE, UserType.USER.toString().toLowerCase());
                 page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
                 StringBuilder mailText = new StringBuilder(MAIL_TEXT_GREETINGS).append(String.format(MAIL_TEXT_AUTH_DATA, user, password))
                         .append(MAIL_TEXT_CONFIRMATION).append(String.format(MAIL_TEXT_LINK, user));

@@ -17,11 +17,11 @@ public class UserForwardFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String role = (String) httpRequest.getSession().getAttribute(AttributeName.ROLE);
         String page;
-        switch (UserType.valueOf(role.toUpperCase())) {
-            case USER -> page = PathManager.PAGE_USER_HOME;
-            case MODERATOR -> page = PathManager.PAGE_MODERATOR_HOME;
-            case ADMIN -> page = PathManager.PAGE_ADMIN_HOME;
-            default -> page = PathManager.PAGE_GUEST_HOME;
+        switch (role.toUpperCase()) {
+            case "USER" -> page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
+            case "MODERATOR" -> page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
+            case "ADMIN" -> page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);
+            default -> page = PathManager.getProperty(PathManager.PAGE_GUEST_HOME);
         }
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
