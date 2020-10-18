@@ -3,7 +3,7 @@
 
 <body>
     <div class="container-fluid navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
-            <div class="form-row">
+        <div class="form-row">
                 <div class="col m-2" id="contact">
                     <h3><fmt:message key="startpage.contact"/></h3>
                     <p><fmt:message key="startpage.address"/></p>
@@ -25,7 +25,9 @@
                     <fmt:message key="startpage.skype"/><br/>
                     <fmt:message key="startpage.emailaddress" var="emailaddress"/>
                     <a href="mailto:${emailaddress}">${emailaddress}</a><br/>
-                    <p><fmt:message key="startpage.copyright"/><p>
+                    <p>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        <fmt:message key="startpage.aftercopyright"/><p>
                 </div>
             </div>
     </div>

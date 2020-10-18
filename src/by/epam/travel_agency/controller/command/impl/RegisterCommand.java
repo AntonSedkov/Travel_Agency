@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class RegisterCommand implements Command {
 
@@ -30,15 +31,24 @@ public class RegisterCommand implements Command {
         String user = request.getParameter(AttributeName.USER);
         String password = request.getParameter(AttributeName.PASSWORD);
         String email = request.getParameter(AttributeName.EMAIL);
+        String role = request.getParameter(AttributeName.ROLE);
+        String defaultRole = UserType.USER.toString().toLowerCase();
+        role = (role != null) ? role : defaultRole;
         try {
-            if (service.createNewUser(user, password, email)) {
-                request.getSession().setAttribute(AttributeName.USER, user);
-                request.getSession().setAttribute(AttributeName.EMAIL, email);
-                request.getSession().setAttribute(AttributeName.ROLE, UserType.USER.toString().toLowerCase());
-                page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
+            if (service.createNewUser(user, password, email, role)) {
+                if (role.equals(defaultRole)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute(AttributeName.USER, user);
+                    session.setAttribute(AttributeName.EMAIL, email);
+                    session.setAttribute(AttributeName.ROLE, role);
+                    page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
+                } else {
+                    page = (String) request.getSession().getAttribute(AttributeName.CURRENT_PAGE);
+                }
                 StringBuilder mailText = new StringBuilder(MAIL_TEXT_GREETINGS).append(String.format(MAIL_TEXT_AUTH_DATA, user, password))
                         .append(MAIL_TEXT_CONFIRMATION).append(String.format(MAIL_TEXT_LINK, user));
                 SendMailManager sender = new SendMailManager(email, MAIL_SUBJECT, mailText.toString());
+                request.setAttribute(AttributeName.REGISTER_SUCCESS, true);
                 sender.send();
                 logger.info(" Mail send to " + email + ".\n Log in New user + " + user);
             } else {

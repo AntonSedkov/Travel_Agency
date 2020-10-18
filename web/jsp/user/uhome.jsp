@@ -11,61 +11,48 @@
 <html lang="${language}">
 
     <head>
-        <title>Dear traveler, welcome</title>
+        <title>USER Page</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
 
-    <body>
+    <body style="background: lightsalmon">
 
         <%@include file="../header.jsp" %>
 
-        <div class="login-block">
-            <div class="container">
-                <h3 class="text-center">Welcome!!!</h3>
-                <br/>
-                <h2 class="text-center">${user}, hello!</h2>
-                <br/>
-                <h2 class="text-center">${login}, Sun rise hello!</h2>
-                <br/>
+        <div class="container">
+            <h3 class="text-center"><fmt:message key="text.greetings"/> ${user}<fmt:message key="text.smileend"/></h3>
+        </div>
 
-                <h2 class="text-center">${email}, hello!</h2>
-                <br/>
-                <h2 class="text-center">${role}, hello!</h2>
-                <br/>
-                <h2 class="text-center">${URL}, hello!</h2>
-                <br/>
-                <h2 class="text-center">${URI}, hello!</h2>
-                <br/>
-                <div class="copy-text">
-                    Created with <i class="fa fa-heart"></i> from Antonius :)
-                </div>
-                <div>
-                    <a href="controller?command=logout" class="btn btn-login float-right">Logout</a>
-                </div>
-            </div>
+        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
+            See Tours</h3>
+        <div class="contaner">
+            Your tours
+        </div>
 
-            <br/>
+        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
+            Choose Tours</h3>
+        <div class="contaner">
+            All tours - paging
+        </div>
 
-            <table>
-                <c:forEach var="tour" items="${tours}">
-                    <tr>
-                        <td><c:out value="${tour.id}"/></td>
-                        <td><c:out value="${tour.tourType}"/></td>
-                        <td><c:out value="${tour.country}"/></td>
-                        <td><c:out value="${tour.hotelName}"/></td>
-                        <td><c:out value="${tour.hotelType}"/></td>
-                        <td><c:out value="${tour.transport}"/></td>
-                        <td><c:out value="${tour.startDate}"/></td>
-                        <td><c:out value="${tour.days}"/></td>
-                        <td><c:out value="${tour.price}"/></td>
-                        <td><c:out value="${tour.availableQuantity}"/></td>
-                        <td><c:out value="${tour.description}"/></td>
-                        <td><c:out value="${tour.imagePath}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
+        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
+            See Travel Docs</h3>
+        <div class="contaner">
+            Your Travel Docs
+        </div>
 
+        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
+            Add/Edit Passports</h3>
+        <div class="contaner">
+            Your passports
+        </div>
+
+        <div class="container">
+            <button type="submit" class="btn btn-primary float-right">
+                <a href="controller?command=logout" style="color: white">
+                    <fmt:message key="button.logout"/></a>
+            </button>
         </div>
 
         <%@include file="../footer.jsp" %>

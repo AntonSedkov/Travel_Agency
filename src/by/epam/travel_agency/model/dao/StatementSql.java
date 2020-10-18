@@ -8,12 +8,12 @@ public class StatementSql {
     public static final String FIND_PASS_BY_LOGIN = "SELECT password FROM users WHERE login = (?)";
     public static final String FIND_ROLE_BY_LOGIN = "SELECT role FROM users WHERE login = (?)";
     public static final String CHECK_LOGIN_UNIQUE = "SELECT COUNT(login) FROM users WHERE login = (?)";
-    public static final String CREATE_USER = "INSERT INTO users (login, password, email) VALUES (?, ?, ?)";
+    public static final String CREATE_USER = "INSERT INTO users (login, password, email, role) VALUES (?, ?, ?, ?)";
 
     public static final String DEACTIVATE_USER = "UPDATE users SET status = false WHERE id_user = (?)";
     public static final String ACTIVATE_USER = "UPDATE users SET status = true WHERE id_user = (?)";
     public static final String ACTIVATE_USER_EMAIL = "UPDATE users SET email_approved = true WHERE login = (?)";
-    public static final String FIND_ALL_USERS = "SELECT id_user, login, email, role, status, email_approved FROM users";
+    public static final String FIND_ALL_USERS_WITHOUT_CURRENT = "SELECT id_user, login, email, role, status, email_approved FROM users WHERE login != (?)";
 
   //  public static final String CHANGE_LOGIN = "UPDATE users SET login = (?) WHERE id_user = (?)";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE id_user = (?)";

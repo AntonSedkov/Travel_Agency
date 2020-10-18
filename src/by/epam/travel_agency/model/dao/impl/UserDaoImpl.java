@@ -98,6 +98,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, encryptedPassword);
             preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getRole().toString().toLowerCase());
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoException("Exception of creating new User in database", e);
@@ -145,10 +146,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAll() throws DaoException {
+    public List<User> findAllUsersWithoutCurrent(String login) throws DaoException {
         List<User> result = new ArrayList<>();
         try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_ALL_USERS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_ALL_USERS_WITHOUT_CURRENT)) {
+            preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -193,8 +195,6 @@ public class UserDaoImpl implements UserDao {
         }
         return result;
     }
-
-
 
 
 }

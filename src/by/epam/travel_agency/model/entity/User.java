@@ -16,7 +16,6 @@ public class User extends Entity {
     private ClientSheet sheet;
     private List<ClientOrder> orders;
 
-    private static final UserType DEFAULT_ROLE = UserType.USER;
     private static final Boolean DEFAULT_STATUS = true;
 
 
@@ -31,10 +30,10 @@ public class User extends Entity {
         this.status = status;
     }
 
-    public User(String login, String email) {
+    public User(String login, String email, String role) {
         this.login = login;
         this.email = email;
-        this.role = DEFAULT_ROLE;
+        this.role = UserType.valueOf(role.toUpperCase());
         this.status = DEFAULT_STATUS;
     }
 

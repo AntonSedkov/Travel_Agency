@@ -9,17 +9,17 @@ import java.util.List;
 public interface UserService {
     boolean checkLoginData(String enterLogin, String enterPassword) throws ServiceException;
 
-    boolean createNewUser(String enterLogin, String enterPass, String enterEmail) throws ServiceException;
+    boolean createNewUser(String enterLogin, String enterPass, String enterEmail, String enterRole) throws ServiceException;
 
     UserType findRoleByLogin(String enterLogin) throws ServiceException;
 
-    boolean activateUser(int id) throws ServiceException;
+    boolean activateUser(String id) throws ServiceException;
 
-    boolean deactivateUser(int id) throws ServiceException;
+    boolean deactivateUser(String id) throws ServiceException;
 
     boolean activateUserEmail(String login) throws ServiceException;
 
-    List<User> findAllUsers() throws ServiceException;
+    List<User> findAllUsersWithoutCurrent(String login) throws ServiceException;
 
     boolean changePassword(String login, String password) throws ServiceException;
 

@@ -3,6 +3,8 @@ package by.epam.travel_agency.model.dao;
 import by.epam.travel_agency.exception.DaoException;
 import by.epam.travel_agency.model.entity.User;
 
+import java.util.List;
+
 public interface UserDao extends BaseDao<Integer, User> {
 
     boolean findStatusByLogin(String login) throws DaoException;
@@ -24,5 +26,7 @@ public interface UserDao extends BaseDao<Integer, User> {
     boolean changePassword(String login, String password) throws DaoException;
 
     boolean changeEmail(String login, String email) throws DaoException;
+
+    List<User> findAllUsersWithoutCurrent(String login) throws DaoException;
 
 }

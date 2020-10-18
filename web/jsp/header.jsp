@@ -12,9 +12,29 @@
             <c:if test="${role.equals('moderator')}" var="moderatorhomepage"/>
             <c:if test="${role.equals('admin')}" var="adminhomepage"/>
 
-            <a href="controller?comand=mchange_page&targetpage=path.guest.home" class="navbar-brand">
-                <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
-            </a>
+            <c:if test="${guesthomepage}">
+                <a href="controller?command=guest_in" class="navbar-brand">
+                    <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
+                </a>
+            </c:if>
+
+            <c:if test="${userhomepage}">
+                <a href="controller?command=user_in" class="navbar-brand">
+                    <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
+                </a>
+            </c:if>
+
+            <c:if test="${moderatorhomepage}">
+                <a href="controller?command=moderator_in" class="navbar-brand">
+                    <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
+                </a>
+            </c:if>
+
+            <c:if test="${adminhomepage}">
+                <a href="controller?command=admin_in" class="navbar-brand">
+                    <img src="${pageContext.request.contextPath}/pics/img_logo.jpg" width="30" height="30" alt="logo">
+                </a>
+            </c:if>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -28,28 +48,28 @@
 
                     <c:if test="${guesthomepage}">
                         <li class="nav-item active">
-                            <a href="controller?command=change_page&targetpage=path.guest.home" class="nav-link">
+                            <a href="controller?command=guest_in" class="nav-link">
                                 <fmt:message key="startpage.homebutton"/></a>
                         </li>
                     </c:if>
 
                     <c:if test="${userhomepage}">
                         <li class="nav-item active">
-                            <a href="controller?command=change_page&targetpage=path.user.home" class="nav-link">
+                            <a href="controller?command=user_in" class="nav-link">
                                 <fmt:message key="startpage.homebutton"/></a>
                         </li>
                     </c:if>
 
                     <c:if test="${moderatorhomepage}">
                         <li class="nav-item active">
-                            <a href="controller?command=change_page&targetpage=path.moderator.home" class="nav-link">
+                            <a href="controller?command=moderator_in" class="nav-link">
                                 <fmt:message key="startpage.homebutton"/></a>
                         </li>
                     </c:if>
 
                     <c:if test="${adminhomepage}">
                         <li class="nav-item active">
-                            <a href="controller?command=change_page&targetpage=path.admin.home" class="nav-link">
+                            <a href="controller?command=admin_in" class="nav-link">
                                 <fmt:message key="startpage.homebutton"/></a>
                         </li>
                     </c:if>

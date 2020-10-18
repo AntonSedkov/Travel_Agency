@@ -49,13 +49,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createNewUser(String enterLogin, String enterPass, String enterEmail) throws ServiceException {
+    public boolean createNewUser(String enterLogin, String enterPass, String enterEmail, String enterRole) throws ServiceException {
         boolean result = false;
         UserDao dao = UserDaoImpl.getInstance();
-        if (UserValidator.isValidLogin(enterLogin) && UserValidator.isValidPassword(enterPass) && UserValidator.isValidEmail(enterEmail)) {
+        if (UserValidator.isValidLogin(enterLogin) && UserValidator.isValidPassword(enterPass)
+                && UserValidator.isValidEmail(enterEmail) && UserValidator.isValidRole(enterRole)) {
             result = checkUniqueLogin(enterLogin);
             if (result) {
-                User newUser = new User(enterLogin, enterEmail);
+                User newUser = new User(enterLogin, enterEmail, enterRole);
                 String encryptedPassword = EncryptionManager.getSaltedHash(enterPass);
                 try {
                     result = dao.createNewUser(newUser, encryptedPassword);
@@ -84,12 +85,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean activateUser(int id) throws ServiceException {
+    public boolean activateUser(String id) throws ServiceException {
         boolean result;
-        UserDaoImpl dao = UserDaoImpl.getInstance();
         try {
-            result = dao.activateUser(id);
+            int idInt = Integer.parseInt(id);
+            UserDaoImpl dao = UserDaoImpl.getInstance();
+            result = dao.activateUser(idInt);
             logger.info("User with id: " + id + " has been activated.");
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Incoming ID is wrong format - not an integer", e);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -97,12 +101,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deactivateUser(int id) throws ServiceException {
+    public boolean deactivateUser(String id) throws ServiceException {
         boolean result;
-        UserDaoImpl dao = UserDaoImpl.getInstance();
         try {
-            result = dao.deactivateUser(id);
+            int idInt = Integer.parseInt(id);
+            UserDaoImpl dao = UserDaoImpl.getInstance();
+            result = dao.deactivateUser(idInt);
             logger.info("User with id: " + id + " has been deactivated.");
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Incoming ID is wrong format - not an integer", e);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -123,11 +130,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsers() throws ServiceException {
+    public List<User> findAllUsersWithoutCurrent(String login) throws ServiceException {
         List<User> result;
         UserDaoImpl dao = UserDaoImpl.getInstance();
         try {
-            result = dao.findAll();
+            result = dao.findAllUsersWithoutCurrent(login);
             logger.info("Find all users.");
         } catch (DaoException e) {
             throw new ServiceException(e);

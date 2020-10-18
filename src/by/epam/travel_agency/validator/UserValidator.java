@@ -1,5 +1,9 @@
 package by.epam.travel_agency.validator;
 
+import by.epam.travel_agency.model.entity.UserType;
+
+import java.time.Instant;
+
 public class UserValidator {
     /*login: unique, maximum 16 characters - minimum 6 characters (letters, digits, underscore)
     Latin + At least 1 lowercase letter + At least 1 uppercase letter*/
@@ -28,5 +32,21 @@ public class UserValidator {
         boolean result = email != null && !email.isBlank() && email.trim().matches(EMAIL_REGEXP);
         return result;
     }
+
+    public static boolean isValidRole(String role) {
+        boolean result = false;
+        for (UserType type : UserType.values()) {
+            if (role.toUpperCase().equals(type.toString())) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public static boolean isValidDate(Instant time) {
+        boolean result = time.compareTo(Instant.now()) <= 0;
+        return result;
+    }
+
 
 }
