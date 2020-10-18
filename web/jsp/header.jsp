@@ -95,6 +95,13 @@
                         </li>
                     </c:if>
 
+                    <c:if test="${userhomepage||moderatorhomepage||adminhomepage}">
+                        <li class="nav-item">
+                            <a href="controller?command=logout" class="nav-link">
+                                <fmt:message key="button.logout"/></a>
+                        </li>
+                    </c:if>
+
                 </ul>
 
                 <ul class="navbar-nav mr-auto" style="color: #BA4E27; font-weight: bold">

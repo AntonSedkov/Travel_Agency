@@ -20,8 +20,6 @@ public class GuestHomeCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String currentLocale = request.getLocale().toString();
-        session.setAttribute(AttributeName.LANGUAGE, currentLocale);
         TourService service = TourServiceImpl.getInstance();
         String page;
         try {

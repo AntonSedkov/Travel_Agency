@@ -88,6 +88,7 @@
             <br/>
         </div>
 
+
         <div class="container-fluid mt-5" style="background-color:lightseagreen">
             <div class="container p-5">
                 <div class="card-deck">
@@ -135,6 +136,7 @@
             </div>
         </div>
 
+<%--
         <div class="contaner p-5">
             <div class="row">
 
@@ -161,6 +163,9 @@
 
             </div>
         </div>
+--%>
+
+        <%@include file="../gallery.jsp"%>
 
         <%@include file="../footer.jsp" %>
 
