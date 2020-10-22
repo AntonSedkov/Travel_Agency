@@ -43,7 +43,7 @@ public class UserValidator {
         return result;
     }
 
-    public static boolean isValidDate(Instant time) {
+    public static boolean isValidDateTime(Instant time) {
         boolean result = time.compareTo(Instant.now()) <= 0;
         return result;
     }

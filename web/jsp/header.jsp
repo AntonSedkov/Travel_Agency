@@ -124,7 +124,7 @@
                 </form>
 
                 <form class="form-inline my-2 my-lg-0" action="http://www.google.com/search" method="get">
-                    <fmt:message key="button.search" var="search"/>
+                    <fmt:message key="button.searchgoogle" var="search"/>
                     <input type="text" name="q" class="form-control mr-sm-2" placeholder="${search}" aria-label="${search}">
                     <input type="submit" class="btn btn-outline-success my-2 my-sm-0" style="background-color: lightgreen"
                            value="${search}">

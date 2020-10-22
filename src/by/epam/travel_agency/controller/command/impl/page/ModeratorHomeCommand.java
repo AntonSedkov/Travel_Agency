@@ -24,7 +24,7 @@ public class ModeratorHomeCommand implements Command {
         HttpSession session = request.getSession();
         String page;
         try {
-            List<Tour> tours = tourService.findAll();
+            List<Tour> tours = tourService.findAllTours();
             session.setAttribute(AttributeName.TOURS, tours);
             page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
             logger.info("Moderator home page reload.");

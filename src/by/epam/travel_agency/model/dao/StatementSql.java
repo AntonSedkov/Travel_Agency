@@ -35,8 +35,8 @@ public class StatementSql {
     public static final String FIND_USER_SHEET = "SELECT id_customer_sheet, sheet_sum, customer_discount WHERE id_user_fk = (?)";
 
 
-    public static final String SELECT_AVAILABLE_PURPOSE = "SELECT DISTINCT tour_purpose FROM tours";
-    public static final String SELECT_AVAILABLE_COUNTRY = "SELECT DISTINCT country FROM tours";
+    public static final String SELECT_AVAILABLE_PURPOSES = "SELECT DISTINCT tour_purpose FROM tours";
+
     public static final String SELECT_AVAILABLE_HOTELS = "SELECT DISTINCT hotel_name, hotel_stars FROM tours";
     public static final String SELECT_AVAILABLE_TRANSPORT = "SELECT DISTINCT transport FROM tours";
     public static final String SELECT_MIN_PRICE = "SELECT MIN(price) FROM tours";
@@ -45,10 +45,8 @@ public class StatementSql {
     public static final String SELECT_MAX_DAYS = "SELECT MAX(quantity_of_days) FROM tours";
 
 
-    public static final String FIND_TOUR_BY_PURPOSE = "SELECT id_tour, country, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days,price, quantity_tours, description, image_path from tours where tour_purpose = (?)";
-    public static final String FIND_TOUR_BY_COUNTRY = "SELECT id_tour, tour_purpose, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where country = (?)";
+
+
     public static final String FIND_TOUR_BY_HOTEL_NAME = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path from tours where hotel_name = (?)";
     public static final String FIND_TOUR_BY_HOTEL_STARS_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, transport, date_start, " +
@@ -63,13 +61,25 @@ public class StatementSql {
             "price, quantity_tours, description, image_path from tours where quantity_of_days >= (?)";
     public static final String FIND_TOUR_BY_QUANTITY_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, description, image_path from tours where quantity_tours >= (?)";
-    public static final String FIND_TOUR_BY_PARAMETER = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where tour_purpose = (?) AND country = (?) AND " +
-            "hotel_name = (?) AND hotel_stars >= (?) AND transport = (?) AND date_start >= (?) AND quantity_of_days >= (?) " +
-            "AND price >= (?) AND quantity_tours >= (?)";
 
-    public static final String FIND_ALL_TOUR_ACTIVE = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
+
+    public static final String FIND_ALL_TOURS_ACTIVE = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path from tours where quantity_tours >= 1";
+    public static final String FIND_TOUR_BY_PARAMETERS = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
+            "quantity_of_days, price, quantity_tours, description, image_path from tours " +
+            "where tour_purpose = (?) AND country = (?) AND date_start >= (?) AND quantity_of_days >= (?) AND price <= (?) AND quantity_tours >= 1";
+    public static final String FIND_TOUR_BY_COUNTRY = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
+            "quantity_of_days, price, quantity_tours, description, image_path from tours where country = (?) AND quantity_tours >= 1";
+    public static final String FIND_TOUR_BY_PURPOSE = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
+            "quantity_of_days, price, quantity_tours, description, image_path from tours where tour_purpose = (?) AND quantity_tours >= 1";
+    public static final String FIND_ALL_HOT_TOURS = "SELECT tours.id_tour, tours.tour_purpose, tours.country, tours.hotel_name," +
+            "tours.hotel_stars, tours.transport, tours.date_start, tours.quantity_of_days, tours.price, tours.quantity_tours, " +
+            "tours.description, tours.image_path, tours_hot.discount FROM tours INNER JOIN tours_hot ON tours.id_tour = tours_hot.id_tour_fk " +
+            "WHERE tours.quantity_tours>0";
+    public static final String SELECT_AVAILABLE_COUNTRIES = "SELECT DISTINCT country FROM tours";
+
+
+
     public static final String CREATE_TOUR = "INSERT INTO tours (tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, description, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_QUANTITY = "UPDATE tours SET quantity_tours = (?) WHERE id_tour = (?)";
@@ -77,9 +87,6 @@ public class StatementSql {
             "quantity_of_days, price, quantity_tours, description, image_path from tours where id_tour = (?)";
 
 
-    public static final String FIND_ALL_HOT_TOURS_INFO = "SELECT tours.id_tour, tours.tour_purpose, tours.country, tours.hotel_name," +
-            "tours.hotel_stars, tours.transport, tours.date_start, tours.quantity_of_days, tours.price, tours.quantity_of_days, " +
-            "tours.description, tours.image_path, tours_hot.discount FROM tours INNER JOIN tours_hot ON tours.id_tour = tours_hot.id_tour_fk";
 
     public static final String CREATE_HOT_TOURS = "INSERT INTO tours_hot (id_tour_fk, discount) VALUES (?,?)";
 

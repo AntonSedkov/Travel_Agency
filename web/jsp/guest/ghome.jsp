@@ -20,38 +20,8 @@
 
         <%@include file="../header.jsp" %>
 
-        <div class="container-fluid p-0">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li class="active" data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="${pageContext.request.contextPath}/pics/carouselOne.jpg" alt="" class="d-block w-100">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="${pageContext.request.contextPath}/pics/carouselTwo.jpg" alt="" class="d-block w-100">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="${pageContext.request.contextPath}/pics/carouselThree.jpg" alt="" class="d-block w-100">
-                    </div>
-                </div>
-                <a href="#carouselExampleIndicators" class="carousel-control-prev" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">
-                        <fmt:message key="button.previous"/>
-                    </span>
-                </a>
-                <a href="#carouselExampleIndicators" class="carousel-control-next" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">
-                        <fmt:message key="button.next"/>
-                    </span>
-                </a>
-            </div>
-        </div>
+        <%@include file="../search.jsp" %>
+
 
         <div class="container-fluid">
             <div class="container">
@@ -61,8 +31,7 @@
             </div>
         </div>
 
-
-        <div class="text-center">
+        <div class="text-center" style="max-width: 50%">
             <button type="submit" class="btn btn-primary m-2" >
                 <a href="controller?command=change_page&targetpage=path.guest.auth" style="color: white">${authVal}</a> </button>
             <button type="submit" class="btn btn-primary m-2">
@@ -86,10 +55,14 @@
             <br/>
             ${users}
             <br/>
+
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="controller?command=change_page&targetpage=path.test" style="color: white">Test Page</a> </button>
         </div>
 
+        <%@include file="../hottours.jsp"%>
 
-        <div class="container-fluid mt-5" style="background-color:lightseagreen">
+       <%-- <div class="container-fluid mt-5" style="background-color:lightseagreen">
             <div class="container p-5">
                 <div class="card-deck">
 
@@ -134,7 +107,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>--%>
 
 <%--
         <div class="contaner p-5">

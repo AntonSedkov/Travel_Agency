@@ -13,6 +13,9 @@ public class AttributeName {
     public static final String DEACTIVATE_USER_ERROR = "deactivateusererror";
     public static final String TARGET_PAGE = "targetpage";
 
+    public static final String SEARCH_TOURS_NOTHING = "searchnothing";
+    public static final String HOT_TOURS_NOTHING = "hottoursnothing";
+
 
     public static final String LANGUAGE = "language";
     public static final String CURRENT_PAGE = "currentpage";
@@ -28,8 +31,19 @@ public class AttributeName {
     public static final String USERS = "users";
 
     public static final String TOURS = "tours";
+    public static final String HOT_TOURS = "hottours";
+    public static final String TOUR_TYPES = "tourtypes";
+    public static final String COUNTRIES = "countries";
+    public static final String SEARCH_TOURS = "searchtours";
+
+    public static final String SHEET_SUM = "sheetsum";
+
+    public static final String TOUR_PURPOSE= "tourpurpose";
+    public static final String COUNTRY = "country";
+    public static final String START_DATE = "startdate";
+    public static final String TOUR_DAYS = "tourdays";
+    public static final String MAX_PRICE = "maxprice";
 
 
-    public static final String SHEET_SUM = "sheet_sum";
 
 }

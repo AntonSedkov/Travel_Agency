@@ -20,6 +20,8 @@
 
         <%@include file="../header.jsp" %>
 
+        <%@include file="../carousel.jsp"%>
+
         <h2 class="text-center" style="background-color: darkmagenta">${regVal}</h2>
 
         <div class="container-fluid text-center" style="max-width: 25%">
@@ -80,6 +82,8 @@
                 </div>
             </form>
         </div>
+
+        <%--<%@include file="../gallery.jsp"%>--%>
 
         <%@include file="../footer.jsp" %>
 

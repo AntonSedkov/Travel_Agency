@@ -1,21 +1,21 @@
 package by.epam.travel_agency.model.entity;
 
 public enum HotelType {
-    HOSTEL("hostel"),
+    HOSTEL(0),
 
-    THREE("three"),
+    THREE(3),
 
-    FOUR("four"),
+    FOUR(4),
 
-    FIVE("five");
+    FIVE(5);
 
-    private final String category;
+    private final int category;
 
-    HotelType(String category) {
+    HotelType(int category) {
         this.category = category;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 

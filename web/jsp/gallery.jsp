@@ -11,7 +11,6 @@
                     <div class="col-xl-6">
                         <div class="section_tittle text-center">
                             <h2><fmt:message key="label.gallery"/></h2>
-                            <p><fmt:message key="label.slogan"/></p>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 package by.epam.travel_agency.model.entity;
 
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class Tour extends Entity {
@@ -9,18 +10,18 @@ public class Tour extends Entity {
     private String hotelName;
     private HotelType hotelType;
     private TransportType transport;
-    private long startDate;
+    private LocalDate startDate;
     private int days;
     private int price;
     private int availableQuantity;
     private String description;
     private String imagePath;
-    private String discount;
+    private int discount;
 
     public Tour() {
     }
 
-    public Tour(TourType tourType, String country, String hotelName, HotelType hotelType, TransportType transport, long startDate, int days, int price, int availableQuantity, String description, String imagePath, String discount) {
+    public Tour(TourType tourType, String country, String hotelName, HotelType hotelType, TransportType transport, LocalDate startDate, int days, int price, int availableQuantity, String description, String imagePath, int discount) {
         this.tourType = tourType;
         this.country = country;
         this.hotelName = hotelName;
@@ -75,11 +76,11 @@ public class Tour extends Entity {
         this.transport = transport;
     }
 
-    public long getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(long startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -123,32 +124,35 @@ public class Tour extends Entity {
         this.imagePath = imagePath;
     }
 
-    public String getDiscount() {
+    public int getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Tour tour = (Tour) o;
-        if (startDate != tour.startDate) return false;
+
         if (days != tour.days) return false;
         if (price != tour.price) return false;
         if (availableQuantity != tour.availableQuantity) return false;
+        if (discount != tour.discount) return false;
         if (tourType != tour.tourType) return false;
         if (country != null ? !country.equals(tour.country) : tour.country != null) return false;
         if (hotelName != null ? !hotelName.equals(tour.hotelName) : tour.hotelName != null) return false;
         if (hotelType != tour.hotelType) return false;
         if (transport != tour.transport) return false;
+        if (startDate != null ? !startDate.equals(tour.startDate) : tour.startDate != null) return false;
         if (description != null ? !description.equals(tour.description) : tour.description != null) return false;
-        if (imagePath != null ? !imagePath.equals(tour.imagePath) : tour.imagePath != null) return false;
-        return discount != null ? discount.equals(tour.discount) : tour.discount == null;
+        return imagePath != null ? imagePath.equals(tour.imagePath) : tour.imagePath == null;
     }
 
     @Override
@@ -159,13 +163,13 @@ public class Tour extends Entity {
         result = 31 * result + (hotelName != null ? hotelName.hashCode() : 0);
         result = 31 * result + (hotelType != null ? hotelType.hashCode() : 0);
         result = 31 * result + (transport != null ? transport.hashCode() : 0);
-        result = 31 * result + (int) (startDate ^ (startDate >>> 32));
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + days;
         result = 31 * result + price;
         result = 31 * result + availableQuantity;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (imagePath != null ? imagePath.hashCode() : 0);
-        result = 31 * result + (discount != null ? discount.hashCode() : 0);
+        result = 31 * result + discount;
         return result;
     }
 
@@ -183,7 +187,7 @@ public class Tour extends Entity {
                 .add("availableQuantity=" + availableQuantity)
                 .add("description='" + description + "'")
                 .add("imagePath='" + imagePath + "'")
-                .add("discount='" + discount + "'")
+                .add("discount=" + discount)
                 .toString();
     }
 

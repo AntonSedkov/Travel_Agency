@@ -16,7 +16,8 @@ public enum CommandType {
     ACTIVATE_EMAIL(new ActivateEmailCommand()),
     ADD_STAFF(new RegisterCommand()),
     ACTIVATE_USER(new ActivateUserCommand()),
-    DEACTIVATE_USER(new DeactivateUserCommand());
+    DEACTIVATE_USER(new DeactivateUserCommand()),
+    SEARCH_TOUR(new SearchTourCommand());
 
     private Command command;
 

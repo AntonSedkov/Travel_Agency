@@ -17,7 +17,7 @@ public class ChangeLanguageCommand implements Command {
         String lang = request.getParameter(AttributeName.LANGUAGE);
         lang = (lang != null) ? lang : (String) session.getAttribute(AttributeName.LANGUAGE);
         String page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
-        request.getSession().setAttribute(AttributeName.LANGUAGE, lang);
+        session.setAttribute(AttributeName.LANGUAGE, lang);
         logger.info("Language has been changed successfully to " + lang + " lang and forward to " + page);
         return page;
     }

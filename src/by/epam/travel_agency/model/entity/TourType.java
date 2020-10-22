@@ -1,5 +1,17 @@
 package by.epam.travel_agency.model.entity;
 
 public enum TourType {
-    REST, EXCURSION, SHOPPING;
+    REST("Rest"),
+    EXCURSION("Excursion"),
+    SHOPPING("Shopping");
+
+    private final String value;
+
+    TourType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

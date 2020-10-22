@@ -8,7 +8,7 @@ public class ClientPassport extends Entity {
     private String name;
     private long birthDate;
     private String country;
-    private SexType sex;
+    private GenderType gender;
     private String identityNumber;
     private String passportSeries;
     private int passportNumber;
@@ -20,13 +20,13 @@ public class ClientPassport extends Entity {
         super();
     }
 
-    public ClientPassport(String surname, String name, long birthDate, String country, SexType sex, String identityNumber, String passportSeries, int passportNumber, long issueDate, long expiryDate) {
+    public ClientPassport(String surname, String name, long birthDate, String country, GenderType gender, String identityNumber, String passportSeries, int passportNumber, long issueDate, long expiryDate) {
         super();
         this.surname = surname;
         this.name = name;
         this.birthDate = birthDate;
         this.country = country;
-        this.sex = sex;
+        this.gender = gender;
         this.identityNumber = identityNumber;
         this.passportSeries = passportSeries;
         this.passportNumber = passportNumber;
@@ -66,12 +66,12 @@ public class ClientPassport extends Entity {
         this.country = country;
     }
 
-    public SexType getSex() {
-        return sex;
+    public GenderType getGender() {
+        return gender;
     }
 
-    public void setSex(SexType sex) {
-        this.sex = sex;
+    public void setGender(GenderType gender) {
+        this.gender = gender;
     }
 
     public String getIdentityNumber() {
@@ -135,7 +135,7 @@ public class ClientPassport extends Entity {
         if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (sex != that.sex) return false;
+        if (gender != that.gender) return false;
         if (identityNumber != null ? !identityNumber.equals(that.identityNumber) : that.identityNumber != null)
             return false;
         if (passportSeries != null ? !passportSeries.equals(that.passportSeries) : that.passportSeries != null)
@@ -150,7 +150,7 @@ public class ClientPassport extends Entity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (int) (birthDate ^ (birthDate >>> 32));
         result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (identityNumber != null ? identityNumber.hashCode() : 0);
         result = 31 * result + (passportSeries != null ? passportSeries.hashCode() : 0);
         result = 31 * result + passportNumber;
@@ -167,7 +167,7 @@ public class ClientPassport extends Entity {
                 .add("name='" + name + "'")
                 .add("birthDate=" + birthDate)
                 .add("country='" + country + "'")
-                .add("sex=" + sex)
+                .add("gender=" + gender)
                 .add("identityNumber='" + identityNumber + "'")
                 .add("passportSeries='" + passportSeries + "'")
                 .add("passportNumber=" + passportNumber)

@@ -10,7 +10,6 @@ import by.epam.travel_agency.model.service.TourService;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.TourServiceImpl;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
-import by.epam.travel_agency.util.AlertManager;
 import by.epam.travel_agency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +40,7 @@ public class LoginCommand implements Command {
                     }
                     case MODERATOR -> {
                         TourService tourService = TourServiceImpl.getInstance();
-                        List<Tour> tours = tourService.findAll();
+                        List<Tour> tours = tourService.findAllTours();
                         session.setAttribute(AttributeName.TOURS, tours);
                         page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);  // TODO: 29.09.2020
                         logger.info("Moderator log in successfully.");

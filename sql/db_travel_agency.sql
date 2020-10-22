@@ -69,33 +69,33 @@ create table tours
     price            INT(5) UNSIGNED                            NOT NULL,
     quantity_tours   TINYINT(2) UNSIGNED                        NOT NULL,
     description      TEXT                                       NOT NULL,
-    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'img/tours/default.jpg'
+    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'default.jpg'
 );
 
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('rest', 'Belarus', 'Zvezda', 'three', 'bus', 28944000, 14, 950, 17, 'Healthy rest in sanatorium',
-        'img/tours/default.jpg');
+VALUES ('rest', 'Belarus', 'Zvezda', 'three', 'bus', 1827648000, 14, 950, 17, 'Healthy rest in sanatorium',
+        'default.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('excursion', 'Belarus', 'Nyasvizh', 'four', 'bus', 27648000, 7, 450, 30, 'Medieval beautiful history',
-        'img/tours/default.jpg');
+VALUES ('excursion', 'Belarus', 'Nyasvizh', 'four', 'bus', 1627648000, 7, 450, 30, 'Medieval beautiful history',
+        'default.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('shopping', 'Belarus', 'Cosmos', 'hostel', 'bus', 28944000, 2, 300, 10, 'Shopping tour',
-        'img/tours/default.jpg');
+VALUES ('shopping', 'Belarus', 'Cosmos', 'hostel', 'bus', 1727648000, 2, 300, 10, 'Shopping tour',
+        'default.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('rest', 'Chile', 'Remota', 'five', 'airplane', 27648000, 16, 4500, 21, 'Rest and extremes',
-        'img/tours/default.jpg');
+VALUES ('rest', 'Chile', 'Remota', 'five', 'airplane', 1927648000, 16, 4500, 21, 'Rest and extremes',
+        'default.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('excursion', 'Chile', 'Takarua Lodge', 'hostel', 'airplane', 28944000, 10, 3200, 14, 'Far away history',
-        'img/tours/default.jpg');
+VALUES ('excursion', 'Chile', 'Takarua Lodge', 'hostel', 'airplane', 1670648000, 10, 3200, 14, 'Far away history',
+        'default.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
-VALUES ('shopping', 'Chile', 'UGO Hotel', 'four', 'airplane', 27648000, 6, 2700, 7, 'Shopping tour in the capital',
-        'img/tours/default.jpg');
+VALUES ('shopping', 'Chile', 'UGO Hotel', 'four', 'airplane', 1740648000, 6, 2700, 7, 'Shopping tour in the capital',
+        'default.jpg');
 
 /*one tour - one tour_hot */
 create table tours_hot
@@ -122,7 +122,7 @@ create table customers_passport
     name                         VARCHAR(32)             NOT NULL,
     date_of_birth_days           LONG                    NOT NULL,
     country                      VARCHAR(32)             NOT NULL,
-    sex                          ENUM ('male', 'female') NOT NULL,
+    gender                       ENUM ('male', 'female') NOT NULL,
     identification_number        VARCHAR(14)             NOT NULL,
     passport_series              VARCHAR(2)              NOT NULL,
     passport_number              INT(7)                  NOT NULL,
@@ -131,32 +131,32 @@ create table customers_passport
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
 );
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (3, 'Ivanov', 'Ivan', 727021, 'Belarus', 'male', 'HE8975899PB683', 'PM', 7856789, 738021, 747021);
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (3, 'Ivanova', 'Olga', 728021, 'Belarus', 'female', 'LG1564689JK898', 'MD', 3452092, 738421, 747421);
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (3, 'Ivanov', 'Igor', 733021, 'BLR', 'male', 'IK0009998IE543', 'RR', 2342839, 739021, 749021);
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (4, 'Merier', 'Luis', 717021, 'France', 'male', 'JU84849493030', 'FV', 8478922, 736021, 745021);
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (4, 'Buijuer', 'Anette', 727021, 'Belgium', 'female', 'EW879854612323', 'BS', 2235681, 737021, 747021);
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, sex,
+INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
                                 identification_number, passport_series, passport_number, passport_date_of_issue_days,
                                 passport_date_of_expiry_days)
 VALUES (5, 'Norris', 'Chuck', 707021, 'USA', 'male', 'US999988887766', 'JC', 8899776, 734021, 744021);
