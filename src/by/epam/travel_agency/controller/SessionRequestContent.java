@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class SessionRequestContent {
+public class SessionRequestContent {                            // TODO: 25.10.2020
     private HashMap<String, Object> requestAttributes;
     private HashMap<String, String[]> requestParameters;
     private HashMap<String, Object> sessionAttributes;

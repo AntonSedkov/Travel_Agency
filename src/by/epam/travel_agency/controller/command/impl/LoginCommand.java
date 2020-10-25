@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Set;
 
 public class LoginCommand implements Command {
     private static Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -40,6 +41,8 @@ public class LoginCommand implements Command {
                     }
                     case MODERATOR -> {
                         TourService tourService = TourServiceImpl.getInstance();
+                        Set<String> tourTypes = tourService.formTourTypes();
+                        session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
                         List<Tour> tours = tourService.findAllTours();
                         session.setAttribute(AttributeName.TOURS, tours);
                         page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);  // TODO: 29.09.2020

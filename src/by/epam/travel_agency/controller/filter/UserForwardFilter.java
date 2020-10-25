@@ -1,7 +1,6 @@
 package by.epam.travel_agency.controller.filter;
 
 import by.epam.travel_agency.controller.AttributeName;
-import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.util.PathManager;
 
 import javax.servlet.*;

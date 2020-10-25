@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface TourService {
+
     List<Tour> findAllTours() throws ServiceException;
 
     List<Tour> findToursByParameters(String restType, String country, String startDate, String minDays, String maxPrice) throws ServiceException;
@@ -20,5 +21,9 @@ public interface TourService {
     Set<String> findAvailableCountries() throws ServiceException;
 
     Set<String> formTourTypes();
+
+    boolean createTour(String type, String country, String hotelName, String stars,
+                       String transport, String date, String days, String price, String quantity,
+                       String description, String image) throws ServiceException;
 
 }

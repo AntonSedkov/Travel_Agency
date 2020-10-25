@@ -12,10 +12,6 @@ public class ColumnName {
     public static final String STATUS = "status";
     public static final String EMAIL_APPROVED = "email_approved";
 
-    public static final String ID_STAFF = "id_staff";
-    public static final String ID_USER_FK = "id_user_fk";
-
-
     public static final String ID_TOUR = "id_tour";
     public static final String TOUR_PURPOSE = "tour_purpose";
     public static final String COUNTRY = "country";
@@ -29,9 +25,14 @@ public class ColumnName {
     public static final String DESCRIPTION = "description";
     public static final String IMAGE_PATH = "image_path";
 
+    public static final String DISCOUNT = "discount";
+
+
+    public static final String ID_STAFF = "id_staff";
+    public static final String ID_USER_FK = "id_user_fk";
+
     public static final String ID_TOUR_HOT = "id_tour_hot";
     public static final String ID_TOUR_FK = "id_tour_fk";
-    public static final String DISCOUNT = "discount";
 
     public static final String ID_ORDER ="id_order";
     public static final String ID_DATE_ORDER ="date_order";
@@ -46,7 +47,7 @@ public class ColumnName {
     public static final String SURNAME = "surname";
     public static final String NAME = "name";
     public static final String DATE_OF_BIRTH = "date_of_birth";
-    public static final String SEX = "sex";
+    public static final String GENDER = "gender";
     public static final String IDENTIFICATION_NUMBER = "identification_number";
     public static final String PASSPORT_SERIES = "passport_series";
     public static final String PASSPORT_NUMBER = "passport_number";
@@ -60,6 +61,10 @@ public class ColumnName {
     public static final String INSURANCE_POLICY = "insurance_policy";
     public static final String TICKET_FLIGHT = "ticket_flight";
     public static final String TICKET_BUS = "ticket_bus";
+
+
+
+
 
 
 }

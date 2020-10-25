@@ -1,7 +1,7 @@
 package by.epam.travel_agency.controller;
 
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.util.AlertManager;
+import by.epam.travel_agency.model.connection.ConnectionPool;
 import by.epam.travel_agency.util.PathManager;
 
 import javax.servlet.RequestDispatcher;
@@ -39,6 +39,11 @@ public class MainController extends HttpServlet {
             page = PathManager.getProperty(PathManager.PAGE_GUEST_HOME);
             response.sendRedirect(request.getContextPath() + page);
         }
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.INSTANCE.destroyPool();
     }
 
 }

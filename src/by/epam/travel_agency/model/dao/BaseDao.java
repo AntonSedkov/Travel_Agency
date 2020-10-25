@@ -6,7 +6,6 @@ import by.epam.travel_agency.model.entity.Entity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 public interface BaseDao<K, T extends Entity> {
 

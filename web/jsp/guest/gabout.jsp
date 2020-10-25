@@ -18,49 +18,53 @@
 
 <body style="background: lightseagreen">
 
-<%@include file="../header.jsp" %>
+    <%@include file="../header.jsp" %>
 
-<section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb_iner">
-                    <div class="breadcrumb_iner_item text-center">
-                        <h2><fmt:message key="label.aboutus"/></h2>
-                        <p><fmt:message key="aboutus.intro"/></p>
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item text-center">
+                            <h2><fmt:message key="label.aboutus"/></h2>
+                            <p><fmt:message key="aboutus.intro"/></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="about_us section_padding">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="about_img">
-                    <img src="${pageContext.request.contextPath}/pics/about_us.png" alt="About us image">
+    <section class="about_us section_padding">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <div class="about_img">
+                        <img src="${pageContext.request.contextPath}/pics/about_us.png" alt="About us image">
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="about_text">
-                    <h5><fmt:message key="aboutus.textheadline"/></h5>
-                    <h2><fmt:message key="aboutus.textfirstline"/></h2>
-                    <p><fmt:message key="aboutus.firstparagraph"/></p>
-                    <p><fmt:message key="aboutus.textsecondline"/><br/>
-                        <fmt:message key="aboutus.secondparagraph"/></p>
-                    <p><fmt:message key="aboutus.textthirdline"/><br/>
-                        <fmt:message key="aboutus.thirdparagraph"/></p>
+
+                <div class="col-lg-6">
+                    <div class="about_text">
+                        <h5><fmt:message key="aboutus.textheadline"/></h5>
+                        <h2><fmt:message key="aboutus.textfirstline"/></h2>
+                        <p><fmt:message key="aboutus.firstparagraph"/></p>
+                        <p><fmt:message key="aboutus.textsecondline"/><br/>
+                            <fmt:message key="aboutus.secondparagraph"/></p>
+                        <p><fmt:message key="aboutus.textthirdline"/><br/>
+                            <fmt:message key="aboutus.thirdparagraph"/></p>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<%@include file="../gallery.jsp"%>
+    <%@include file="../gallery.jsp" %>
 
-<%@include file="../footer.jsp" %>
+    <%@include file="../footer.jsp" %>
 
 </body>
+
 </html>

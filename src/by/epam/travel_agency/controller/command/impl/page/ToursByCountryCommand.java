@@ -12,25 +12,29 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class ModeratorHomeCommand implements Command {
-
-    private static Logger logger = LogManager.getLogger(ModeratorHomeCommand.class);
+public class ToursByCountryCommand implements Command {
+    private static Logger logger = LogManager.getLogger(ToursByCountryCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
-        TourService tourService = TourServiceImpl.getInstance();
         HttpSession session = request.getSession();
+        TourService service = TourServiceImpl.getInstance();
         String page;
         try {
-            Set<String> tourTypes = tourService.formTourTypes();
-            session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
-            List<Tour> tours = tourService.findAllTours();
-            session.setAttribute(AttributeName.TOURS, tours);
-            page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
-            logger.info("Moderator home page reload.");
+            Set<String> countries = service.findAvailableCountries();
+            session.setAttribute(AttributeName.COUNTRIES, countries);
+            Map<String, List<Tour>> tours = new HashMap<>();
+            for (String country : countries) {
+                List<Tour> currentTypeCountries = service.findToursByCountry(country);
+                tours.put(country, currentTypeCountries);
+            }
+            session.setAttribute(AttributeName.TOURS_BY_COUNTRIES, tours);
+            page = PathManager.getProperty(PathManager.PAGE_GUEST_COUNTRY_TOURS);
         } catch (ServiceException e) {
             logger.error(e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);

@@ -2,7 +2,6 @@ package by.epam.travel_agency.controller;
 
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.command.CommandType;
-import by.epam.travel_agency.util.AlertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,9 +20,7 @@ public class ActionProvider {
                 currentCommand = currentType.getCommand();
             }
         } catch (IllegalArgumentException e) {
-            logger.error("Wrong command parameter: " + action, e);
-            request.setAttribute(AttributeName.WRONG_ACTION,                                    // TODO: 13.10.2020 TO ERROR PAGE
-                    action + AlertManager.getProperty(AlertManager.KEY_WRONG_ACTION));
+            logger.error("Wrong command parameter: " + action, e);      // TODO: 25.10.2020 ErrorPageCommand
         }
         return currentCommand;
     }

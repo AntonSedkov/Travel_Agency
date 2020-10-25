@@ -24,24 +24,14 @@ public class GuestHomeCommand implements Command {
         TourService service = TourServiceImpl.getInstance();
         String page;
         try {
-            /*List<Tour> tours = service.findAllTours();
-            session.setAttribute(AttributeName.TOURS, tours);*/
             List<Tour> hotTours = service.findAllHotTours();
             if (hotTours.size() > 0) {
                 session.setAttribute(AttributeName.HOT_TOURS, hotTours);
             } else {
-                session.setAttribute(AttributeName.SEARCH_TOURS_NOTHING, "true");
+                session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
             }
-
-            // search block
             Set<String> countries = service.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
-            // hot tours - paging by One
-
-            // available country - gallery
-
-            // our partners
-
             page = PathManager.getProperty(PathManager.PAGE_GUEST_HOME);
         } catch (ServiceException e) {
             logger.error(e);

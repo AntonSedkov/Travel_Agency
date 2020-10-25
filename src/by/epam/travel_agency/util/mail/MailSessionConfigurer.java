@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

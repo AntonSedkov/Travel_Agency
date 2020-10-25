@@ -15,22 +15,24 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Set;
 
-public class ModeratorHomeCommand implements Command {
-
-    private static Logger logger = LogManager.getLogger(ModeratorHomeCommand.class);
+public class ToursHotCommand implements Command {
+    private static Logger logger = LogManager.getLogger(ToursHotCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
-        TourService tourService = TourServiceImpl.getInstance();
         HttpSession session = request.getSession();
+        TourService service = TourServiceImpl.getInstance();
         String page;
         try {
-            Set<String> tourTypes = tourService.formTourTypes();
-            session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
-            List<Tour> tours = tourService.findAllTours();
-            session.setAttribute(AttributeName.TOURS, tours);
-            page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
-            logger.info("Moderator home page reload.");
+            List<Tour> hotTours = service.findAllHotTours();
+            if (hotTours.size() > 0) {
+                session.setAttribute(AttributeName.HOT_TOURS, hotTours);
+            } else {
+                session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+            }
+            Set<String> countries = service.findAvailableCountries();
+            session.setAttribute(AttributeName.COUNTRIES, countries);
+            page = PathManager.getProperty(PathManager.PAGE_GUEST_HOT_TOURS);
         } catch (ServiceException e) {
             logger.error(e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);

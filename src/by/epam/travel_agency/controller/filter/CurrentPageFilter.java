@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //@WebFilter(urlPatterns = {"/*"})
-public class CurrentPageFilter {// implements Filter {
+public class CurrentPageFilter {// implements Filter {                                  todo
    /* private static final String REFERER = "referer";
     private static final String PATH_REGEX = "/controller.+";
 

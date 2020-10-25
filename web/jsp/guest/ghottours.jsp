@@ -6,34 +6,27 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aboutus.css" type="text/css">
 
 <html lang="${language}">
 
-    <head>
-        <title>Tours</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    </head>
+<head>
+    <title><fmt:message key="label.hottours"/></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-    <body>
+<body style="background-color: burlywood">
 
     <%@include file="../header.jsp" %>
 
+    <%@include file="../search.jsp" %>
 
-    <%--
-    include search
+    <%@include file="../hottours.jsp" %>
 
-    include hot tours
-
-    include all tours
-    --%>
-
-
-    <%@include file="../gallery.jsp"%>
+    <%@include file="../gallery.jsp" %>
 
     <%@include file="../footer.jsp" %>
 
-    </body>
+</body>
 
 </html>

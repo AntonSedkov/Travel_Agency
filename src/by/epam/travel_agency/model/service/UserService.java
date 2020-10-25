@@ -7,6 +7,7 @@ import by.epam.travel_agency.model.entity.UserType;
 import java.util.List;
 
 public interface UserService {
+
     boolean checkLoginData(String enterLogin, String enterPassword) throws ServiceException;
 
     boolean createNewUser(String enterLogin, String enterPass, String enterEmail, String enterRole) throws ServiceException;

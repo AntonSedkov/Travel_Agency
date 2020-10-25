@@ -6,8 +6,8 @@ import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
-import by.epam.travel_agency.util.AlertManager;
 import by.epam.travel_agency.util.PathManager;
+import by.epam.travel_agency.util.mail.MailTextCreator;
 import by.epam.travel_agency.util.mail.SendMailManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,13 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class RegisterCommand implements Command {
-
     private static Logger logger = LogManager.getLogger(RegisterCommand.class);
-    public static final String MAIL_SUBJECT = "Hi, you are with Mereteny team: you are registered.";
-    public static final String MAIL_TEXT_GREETINGS = "<div style=\"background-color: lightblue\"><b>Hello, dear friend &#128521;. We are happy to salute you in our travel family &#128526;<br/><br/>";
-    public static final String MAIL_TEXT_AUTH_DATA = "Your authenticating data:<br/><b>Login: %s<br/>Password: %s</b><br/><br/>";
-    public static final String MAIL_TEXT_CONFIRMATION = "Please, confirm your email by the link below. If you didn't register, ignore this message.</b><br/>";
-    public static final String MAIL_TEXT_LINK = "<a href = \"http://localhost:8089/Travel_Agency/controller?command=activate_email&user=%s\"><b>I confirm my e-mail.</b></a>";
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -42,15 +36,16 @@ public class RegisterCommand implements Command {
                     session.setAttribute(AttributeName.EMAIL, email);
                     session.setAttribute(AttributeName.ROLE, role);
                     page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
+                    logger.info("Register New user + " + user);
                 } else {
                     page = (String) request.getSession().getAttribute(AttributeName.CURRENT_PAGE);
                 }
-                StringBuilder mailText = new StringBuilder(MAIL_TEXT_GREETINGS).append(String.format(MAIL_TEXT_AUTH_DATA, user, password))
-                        .append(MAIL_TEXT_CONFIRMATION).append(String.format(MAIL_TEXT_LINK, user));
-                SendMailManager sender = new SendMailManager(email, MAIL_SUBJECT, mailText.toString());
-                request.setAttribute(AttributeName.REGISTER_SUCCESS, true);
+                String mailSubject = MailTextCreator.createMailSubject();
+                String mailText = MailTextCreator.createMailText(user, password);
+                SendMailManager sender = new SendMailManager(email, mailSubject, mailText);
                 sender.send();
-                logger.info(" Mail send to " + email + ".\n Log in New user + " + user);
+                request.setAttribute(AttributeName.REGISTER_SUCCESS, true);
+                logger.info(" Mail send to " + email);
             } else {
                 request.setAttribute(AttributeName.REGISTER_ERROR, true);
                 page = PathManager.getProperty(PathManager.PAGE_GUEST_REG);

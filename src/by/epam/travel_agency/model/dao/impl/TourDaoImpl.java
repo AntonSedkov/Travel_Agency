@@ -135,6 +135,31 @@ public class TourDaoImpl implements TourDao {
         return result;
     }
 
+    @Override
+    public boolean createTour(Tour tour) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CREATE_TOUR)) {
+            preparedStatement.setString(1, tour.getTourType().name().toLowerCase());
+            preparedStatement.setString(2, tour.getCountry());
+            preparedStatement.setString(3, tour.getHotelName());
+            preparedStatement.setString(4, tour.getHotelType().name().toLowerCase());
+            preparedStatement.setString(5, tour.getTransport().name().toLowerCase());
+            LocalDate localDate = tour.getStartDate();
+            long date = DateTimeUtil.countLongFromLocalDate(localDate);
+            preparedStatement.setLong(6, date);
+            preparedStatement.setInt(7, tour.getDays());
+            preparedStatement.setInt(8, tour.getPrice());
+            preparedStatement.setInt(9, tour.getAvailableQuantity());
+            preparedStatement.setString(10, tour.getDescription());
+            preparedStatement.setString(11, tour.getImagePath());
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of creating new tour.", ex);
+        }
+        return result;
+    }
+
 
     private Tour createTourFromResultSet(ResultSet resultSet) throws SQLException {
         Tour tour = new Tour();

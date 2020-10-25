@@ -27,7 +27,7 @@ public class AdminHomeCommand implements Command {
             List<User> users = service.findAllUsersWithoutCurrent(login);
             session.setAttribute(AttributeName.USERS, users);
             page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);
-            logger.info("Admin home page reload.");
+            logger.info("Admin home page or edit users page forward.");
         } catch (ServiceException e) {
             logger.error(e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
