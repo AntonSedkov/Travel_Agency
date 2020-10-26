@@ -16,7 +16,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LoginCommand implements Command {
@@ -40,18 +42,20 @@ public class LoginCommand implements Command {
                         logger.info("Client log in successfully.");
                     }
                     case MODERATOR -> {
-                        TourService tourService = TourServiceImpl.getInstance();
+                        /*TourService tourService = TourServiceImpl.getInstance();
                         Set<String> tourTypes = tourService.formTourTypes();
                         session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
                         List<Tour> tours = tourService.findAllTours();
-                        session.setAttribute(AttributeName.TOURS, tours);
+                        session.setAttribute(AttributeName.TOURS, tours);*/
                         page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);  // TODO: 29.09.2020
                         logger.info("Moderator log in successfully.");
                     }
                     case ADMIN -> {
-                        List<User> users = service.findAllUsersWithoutCurrent(login);
-                        session.setAttribute(AttributeName.USERS, users);
-                        page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);  // TODO: 29.09.2020
+                        Map<String, Integer> usersByRoles = service.countUsersQuantityByRole();
+                        int quantityUsers = service.sumListValues(new ArrayList<>(usersByRoles.values()));
+                        session.setAttribute(AttributeName.USERS_BY_ROLES, usersByRoles);
+                        session.setAttribute(AttributeName.QUANTITY_USERS, quantityUsers);
+                        page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);
                         logger.info("Admin log in successfully.");
                     }
                     default -> {

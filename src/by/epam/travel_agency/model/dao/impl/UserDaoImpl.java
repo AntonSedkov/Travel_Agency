@@ -169,6 +169,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int countUsersByRole(String role) throws DaoException {
+        int result = 0;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.COUNT_USERS_BY_ROLE)) {
+            preparedStatement.setString(1, role);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of counting users by role.", ex);
+        }
+        return result;
+    }
+
+    @Override
     public boolean changePassword(String login, String password) throws DaoException {
         boolean result;
         try (Connection connection = pool.getConnection();

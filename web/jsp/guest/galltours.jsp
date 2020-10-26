@@ -40,7 +40,7 @@
 
                             <c:forEach var="concreteTour" items="${alltours}">
 
-                                <form name="hotTourForm" method="post" action="controller/">
+                                <form name="hotTourForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="make_order"/>
                                     <input type="hidden" name="id_tour" value="${concreteTour.id}">
 

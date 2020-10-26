@@ -27,7 +27,7 @@
 
     <div class="container-fluid p-3 text-center" style="max-width: 25%; background: lightseagreen">
 
-        <form name="loginForm" method="post" action="controller/">
+        <form name="loginForm" method="post" action="controller">
             <input type="hidden" name="command" value="login"/>
 
             <div class="form-row">

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/controller/*"})
+@WebServlet(urlPatterns = {"/controller"})
 public class MainController extends HttpServlet {
 
     @Override
@@ -43,6 +43,7 @@ public class MainController extends HttpServlet {
 
     @Override
     public void destroy() {
+        super.destroy();
         ConnectionPool.INSTANCE.destroyPool();
     }
 

@@ -32,6 +32,8 @@ public class StatementSql {
     public static final String CREATE_TOUR = "INSERT INTO tours (tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+    public static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM users WHERE role = (?)";
+
 
     // Passport and Orders write)))
 

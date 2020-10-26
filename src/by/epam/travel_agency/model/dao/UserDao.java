@@ -29,4 +29,5 @@ public interface UserDao extends BaseDao<Integer, User> {
 
     List<User> findAllUsersWithoutCurrent(String login) throws DaoException;
 
+    int countUsersByRole(String role) throws DaoException;
 }

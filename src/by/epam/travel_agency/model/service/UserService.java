@@ -5,6 +5,7 @@ import by.epam.travel_agency.model.entity.User;
 import by.epam.travel_agency.model.entity.UserType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -25,5 +26,9 @@ public interface UserService {
     boolean changePassword(String login, String password) throws ServiceException;
 
     boolean changeEmail(String login, String email) throws ServiceException;
+
+    Map<String, Integer> countUsersQuantityByRole() throws ServiceException;
+
+    int sumListValues(List<Integer> values);
 
 }

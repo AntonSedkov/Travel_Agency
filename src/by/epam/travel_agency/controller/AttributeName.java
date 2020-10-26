@@ -62,6 +62,9 @@ public class AttributeName {
     public static final String ALL_TOURS = "alltours";
 
 
+    public static final String USERS_BY_ROLES = "usersbyroles";
+    public static final String QUANTITY_USERS = "quantityusers";
+
 
 
 

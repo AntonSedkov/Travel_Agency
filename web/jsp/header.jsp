@@ -122,7 +122,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <a class="dropdown-item" href="controller?command=edit_tours"><fmt:message
                                 key="label.edittours"/></a>
-                        <a class="dropdown-item" href="controller?command=add_tour"><fmt:message
+                        <a class="dropdown-item" href="controller?command=add_tour_page"><fmt:message
                                 key="label.addtour"/></a>
                     </div>
                 </li>
@@ -278,7 +278,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form name="loginForm" method="post" action="controller/">
+                    <form name="loginForm" method="post" action="controller">
                         <input type="hidden" name="command" value="login"/>
                         <div class="form-row">
                             <div class="col">
@@ -339,7 +339,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form name="registerForm" method="post" action="controller/">
+                    <form name="registerForm" method="post" action="controller">
                         <input type="hidden" name="command" value="register">
                         <div class="form-row">
                             <div class="col">
@@ -384,7 +384,7 @@
                                 </div>
                             </div>
                         </div>
-                        <fmt:message key="button.register" var="register"/>
+                        <fmt:message key="button.registerme" var="register"/>
                         <input type="submit" class="btn btn-primary float-center"
                                value="${register}">
                     </form>

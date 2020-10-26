@@ -3,6 +3,7 @@ package by.epam.travel_agency.controller.command.impl;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
+import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class ActivateEmailCommand implements Command {
     private static Logger logger = LogManager.getLogger(RegisterCommand.class);
@@ -17,11 +19,19 @@ public class ActivateEmailCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         UserService service = UserServiceImpl.getInstance();
+        HttpSession session = request.getSession();
         String page;
         String user = request.getParameter(AttributeName.USER);
+        String currentUserInSession = (String) session.getAttribute(AttributeName.USER);
+        boolean isActiveUser = user.equals(currentUserInSession);
+        if (!isActiveUser) {
+            session.invalidate();
+        }
         try {
             if (service.activateUserEmail(user)) {
-                page = PathManager.getProperty(PathManager.PAGE_GUEST_AUTH);
+                page = (isActiveUser)
+                        ? (String) session.getAttribute(AttributeName.CURRENT_PAGE)
+                        : PathManager.getProperty(PathManager.PAGE_GUEST_AUTH);
                 request.setAttribute(AttributeName.ACTIVATE_EMAIL_SUCCESS, true);
                 logger.info("Email activate for user: " + user);
             } else {

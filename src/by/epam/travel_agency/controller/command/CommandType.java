@@ -13,18 +13,20 @@ public enum CommandType {
     CHANGE_PAGE(new StaticPageCommand()),
 
     ADMIN_IN(new AdminHomeCommand()),
-    edit_users(new TestTTT()),
+    EDIT_USERS(new EditUsersCommand()),
     ACTIVATE_USER(new ActivateUserCommand()),
     DEACTIVATE_USER(new DeactivateUserCommand()),
-    add_staff(new TestTTT()),
-    ADD_STAFF(new RegisterCommand()),
+    ADD_STAFF(new AddStaffCommand()),
 
     MODERATOR_IN(new ModeratorHomeCommand()),
-    add_tour(new TestTTT()),
+    ADD_TOUR_PAGE(new AddTourPageCommand()),
+    EDIT_TOURS(new EditToursCommand()),
+    EDIT_ORDERS(new EditOrdersCommand()),
+    ADD_ORDER_DOCUMENTS(new AddOrderDocsCommand()),
     ADD_TOUR(new AddTourCommand()),
-    edit_tours(new TestTTT()),
-    edit_orders(new TestTTT()),
-    add_order_documents(new TestTTT()),
+
+
+
 
     USER_IN(new UserHomeCommand()),
     all_orders(new TestTTT()),

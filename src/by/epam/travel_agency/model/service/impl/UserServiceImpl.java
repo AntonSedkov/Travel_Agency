@@ -12,7 +12,9 @@ import by.epam.travel_agency.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
     private static final UserServiceImpl INSTANCE = new UserServiceImpl();
@@ -183,6 +185,30 @@ public class UserServiceImpl implements UserService {
             }
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Integer> countUsersQuantityByRole() throws ServiceException {
+        Map<String, Integer> result = new HashMap<>();
+        UserType[] types = UserType.values();
+        UserDao dao = UserDaoImpl.getInstance();
+        for (UserType type : types) {
+            String keyType = type.name().toLowerCase();
+            try {
+                int valueType = dao.countUsersByRole(keyType);
+                result.put(keyType, valueType);
+                logger.info("Count quantity for " + keyType);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int sumListValues(List<Integer> values) {
+        int sum = values.stream().mapToInt(Integer::intValue).sum();
+        return sum;
     }
 
     private boolean checkUniqueLogin(String login) throws ServiceException {

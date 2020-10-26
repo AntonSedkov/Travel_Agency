@@ -8,7 +8,7 @@ public class TourValidator {
     private static final String DIGITS_VALUE_RESTRICTION = "\\d{1,7}";
     private static final String LITERALS_VALUE = "[A-Za-z]+";
     private static final String DATE_FORMAT = "\\b[\\d]{4}-[\\d]{2}-[\\d]{2}\\b";
-    public static final String IMAGE_NAME_FORMAT = "\\b[A-Za-z]+\\.[A-Za-z]{2,5}\\b";
+    public static final String IMAGE_NAME_FORMAT = "\\b[A-Za-z\\d]+\\.[A-Za-z]{2,5}\\b";
 
     private TourValidator() {
     }

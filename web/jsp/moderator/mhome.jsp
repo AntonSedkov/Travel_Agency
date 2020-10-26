@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:setLocale value="${language}"/>
@@ -10,83 +9,48 @@
 
 <html lang="${language}">
 
-    <head>
-        <title>MODERATOR Page</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    </head>
+<head>
+    <title><fmt:message key="label.moderatorhome"/></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-    <body style="background: lightgreen">
+<body style="background: lightgreen">
 
-        <%@include file="../header.jsp" %>
+    <%@include file="../header.jsp" %>
 
-        <div class="container">
-            <h3 class="text-center"><fmt:message key="text.greetings"/> ${user}<fmt:message key="text.smileend"/></h3>
-        </div>
+    <%@include file="../greeting.jsp" %>
 
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
-            Edit Tours</h3>
+    <div class="col text-center">
+        <button type="submit" class="btn btn-primary m-2">
+            <a href="controller?command=edit_tours" style="color: white"><fmt:message key="label.edittours"/></a>
+        </button>
+        <button type="submit" class="btn btn-primary m-2">
+            <a href="controller?command=add_tour_page" style="color: white"><fmt:message key="label.addtour"/></a>
+        </button>
+        <p></p>
+        <button type="submit" class="btn btn-primary m-2">
+            <a href="controller?command=edit_orders" style="color: white"><fmt:message key="label.editorders"/></a>
+        </button>
+        <button type="submit" class="btn btn-primary m-2">
+            <a href="controller?command=add_order_documents" style="color: white"><fmt:message key="label.addorderdoc"/></a>
+        </button>
+    </div>
 
-        <div class="contaner">
-            <table>
-                <c:forEach var="tour" items="${tours}">
-                    <tr>
-                        <td><c:out value="${tour.id}"/></td>
-                        <td><c:out value="${tour.tourType}"/></td>
-                        <td><c:out value="${tour.country}"/></td>
-                        <td><c:out value="${tour.hotelName}"/></td>
-                        <td><c:out value="${tour.hotelType}"/></td>
-                        <td><c:out value="${tour.transport}"/></td>
-                        <td><c:out value="${tour.startDate}"/></td>
-                        <td><c:out value="${tour.days}"/></td>
-                        <td><c:out value="${tour.price}"/></td>
-                        <td><c:out value="${tour.availableQuantity}"/></td>
-                        <td><c:out value="${tour.description}"/></td>
-                        <td><c:out value="${tour.imagePath}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
+   <%-- <div class="col text-left">
+        <h4><fmt:message key="label.totalusers"/> ${quantityusers} <fmt:message key="label.men"/></h4>
+        <c:forEach var="quantityUsersByRole" items="${usersbyroles}">
+            <h5><fmt:message key="label.${quantityUsersByRole.key}"/> <fmt:message key="label.colon"/>
+                    ${quantityUsersByRole.value} <fmt:message key="label.men"/></h5>
+        </c:forEach>
+    </div>--%>
 
-        <div class="contaner">
-            <table>
-                <c:forEach var="tour" items="${tours}">
-                    <tr>
-                        <td><c:out value="${tour.id}"/></td>
-                        <td><c:out value="${tour.tourType}"/></td>
-                        <td><c:out value="${tour.country}"/></td>
-                        <td><c:out value="${tour.hotelName}"/></td>
-                        <td><c:out value="${tour.hotelType}"/></td>
-                        <td><c:out value="${tour.transport}"/></td>
-                        <td><c:out value="${tour.startDate}"/></td>
-                        <td><c:out value="${tour.days}"/></td>
-                        <td><c:out value="${tour.price}"/></td>
-                        <td><c:out value="${tour.availableQuantity}"/></td>
-                        <td><c:out value="${tour.description}"/></td>
-                        <td><c:out value="${tour.imagePath}"/></td>
-                        <td>
-                            Edit
-                        </td>
-                        <td>
-                            Delete
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <div class="container">
-                Add
-            </div>
-        </div>
+    <%@include file="../carousel.jsp" %>
 
-        <div class="container">
-            <button type="submit" class="btn btn-primary float-right">
-                <a href="controller?command=logout" style="color: white">
-                <fmt:message key="button.logout"/></a>
-            </button>
-        </div>
+    <%@include file="../floatlogout.jsp"%>
 
-        <%@include file="../footer.jsp" %>
+    <%@include file="../footer.jsp" %>
 
-    </body>
+</body>
 
 </html>

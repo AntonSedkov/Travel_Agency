@@ -3,7 +3,6 @@ package by.epam.travel_agency.controller.command.impl.page;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
-import by.epam.travel_agency.model.entity.User;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
@@ -12,26 +11,29 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class AdminHomeCommand implements Command {
     private static Logger logger = LogManager.getLogger(AdminHomeCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
-        UserService service = UserServiceImpl.getInstance();
         HttpSession session = request.getSession();
+        UserService service = UserServiceImpl.getInstance();
         String page;
         try {
-            String login = (String) session.getAttribute(AttributeName.USER);
-            List<User> users = service.findAllUsersWithoutCurrent(login);
-            session.setAttribute(AttributeName.USERS, users);
+            Map<String, Integer> usersByRoles = service.countUsersQuantityByRole();
+            int quantityUsers = service.sumListValues(new ArrayList<>(usersByRoles.values()));
+            session.setAttribute(AttributeName.USERS_BY_ROLES, usersByRoles);
+            session.setAttribute(AttributeName.QUANTITY_USERS, quantityUsers);
             page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);
-            logger.info("Admin home page or edit users page forward.");
+            logger.info("Admin home page forward.");
         } catch (ServiceException e) {
             logger.error(e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
+
         return page;
     }
 

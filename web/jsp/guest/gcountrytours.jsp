@@ -57,7 +57,7 @@
 
                                         <c:forEach var="currentCountryTour" items="${countryMapEntry.value}">
 
-                                            <form name="hotTourForm" method="post" action="controller/">
+                                            <form name="hotTourForm" method="post" action="controller">
                                                 <input type="hidden" name="command" value="make_order"/>
                                                 <input type="hidden" name="id_tour" value="${currentCountryTour.id}">
 

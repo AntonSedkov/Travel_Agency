@@ -48,7 +48,7 @@
 
                         <div class="tab-pane fade show active" id="rest" role="tabpanel" aria-labelledby="rest-tab">
                             <div class="booking_form">
-                                <form name="searchForm" method="post" action="controller/">
+                                <form name="searchForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="search_tour">
                                     <input type="hidden" name="tourpurpose" value="rest">
                                     <div class="form-row">
@@ -87,7 +87,7 @@
 
                         <div class="tab-pane fade" id="excursion" role="tabpanel" aria-labelledby="excursion-tab">
                             <div class="booking_form">
-                                <form name="searchForm" method="get" action="controller/">
+                                <form name="searchForm" method="get" action="controller">
                                     <input type="hidden" name="command" value="search_tour">
                                     <input type="hidden" name="tourpurpose" value="excursion">
                                     <div class="form-row">
@@ -122,7 +122,7 @@
 
                         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
                             <div class="booking_form">
-                                <form name="searchForm" method="get" action="controller/">
+                                <form name="searchForm" method="get" action="controller">
                                     <input type="hidden" name="command" value="search_tour">
                                     <input type="hidden" name="tourpurpose" value="shopping">
                                     <div class="form-row">
@@ -180,7 +180,7 @@
 
                     <c:forEach var="findTour" items="${searchtours}">
 
-                        <form name="hotTourForm" method="post" action="controller/">
+                        <form name="hotTourForm" method="post" action="controller">
                             <input type="hidden" name="command" value="make_order"/>
                             <input type="hidden" name="id_tour" value="${findTour.id}">
 

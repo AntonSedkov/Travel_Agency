@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = {"/upload/*"})
+@WebServlet(urlPatterns = {"/upload"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
@@ -21,7 +21,7 @@ public class UploadController extends HttpServlet {
 
     private static final String NEXT_CONTROLLER = "/controller";
 
-//    private static final String ABSOLUTE_PATH = "E:\\Epam_Web\\_Final_Web_Project\\Travel_Agency\\web";
+    private static final String ABSOLUTE_PATH = "E:\\Epam_Web\\_Final_Web_Project\\Travel_Agency\\web";
 
     private static final String UPPER_DIRECTORY = "pics";
     private static final String TOUR_INFO_DIRECTORY = "tours";
@@ -47,8 +47,8 @@ public class UploadController extends HttpServlet {
                 default -> UPLOAD_DIR_DEFAULT;
             };
             if (!UPLOAD_DIR.equals(UPLOAD_DIR_DEFAULT)) {
-                String applicationDir = request.getServletContext().getRealPath("");
- //               String applicationDir = ABSOLUTE_PATH;
+                //  String applicationDir = request.getServletContext().getRealPath("");
+                String applicationDir = ABSOLUTE_PATH;
                 String uploadFileDir = applicationDir + File.separator + UPLOAD_DIR + File.separator;
                 File fileSaveDir = new File(uploadFileDir);
                 if (!fileSaveDir.exists()) {
@@ -59,10 +59,10 @@ public class UploadController extends HttpServlet {
                     String imageName = part.getSubmittedFileName();
                     part.write(uploadFileDir + imageName);
                     request.setAttribute(AttributeName.IMAGE_NAME, imageName);
-                    session.setAttribute(AttributeName.UPLOAD_RESULT, true);
+                    request.setAttribute(AttributeName.UPLOAD_RESULT, true);
                     page = NEXT_CONTROLLER;
                 } catch (IOException e) {
-                    session.setAttribute(AttributeName.UPLOAD_RESULT, false);
+                    request.setAttribute(AttributeName.UPLOAD_RESULT, false);
                 }
             }
         }

@@ -27,7 +27,7 @@
 
     <div class="container-fluid p-3 text-center" style="max-width: 25%; background: lightseagreen">
 
-        <form name="registerForm" method="post" action="controller/">
+        <form name="registerForm" method="post" action="controller">
             <input type="hidden" name="command" value="register">
 
             <div class="form-row">

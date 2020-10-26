@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 public class RegisterCommand implements Command {
     private static Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private static final String DEFAULT_ROLE = UserType.USER.toString().toLowerCase();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -26,11 +27,10 @@ public class RegisterCommand implements Command {
         String password = request.getParameter(AttributeName.PASSWORD);
         String email = request.getParameter(AttributeName.EMAIL);
         String role = request.getParameter(AttributeName.ROLE);
-        String defaultRole = UserType.USER.toString().toLowerCase();
-        role = (role != null) ? role : defaultRole;
+        role = (role != null) ? role : DEFAULT_ROLE;
         try {
             if (service.createNewUser(user, password, email, role)) {
-                if (role.equals(defaultRole)) {
+                if (role.equals(DEFAULT_ROLE)) {
                     HttpSession session = request.getSession();
                     session.setAttribute(AttributeName.USER, user);
                     session.setAttribute(AttributeName.EMAIL, email);
@@ -48,7 +48,9 @@ public class RegisterCommand implements Command {
                 logger.info(" Mail send to " + email);
             } else {
                 request.setAttribute(AttributeName.REGISTER_ERROR, true);
-                page = PathManager.getProperty(PathManager.PAGE_GUEST_REG);
+                page = (role.equals(DEFAULT_ROLE))
+                        ? PathManager.getProperty(PathManager.PAGE_GUEST_REG)
+                        : (String) request.getSession().getAttribute(AttributeName.CURRENT_PAGE);
             }
         } catch (ServiceException e) {
             logger.error(e);

@@ -16,11 +16,15 @@ public class PathManager {
     public static final String PAGE_GUEST_TYPE_TOURS = "path.guest.typetours";
 
     public static final String PAGE_ADMIN_HOME = "path.admin.home";
+    public static final String PAGE_ADMIN_EDIT_USERS = "path.admin.editusers";
+    public static final String PAGE_ADMIN_ADD_STAFF = "path.admin.addstaff";
 
     public static final String PAGE_MODERATOR_HOME = "path.moderator.home";
+    public static final String PAGE_MODERATOR_EDIT_TOURS = "path.moderator.edittours";
+    public static final String PAGE_MODERATOR_ADD_TOUR = "path.moderator.addtour";
+    public static final String PAGE_MODERATOR_EDIT_ORDERS = "path.moderator.editorders";
+    public static final String PAGE_MODERATOR_ADD_ORDER_DOCS = "path.moderator.addorderdocs";
 
-    public static final String PAGE_MODERATOR_TOUR_DATA = "path.moderator.tourdata";
-    public static final String PAGE_MODERATOR_USER_DATA = "path.moderator.userdata";
 
     public static final String PAGE_USER_HOME = "path.user.home";
     public static final String PAGE_USER_PERSONAL_DATA = "path.user.personaldata";
