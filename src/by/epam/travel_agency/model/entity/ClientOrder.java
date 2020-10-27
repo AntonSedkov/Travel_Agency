@@ -1,57 +1,76 @@
 package by.epam.travel_agency.model.entity;
 
+import by.epam.travel_agency.model.entity.state.OrderState;
+
+import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 public class ClientOrder extends Entity {
-    private Tour tour;
-    private long orderDate;
-    private int quantity;
-    private boolean isPaid;
-
-    private static final boolean DEFAULT_PAID = false;
+    private int idTour;
+    private int idPassport;
+    private int idTravelDoc;
+    private LocalDateTime dateTimeOrder;
+    private OrderState orderState;
+    private String comment;
 
     public ClientOrder() {
-        super();
     }
 
-    public ClientOrder(Tour tour, long orderDate, int quantity) {
-        super();
-        this.tour = tour;
-        this.orderDate = orderDate;
-        this.quantity = quantity;
-        isPaid = DEFAULT_PAID;
+    public ClientOrder(int idTour, int idPassport, int idTravelDoc, LocalDateTime dateTimeOrder, OrderState orderState, String comment) {
+        this.idTour = idTour;
+        this.idPassport = idPassport;
+        this.idTravelDoc = idTravelDoc;
+        this.dateTimeOrder = dateTimeOrder;
+        this.orderState = orderState;
+        this.comment = comment;
     }
 
-    public Tour getTour() {
-        return tour;
+    public int getIdTour() {
+        return idTour;
     }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
+    public void setIdTour(int idTour) {
+        this.idTour = idTour;
     }
 
-    public long getOrderDate() {
-        return orderDate;
+    public int getIdPassport() {
+        return idPassport;
     }
 
-    public void setOrderDate(long orderDate) {
-        this.orderDate = orderDate;
+    public void setIdPassport(int idPassport) {
+        this.idPassport = idPassport;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getIdTravelDoc() {
+        return idTravelDoc;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setIdTravelDoc(int idTravelDoc) {
+        this.idTravelDoc = idTravelDoc;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+    public LocalDateTime getDateTimeOrder() {
+        return dateTimeOrder;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setDateTimeOrder(LocalDateTime dateTimeOrder) {
+        this.dateTimeOrder = dateTimeOrder;
+    }
+
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(OrderState orderState) {
+        this.orderState = orderState;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override
@@ -60,29 +79,37 @@ public class ClientOrder extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ClientOrder that = (ClientOrder) o;
-        if (orderDate != that.orderDate) return false;
-        if (quantity != that.quantity) return false;
-        if (isPaid != that.isPaid) return false;
-        return tour != null ? tour.equals(that.tour) : that.tour == null;
+        if (idTour != that.idTour) return false;
+        if (idPassport != that.idPassport) return false;
+        if (idTravelDoc != that.idTravelDoc) return false;
+        if (dateTimeOrder != null ? !dateTimeOrder.equals(that.dateTimeOrder) : that.dateTimeOrder != null)
+            return false;
+        if (orderState != null ? !orderState.equals(that.orderState) : that.orderState != null) return false;
+        return comment != null ? comment.equals(that.comment) : that.comment == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (tour != null ? tour.hashCode() : 0);
-        result = 31 * result + (int) (orderDate ^ (orderDate >>> 32));
-        result = 31 * result + quantity;
-        result = 31 * result + (isPaid ? 1 : 0);
+        result = 31 * result + idTour;
+        result = 31 * result + idPassport;
+        result = 31 * result + idTravelDoc;
+        result = 31 * result + (dateTimeOrder != null ? dateTimeOrder.hashCode() : 0);
+        result = 31 * result + (orderState != null ? orderState.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", ClientOrder.class.getSimpleName() + "[", "]")
-                .add("tour=" + tour)
-                .add("orderDate=" + orderDate)
-                .add("quantity=" + quantity)
-                .add("isPaid=" + isPaid)
+                .add("id=" + getId() + "")
+                .add("idTour=" + idTour)
+                .add("idPassport=" + idPassport)
+                .add("idTravelDoc=" + idTravelDoc)
+                .add("dateTimeOrder=" + dateTimeOrder)
+                .add("orderState=" + orderState)
+                .add("comment='" + comment + "'")
                 .toString();
     }
 

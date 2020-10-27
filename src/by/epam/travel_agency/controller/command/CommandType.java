@@ -24,6 +24,7 @@ public enum CommandType {
     EDIT_ORDERS(new EditOrdersCommand()),
     ADD_ORDER_DOCUMENTS(new AddOrderDocsCommand()),
     ADD_TOUR(new AddTourCommand()),
+    CLOSE_TOUR(new CloseTourCommand()),
 
 
 

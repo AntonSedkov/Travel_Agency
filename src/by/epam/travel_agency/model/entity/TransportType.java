@@ -13,4 +13,5 @@ public enum TransportType {
     public String getValue() {
         return value;
     }
+
 }

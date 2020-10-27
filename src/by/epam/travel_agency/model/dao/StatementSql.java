@@ -31,8 +31,9 @@ public class StatementSql {
     public static final String SELECT_AVAILABLE_COUNTRIES = "SELECT DISTINCT country FROM tours";
     public static final String CREATE_TOUR = "INSERT INTO tours (tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
     public static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM users WHERE role = (?)";
+    public static final String CLOSE_TOUR = "UPDATE tours SET quantity_tours = 0 WHERE id_tour = (?)";
+
 
 
     // Passport and Orders write)))

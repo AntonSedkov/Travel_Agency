@@ -12,6 +12,8 @@ public class AttributeName {
     public static final String ACTIVATE_USER_ERROR = "activateusererror";
     public static final String DEACTIVATE_USER_ERROR = "deactivateusererror";
     public static final String CREATE_TOUR_ERROR = "createtourerror";
+    public static final String CLOSE_TOUR_ERROR = "closetourerror";
+
 
     public static final String TARGET_PAGE = "targetpage";
 
@@ -28,7 +30,6 @@ public class AttributeName {
     public static final String ROLE = "role";
     public static final String USERS = "users";
 
-    public static final String TOURS = "tours";
     public static final String HOT_TOURS = "hottours";
     public static final String TOUR_TYPES = "tourtypes";
 
@@ -64,10 +65,6 @@ public class AttributeName {
 
     public static final String USERS_BY_ROLES = "usersbyroles";
     public static final String QUANTITY_USERS = "quantityusers";
-
-
-
-
 
 
 

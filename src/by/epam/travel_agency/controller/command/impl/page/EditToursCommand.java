@@ -27,7 +27,7 @@ public class EditToursCommand implements Command {
             Set<String> tourTypes = tourService.formTourTypes();
             session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
             List<Tour> tours = tourService.findAllTours();
-            session.setAttribute(AttributeName.TOURS, tours);
+            session.setAttribute(AttributeName.ALL_TOURS, tours);
             page = PathManager.getProperty(PathManager.PAGE_MODERATOR_EDIT_TOURS);
             logger.info("Moderator edit tours page reload.");
         } catch (ServiceException e) {

@@ -10,6 +10,7 @@ Latin + At least 1 lowercase letter + At least 1 uppercase letter + At least 1 d
 /*Email: first part according to RFC 5322 - then
 @ - letters, digits, underscore, dash at least one - dot - letters, digits, underscore from 2 to 6 characters */
 
+/*users*/
 CREATE TABLE users
 (
     id_user        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -55,21 +56,21 @@ VALUES ('Woodpecker0',
         'Woodpecker0@mail.trag',
         'moderator', false, false);
 
-/*date starts from 01.01.2020: 30.11.2020 = 28944000 sec; 15.11.2020 = 27648000 sec*/
+/* tours*/
 create table tours
 (
     id_tour          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    tour_purpose     ENUM ('rest', 'excursion','shopping' )     NOT NULL,
-    country          VARCHAR(32)                                NOT NULL,
-    hotel_name       VARCHAR(32)                                NOT NULL,
-    hotel_stars      ENUM('hostel', 'three', 'four', 'five')    NOT NULL,
-    transport        ENUM ('bus','airplane')                    NOT NULL,
-    date_start       LONG                                       NOT NULL,
-    quantity_of_days SMALLINT(3) UNSIGNED                       NOT NULL,
-    price            INT(5) UNSIGNED                            NOT NULL,
-    quantity_tours   TINYINT(2) UNSIGNED                        NOT NULL,
-    description      TEXT                                       NOT NULL,
-    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'default.jpg'
+    tour_purpose     ENUM ('rest', 'excursion','shopping' )   NOT NULL,
+    country          VARCHAR(32)                              NOT NULL,
+    hotel_name       VARCHAR(32)                              NOT NULL,
+    hotel_stars      ENUM ('hostel', 'three', 'four', 'five') NOT NULL,
+    transport        ENUM ('bus','airplane')                  NOT NULL,
+    date_start       LONG                                     NOT NULL,
+    quantity_of_days SMALLINT(3) UNSIGNED                     NOT NULL,
+    price            INT(5) UNSIGNED                          NOT NULL,
+    quantity_tours   TINYINT(2) UNSIGNED                      NOT NULL,
+    description      TEXT                                     NOT NULL,
+    image_path       VARCHAR(64)                              NOT NULL DEFAULT 'default.jpg'
 );
 
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
@@ -113,132 +114,88 @@ VALUES (4, 7);
 INSERT INTO tours_hot(id_tour_fk, discount)
 VALUES (6, 5);
 
-/*one user - many passports*/
-create table customers_passport
+/*one user - many passports, into order*/
+create table passport
 (
-    id_customer_passport         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_user_fk                   INT UNSIGNED            NOT NULL,
-    surname                      VARCHAR(32)             NOT NULL,
-    name                         VARCHAR(32)             NOT NULL,
-    date_of_birth_days           LONG                    NOT NULL,
-    country                      VARCHAR(32)             NOT NULL,
-    gender                       ENUM ('male', 'female') NOT NULL,
-    identification_number        VARCHAR(14)             NOT NULL,
-    passport_series              VARCHAR(2)              NOT NULL,
-    passport_number              INT(7)                  NOT NULL,
-    passport_date_of_issue_days  LONG                    NOT NULL,
-    passport_date_of_expiry_days LONG                    NOT NULL,
+    id_passport     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user_fk      INT UNSIGNED NOT NULL,
+    surname         VARCHAR(32)  NOT NULL,
+    name            VARCHAR(32)  NOT NULL,
+    birth_date      LONG         NOT NULL,
+    passport_number VARCHAR(32)  NOT NULL,
+    passport_image  VARCHAR(32),
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
 );
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (3, 'Ivanov', 'Ivan', 727021, 'Belarus', 'male', 'HE8975899PB683', 'PM', 7856789, 738021, 747021);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (3, 'Ivanov', 'Ivan', 1600000000, 'HE8975899');
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (3, 'Ivanova', 'Olga', 728021, 'Belarus', 'female', 'LG1564689JK898', 'MD', 3452092, 738421, 747421);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (3, 'Ivanova', 'Olga', 1600100000, 'LG1564689');
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (3, 'Ivanov', 'Igor', 733021, 'BLR', 'male', 'IK0009998IE543', 'RR', 2342839, 739021, 749021);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (3, 'Ivanov', 'Igor', 1600200000, 'IK0009998');
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (4, 'Merier', 'Luis', 717021, 'France', 'male', 'JU84849493030', 'FV', 8478922, 736021, 745021);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (4, 'Merier', 'Luis', 1600300000, 'JU8484949');
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (4, 'Buijuer', 'Anette', 727021, 'Belgium', 'female', 'EW879854612323', 'BS', 2235681, 737021, 747021);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (4, 'Buijuer', 'Anette', 1600400000, 'EW8798546');
 
-INSERT INTO customers_passport (id_user_fk, surname, name, date_of_birth_days, country, gender,
-                                identification_number, passport_series, passport_number, passport_date_of_issue_days,
-                                passport_date_of_expiry_days)
-VALUES (5, 'Norris', 'Chuck', 707021, 'USA', 'male', 'US999988887766', 'JC', 8899776, 734021, 744021);
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
+VALUES (5, 'Norris', 'Chuck', 1600500000, 'US9999888');
 
-/*many passport - many tour*/
-create table customers_travel_documents
+/*into order*/
+create table travel_docs
 (
-    id_travel_documents     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_customer_passport_fk INT UNSIGNED NOT NULL,
-    id_tour_fk              INT UNSIGNED NOT NULL,
-    customer_visa           BOOLEAN      NOT NULL DEFAULT false,
-    tourist_voucher         VARCHAR(64),
-    insurance_policy        VARCHAR(64),
-    ticket_flight           VARCHAR(64),
-    ticket_bus              VARCHAR(64),
-    FOREIGN KEY (id_customer_passport_fk) REFERENCES customers_passport (id_customer_passport),
-    FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour)
+    id_travel_docs INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    voucher        VARCHAR(64),
+    insurance      VARCHAR(64),
+    ticket         VARCHAR(64)
 );
 
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (1, 1, false, 'Generated Vaucher11', null, null, 'bus ticket Number11');
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (2, 1, false, 'Generated Vaucher11', null, null, 'bus ticket Number22');
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (3, 1, false, 'Generated Vaucher11', null, null, 'bus ticket Number33');
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (1, 5, true, 'Generated Vaucher22', 'Policy Number1', 'flight ticket Number11', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (2, 5, true, 'Generated Vaucher22', 'Policy Number2', 'flight ticket Number22', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (3, 5, true, 'Generated Vaucher22', 'Policy Number3', 'flight ticket Number33', null);
-
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (4, 2, true, 'Generated Vaucher33', 'Policy Number4', null, 'bus ticket Number44');
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (5, 2, true, 'Generated Vaucher33', 'Policy Number5', null, 'bus ticket Number55');
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (4, 4, true, 'Generated Vaucher44', 'Policy Number6', 'flight ticket Number44', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (5, 4, true, 'Generated Vaucher55', 'Policy Number7', 'flight ticket Number55', null);
-
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (6, 3, true, 'Generated Vaucher66', 'Policy Number8', 'flight ticket Number66', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (6, 6, false, 'Generated Vaucher77', 'Policy Number9', 'flight ticket Number77', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (6, 1, true, 'Generated Vaucher88', 'Policy Number10', 'flight ticket Number88', null);
-INSERT INTO customers_travel_documents (id_customer_passport_fk, id_tour_fk, customer_visa, tourist_voucher,
-                                        insurance_policy, ticket_flight, ticket_bus)
-VALUES (6, 5, false, 'Generated Vaucher99', 'Policy Number11', 'flight ticket Number99', null);
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
 
 /*one user - one customers_sheet*/
-create table customers_sheet
+create table sheet
 (
-    id_customer_sheet INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_sheet          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     id_user_fk        INT UNSIGNED UNIQUE NOT NULL,
     sheet_sum         INT(7) UNSIGNED     NOT NULL DEFAULT 0,
     customer_discount ENUM ('0','5','7','10','15') DEFAULT '0',
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
 );
 
-ALTER TABLE customers_sheet AUTO_INCREMENT=2000;
+ALTER TABLE sheet
+    AUTO_INCREMENT = 2000;
 
-INSERT INTO customers_sheet(id_user_fk, sheet_sum, customer_discount)
+INSERT INTO sheet(id_user_fk, sheet_sum, customer_discount)
 VALUES (3, 500000, '10');
-INSERT INTO customers_sheet(id_user_fk, sheet_sum, customer_discount)
+INSERT INTO sheet(id_user_fk, sheet_sum, customer_discount)
 VALUES (4, 1500000, '0');
-INSERT INTO customers_sheet(id_user_fk, sheet_sum, customer_discount)
+INSERT INTO sheet(id_user_fk, sheet_sum, customer_discount)
 VALUES (5, 50000000, '15');
+
+create table operation
+(
+    id_operation      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_sheet_fk       INT UNSIGNED UNIQUE NOT NULL,
+    operation_sum     INT(7) UNSIGNED     NOT NULL DEFAULT 0,
+    operation_purpose VARCHAR(64)         NOT NULL DEFAULT 'default Error',
+    FOREIGN KEY (id_sheet_fk) REFERENCES sheet (id_sheet)
+);
+
 
 /*one user - one admin_moderator*/
 create table staff
@@ -259,47 +216,24 @@ VALUES (6, 'Chubrik', 'Gennadiy');
 INSERT INTO staff(id_user_fk, surname, name)
 VALUES (7, 'Zayceva', 'Irina');
 
-/*many user - many tours*/
+/*one order - many tours - many passports - one travel_documents*/
 create table orders
 (
-    id_order       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_user_fk     INT UNSIGNED NOT NULL,
-    id_tour_fk     INT UNSIGNED NOT NULL,
-    date_order LONG         NOT NULL,
-    quantity       INT UNSIGNED NOT NULL,
-    tour_paid      BOOLEAN      NOT NULL DEFAULT false,
-    FOREIGN KEY (id_user_fk) REFERENCES users (id_user),
-    FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour)
+    id_order          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_tour_fk        INT UNSIGNED                                        NOT NULL,
+    id_passport_fk    INT UNSIGNED                                        NOT NULL,
+    id_travel_docs_fk INT UNSIGNED UNIQUE                                 NOT NULL,
+    date_order        LONG                                                NOT NULL,
+    state             ENUM ('new','confirm','paid','add_docs','finished') NOT NULL DEFAULT 'new',
+    comment           VARCHAR(128),
+    FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour),
+    FOREIGN KEY (id_passport_fk) REFERENCES passport (id_passport),
+    FOREIGN KEY (id_travel_docs_fk) REFERENCES travel_docs (id_travel_docs)
 );
 
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (3, 1, 320787, 3, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (3, 5, 340787, 3, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (3, 3, 340787, 3, false);
-
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (4, 2, 330500, 2, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (4, 4, 335500, 2, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (4, 6, 340500, 2, false);
-
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 3, 320000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 6, 325000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 1, 330000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 5, 335000, 1, true);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 2, 340000, 1, false);
-INSERT INTO orders (id_user_fk, id_tour_fk, date_order, quantity, tour_paid)
-VALUES (5, 4, 345000, 1, false);
 
 
+/*may be*/
 create table tours_unavailable
 (   id_tour          INT UNSIGNED UNIQUE,
     tour_purpose     ENUM ('rest', 'excursion','shopping' )     NOT NULL,
@@ -312,12 +246,12 @@ create table tours_unavailable
 );
 
 
-
 select * from users;
+select * from sheet;
+select * from operation;
 select * from staff;
-select * from customers_sheet;
-select * from customers_passport;
-select * from customers_travel_documents;
+select * from passport;
+select * from travel_docs;
 select * from orders;
 select * from tours;
 select * from tours_hot;

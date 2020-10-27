@@ -10,6 +10,7 @@ import by.epam.travel_agency.model.entity.TourType;
 import by.epam.travel_agency.model.entity.TransportType;
 import by.epam.travel_agency.model.service.TourService;
 import by.epam.travel_agency.util.DateTimeUtil;
+import by.epam.travel_agency.validator.GeneralValidator;
 import by.epam.travel_agency.validator.TourValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,9 +48,9 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<Tour> findToursByParameters(String restType, String country, String startDate, String minDays, String maxPrice) throws ServiceException {
         List<Tour> result = new ArrayList<>();
-        if (TourValidator.isValidTourType(restType) && TourValidator.isLiterals(country)
-                && TourValidator.isDateFormat(startDate) && TourValidator.isDigitValue(minDays)
-                && TourValidator.isDigitValue(maxPrice)) {
+        if (TourValidator.isValidTourType(restType) && GeneralValidator.isLatinLiterals(country)
+                && GeneralValidator.isDateFormat(startDate) && TourValidator.isDaysValue(minDays)
+                && TourValidator.isDigitParamValue(maxPrice)) {
             TourDao dao = TourDaoImpl.getInstance();
             LocalDate date = LocalDate.parse(startDate.strip());
             long dateSec = DateTimeUtil.countLongFromLocalDate(date);
@@ -68,7 +69,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<Tour> findToursByCountry(String country) throws ServiceException {
         List<Tour> result = new ArrayList<>();
-        if (TourValidator.isLiterals(country)) {
+        if (GeneralValidator.isLatinLiterals(country)) {
             TourDao dao = TourDaoImpl.getInstance();
             try {
                 result = dao.findToursByCountry(country.strip());
@@ -124,11 +125,10 @@ public class TourServiceImpl implements TourService {
                               String date, String days, String price, String quantity, String description,
                               String image) throws ServiceException {
         boolean result = false;
-        TourDao dao = TourDaoImpl.getInstance();
-        if (TourValidator.isValidTourType(type) && TourValidator.isLiterals(country) && TourValidator.isLiterals(hotelName)
+        if (TourValidator.isValidTourType(type) && GeneralValidator.isLatinLiterals(country) && GeneralValidator.isLatinLiterals(hotelName)
                 && TourValidator.isValidHotelType(stars) && TourValidator.isValidTransportType(transport)
-                && TourValidator.isDateFormat(date) && TourValidator.isDigitValue(days) && TourValidator.isDigitValue(price)
-                && TourValidator.isDigitValue(quantity) && TourValidator.isLiterals(description) && TourValidator.isImageName(image)) {
+                && GeneralValidator.isDateFormat(date) && TourValidator.isDaysValue(days) && TourValidator.isDigitParamValue(price)
+                && TourValidator.isDigitParamValue(quantity) && GeneralValidator.isLatinLiterals(description) && TourValidator.isImageName(image)) {
             Tour tour = new Tour();
             tour.setTourType(TourType.valueOf(type.strip().toUpperCase()));
             tour.setCountry(country.strip());
@@ -142,9 +142,25 @@ public class TourServiceImpl implements TourService {
             tour.setAvailableQuantity(Integer.parseInt(quantity.strip()));
             tour.setDescription(description.strip());
             tour.setImagePath(image.strip());
+            TourDao dao = TourDaoImpl.getInstance();
             try {
                 result = dao.createTour(tour);
                 logger.info("Created new tour.");
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean closeTour(String idTour) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(idTour)) {
+            TourDao dao = TourDaoImpl.getInstance();
+            try {
+                result = dao.closeTour(Integer.parseInt(idTour));
+                logger.info("Close tour - id=" + idTour);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

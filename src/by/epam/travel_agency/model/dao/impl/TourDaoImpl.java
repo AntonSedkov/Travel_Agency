@@ -160,6 +160,18 @@ public class TourDaoImpl implements TourDao {
         return result;
     }
 
+    @Override
+    public boolean closeTour(int idTour) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CLOSE_TOUR)) {
+            preparedStatement.setInt(1, idTour);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of closing tour (setting zero quantity).", ex);
+        }
+        return result;
+    }
 
     private Tour createTourFromResultSet(ResultSet resultSet) throws SQLException {
         Tour tour = new Tour();

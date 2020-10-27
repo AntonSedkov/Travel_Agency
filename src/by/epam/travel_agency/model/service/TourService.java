@@ -26,4 +26,5 @@ public interface TourService {
                        String transport, String date, String days, String price, String quantity,
                        String description, String image) throws ServiceException;
 
+    boolean closeTour(String idTour) throws ServiceException;
 }

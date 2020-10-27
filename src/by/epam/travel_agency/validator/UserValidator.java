@@ -12,8 +12,6 @@ public class UserValidator {
     /*Email: first part according to RFC 5322 - then
     @ - letters, digits, underscore, dash at least one - dot - letters, digits, underscore from 2 to 6 characters */
     private static final String EMAIL_REGEXP = "^[\\w-\\.\\+!#$%&’*+\\/=?`{|}~^]+@[\\w-]+\\.[\\w]{2,6}$";
-    private static final String DIGITS_VALUE = "\\d+";
-
 
     private UserValidator() {
     }
@@ -41,14 +39,6 @@ public class UserValidator {
                     result = true;
                 }
             }
-        }
-        return result;
-    }
-
-    public static boolean isValidNumericValue(String id) {
-        boolean result = false;
-        if (id != null && !id.isBlank()) {
-            result = id.strip().matches(DIGITS_VALUE);
         }
         return result;
     }

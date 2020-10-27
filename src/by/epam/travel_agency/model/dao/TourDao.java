@@ -22,4 +22,6 @@ public interface TourDao extends BaseDao<Integer, Tour> {
 
     boolean createTour(Tour tour) throws DaoException;
 
+    boolean closeTour(int idTour) throws DaoException;
+
 }

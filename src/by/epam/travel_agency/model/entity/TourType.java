@@ -14,4 +14,5 @@ public enum TourType {
     public String getValue() {
         return value;
     }
+
 }

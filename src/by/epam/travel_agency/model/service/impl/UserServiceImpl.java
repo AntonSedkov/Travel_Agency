@@ -8,6 +8,7 @@ import by.epam.travel_agency.model.entity.User;
 import by.epam.travel_agency.model.entity.UserType;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.util.EncryptionManager;
+import by.epam.travel_agency.validator.GeneralValidator;
 import by.epam.travel_agency.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -92,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean activateUser(String id) throws ServiceException {
         boolean result = false;
-        if (UserValidator.isValidNumericValue(id)) {
+        if (GeneralValidator.isDigitValue(id)) {
             try {
                 int idInt = Integer.parseInt(id.strip());
                 UserDaoImpl dao = UserDaoImpl.getInstance();
@@ -110,7 +111,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deactivateUser(String id) throws ServiceException {
         boolean result = false;
-        if (UserValidator.isValidNumericValue(id)) {
+        if (GeneralValidator.isDigitValue(id)) {
             try {
                 int idInt = Integer.parseInt(id.strip());
                 UserDaoImpl dao = UserDaoImpl.getInstance();

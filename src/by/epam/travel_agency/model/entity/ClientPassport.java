@@ -1,37 +1,24 @@
 package by.epam.travel_agency.model.entity;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class ClientPassport extends Entity {
     private String surname;
     private String name;
-    private long birthDate;
-    private String country;
-    private GenderType gender;
-    private String identityNumber;
-    private String passportSeries;
-    private int passportNumber;
-    private long issueDate;
-    private long expiryDate;
-    private List<TourDocument> tourDocuments;
+    private LocalDate birthDate;
+    private String passportNumber;
+    private String passportImage;
 
     public ClientPassport() {
-        super();
     }
 
-    public ClientPassport(String surname, String name, long birthDate, String country, GenderType gender, String identityNumber, String passportSeries, int passportNumber, long issueDate, long expiryDate) {
-        super();
+    public ClientPassport(String surname, String name, LocalDate birthDate, String passportNumber, String passportImage) {
         this.surname = surname;
         this.name = name;
         this.birthDate = birthDate;
-        this.country = country;
-        this.gender = gender;
-        this.identityNumber = identityNumber;
-        this.passportSeries = passportSeries;
         this.passportNumber = passportNumber;
-        this.issueDate = issueDate;
-        this.expiryDate = expiryDate;
+        this.passportImage = passportImage;
     }
 
     public String getSurname() {
@@ -50,76 +37,28 @@ public class ClientPassport extends Entity {
         this.name = name;
     }
 
-    public long getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(long birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public GenderType getGender() {
-        return gender;
-    }
-
-    public void setGender(GenderType gender) {
-        this.gender = gender;
-    }
-
-    public String getIdentityNumber() {
-        return identityNumber;
-    }
-
-    public void setIdentityNumber(String identityNumber) {
-        this.identityNumber = identityNumber;
-    }
-
-    public String getPassportSeries() {
-        return passportSeries;
-    }
-
-    public void setPassportSeries(String passportSeries) {
-        this.passportSeries = passportSeries;
-    }
-
-    public int getPassportNumber() {
+    public String getPassportNumber() {
         return passportNumber;
     }
 
-    public void setPassportNumber(int passportNumber) {
+    public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
 
-    public long getIssueDate() {
-        return issueDate;
+    public String getPassportImage() {
+        return passportImage;
     }
 
-    public void setIssueDate(long issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public long getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(long expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public List<TourDocument> getTourDocuments() {
-        return tourDocuments;
-    }
-
-    public boolean add(TourDocument tourDocument) {
-        return tourDocuments.add(tourDocument);
+    public void setPassportImage(String passportImage) {
+        this.passportImage = passportImage;
     }
 
     @Override
@@ -128,19 +67,12 @@ public class ClientPassport extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ClientPassport that = (ClientPassport) o;
-        if (birthDate != that.birthDate) return false;
-        if (passportNumber != that.passportNumber) return false;
-        if (issueDate != that.issueDate) return false;
-        if (expiryDate != that.expiryDate) return false;
         if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (gender != that.gender) return false;
-        if (identityNumber != null ? !identityNumber.equals(that.identityNumber) : that.identityNumber != null)
+        if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;
+        if (passportNumber != null ? !passportNumber.equals(that.passportNumber) : that.passportNumber != null)
             return false;
-        if (passportSeries != null ? !passportSeries.equals(that.passportSeries) : that.passportSeries != null)
-            return false;
-        return tourDocuments != null ? tourDocuments.equals(that.tourDocuments) : that.tourDocuments == null;
+        return passportImage != null ? passportImage.equals(that.passportImage) : that.passportImage == null;
     }
 
     @Override
@@ -148,33 +80,21 @@ public class ClientPassport extends Entity {
         int result = super.hashCode();
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (int) (birthDate ^ (birthDate >>> 32));
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (identityNumber != null ? identityNumber.hashCode() : 0);
-        result = 31 * result + (passportSeries != null ? passportSeries.hashCode() : 0);
-        result = 31 * result + passportNumber;
-        result = 31 * result + (int) (issueDate ^ (issueDate >>> 32));
-        result = 31 * result + (int) (expiryDate ^ (expiryDate >>> 32));
-        result = 31 * result + (tourDocuments != null ? tourDocuments.hashCode() : 0);
+        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
+        result = 31 * result + (passportNumber != null ? passportNumber.hashCode() : 0);
+        result = 31 * result + (passportImage != null ? passportImage.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", ClientPassport.class.getSimpleName() + "[", "]")
+                .add("id='" + getId() + "'")
                 .add("surname='" + surname + "'")
                 .add("name='" + name + "'")
                 .add("birthDate=" + birthDate)
-                .add("country='" + country + "'")
-                .add("gender=" + gender)
-                .add("identityNumber='" + identityNumber + "'")
-                .add("passportSeries='" + passportSeries + "'")
-                .add("passportNumber=" + passportNumber)
-                .add("issueDate=" + issueDate)
-                .add("expiryDate=" + expiryDate)
-                .add("tourDocuments=" + tourDocuments)
+                .add("passportNumber='" + passportNumber + "'")
+                .add("passportImage='" + passportImage + "'")
                 .toString();
     }
-
 }
