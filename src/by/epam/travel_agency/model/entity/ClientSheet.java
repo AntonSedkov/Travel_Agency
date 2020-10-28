@@ -10,9 +10,6 @@ public class ClientSheet extends Entity {
     private static final DiscountType DEFAULT_DISCOUNT = DiscountType.FIRSTLVL;
 
     public ClientSheet() {
-        super();
-        sheetSum = DEFAULT_SUM;
-        discount = DEFAULT_DISCOUNT;
     }
 
     public int getSheetSum() {

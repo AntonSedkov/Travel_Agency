@@ -3,12 +3,12 @@ package by.epam.travel_agency.controller.command.impl;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
-import by.epam.travel_agency.model.entity.Tour;
-import by.epam.travel_agency.model.entity.User;
+import by.epam.travel_agency.model.entity.ClientSheet;
 import by.epam.travel_agency.model.entity.UserType;
-import by.epam.travel_agency.model.service.TourService;
+import by.epam.travel_agency.model.service.SheetService;
 import by.epam.travel_agency.model.service.UserService;
-import by.epam.travel_agency.model.service.impl.TourServiceImpl;
+import by.epam.travel_agency.model.service.impl.GeneralServiceImpl;
+import by.epam.travel_agency.model.service.impl.SheetServiceImpl;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
@@ -17,9 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class LoginCommand implements Command {
     private static Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -28,16 +26,19 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request) {
         UserService service = UserServiceImpl.getInstance();
         String page;
-        String login = request.getParameter(AttributeName.USER);
+        String username = request.getParameter(AttributeName.USER);
         String password = request.getParameter(AttributeName.PASSWORD);
         try {
-            if (service.checkLoginData(login, password)) {
+            if (service.checkLoginData(username, password)) {
                 HttpSession session = request.getSession();
-                session.setAttribute(AttributeName.USER, login);
-                UserType role = service.findRoleByLogin(login);
+                session.setAttribute(AttributeName.USER, username);
+                UserType role = service.findRoleByUsername(username);
                 session.setAttribute(AttributeName.ROLE, role.toString().toLowerCase());
                 switch (role) {
                     case USER -> {
+                        SheetService sheetService = SheetServiceImpl.getInstance();
+                        ClientSheet sheet = sheetService.findSheetByUsername(username);
+                        session.setAttribute(AttributeName.SHEET, sheet);
                         page = PathManager.getProperty(PathManager.PAGE_USER_HOME);  // TODO: 29.09.2020
                         logger.info("Client log in successfully.");
                     }
@@ -52,7 +53,7 @@ public class LoginCommand implements Command {
                     }
                     case ADMIN -> {
                         Map<String, Integer> usersByRoles = service.countUsersQuantityByRole();
-                        int quantityUsers = service.sumListValues(new ArrayList<>(usersByRoles.values()));
+                        int quantityUsers = GeneralServiceImpl.getInstance().sumListValues(new ArrayList<>(usersByRoles.values()));
                         session.setAttribute(AttributeName.USERS_BY_ROLES, usersByRoles);
                         session.setAttribute(AttributeName.QUANTITY_USERS, quantityUsers);
                         page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);

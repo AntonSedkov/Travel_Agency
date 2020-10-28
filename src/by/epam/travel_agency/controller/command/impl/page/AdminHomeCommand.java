@@ -4,6 +4,7 @@ import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.service.UserService;
+import by.epam.travel_agency.model.service.impl.GeneralServiceImpl;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +25,7 @@ public class AdminHomeCommand implements Command {
         String page;
         try {
             Map<String, Integer> usersByRoles = service.countUsersQuantityByRole();
-            int quantityUsers = service.sumListValues(new ArrayList<>(usersByRoles.values()));
+            int quantityUsers = GeneralServiceImpl.getInstance().sumListValues(new ArrayList<>(usersByRoles.values()));
             session.setAttribute(AttributeName.USERS_BY_ROLES, usersByRoles);
             session.setAttribute(AttributeName.QUANTITY_USERS, quantityUsers);
             page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);

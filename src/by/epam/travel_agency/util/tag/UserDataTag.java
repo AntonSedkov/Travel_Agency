@@ -1,6 +1,7 @@
 package by.epam.travel_agency.util.tag;
 
 import by.epam.travel_agency.controller.AttributeName;
+import by.epam.travel_agency.model.entity.ClientSheet;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
@@ -13,8 +14,8 @@ public class UserDataTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         HttpSession session = pageContext.getSession();
-        String defaultSheet = "0";
-        String sheet = (String) session.getAttribute(AttributeName.SHEET_SUM);
+        ClientSheet defaultSheet = new ClientSheet();
+        ClientSheet sheet = (ClientSheet) session.getAttribute(AttributeName.SHEET);
         sheet = (sheet != null) ? sheet : defaultSheet;
         String defaultUsername = "Traveler";
         String username = (String) session.getAttribute(AttributeName.USER);
@@ -26,7 +27,7 @@ public class UserDataTag extends TagSupport {
         role = (role != null) ? role : defaultRole;
         String top = "<li class=\"nav-item nav-text m-2\">";
         String endLiStartLi = "</li><li class=\"text-center m-2\">";
-        StringBuilder buildData = new StringBuilder(sheet).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
+        StringBuilder buildData = new StringBuilder(sheet.getSheetSum()).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
                 .append(email).append(endLiStartLi).append(role).append("</li>");
         try {
             JspWriter out = pageContext.getOut();

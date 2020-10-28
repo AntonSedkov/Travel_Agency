@@ -24,6 +24,16 @@
             <h3 class="text-center"><fmt:message key="text.greetings"/> ${user}<fmt:message key="text.smileend"/></h3>
         </div>
 
+
+        <div class="container">
+           <h4>sheet.id = ${sheet.id}</h4><br/>
+           <h4>sheet.sheetsum = ${sheet.sheetSum}</h4><br/>
+           <h4>sheet.discount = ${sheet.discount}</h4><br/>
+           <h4>user = ${user}</h4><br/>
+           <h4>role = ${role}</h4><br/>
+           <h4>email = ${email}</h4><br/>
+        </div>
+
         <h3 class="font-weight-bold text-center" style="color: #BA4E27">
             See Tours</h3>
         <div class="contaner">

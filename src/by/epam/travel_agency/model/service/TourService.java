@@ -20,11 +20,10 @@ public interface TourService {
 
     Set<String> findAvailableCountries() throws ServiceException;
 
-    Set<String> formTourTypes();
-
     boolean createTour(String type, String country, String hotelName, String stars,
                        String transport, String date, String days, String price, String quantity,
                        String description, String image) throws ServiceException;
 
     boolean closeTour(String idTour) throws ServiceException;
+
 }

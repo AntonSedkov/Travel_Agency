@@ -36,7 +36,7 @@ public class AttributeName {
     public static final String COUNTRIES = "countries";
     public static final String SEARCH_TOURS = "searchtours";
 
-    public static final String SHEET_SUM = "sheetsum";
+    public static final String SHEET = "sheet";
 
     public static final String TOUR_PURPOSE = "tourpurpose";
     public static final String TOUR_TYPE = "tourtype";

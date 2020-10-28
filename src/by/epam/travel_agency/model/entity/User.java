@@ -10,11 +10,11 @@ public class User extends Entity {
     private UserType role;
     private boolean status;
     private boolean approvedEmail;
-    private List<ClientPassport> clientPassports;
+    private List<Integer> clientPassports;
     private String surname;
     private String name;
-    private ClientSheet sheet;
-    private List<ClientOrder> orders;
+    private int idSheet;
+    private List<Integer> orders;
 
     private static final Boolean DEFAULT_STATUS = true;
 
@@ -77,11 +77,11 @@ public class User extends Entity {
         this.approvedEmail = approvedEmail;
     }
 
-    public List<ClientPassport> getClientPassports() {
+    public List<Integer> getClientPassports() {
         return clientPassports;
     }
 
-    public void setClientPassports(List<ClientPassport> clientPassports) {
+    public void setClientPassports(List<Integer> clientPassports) {
         this.clientPassports = clientPassports;
     }
 
@@ -101,19 +101,19 @@ public class User extends Entity {
         this.name = name;
     }
 
-    public ClientSheet getSheet() {
-        return sheet;
+    public int getIdSheet() {
+        return idSheet;
     }
 
-    public void setSheet(ClientSheet sheet) {
-        this.sheet = sheet;
+    public void setIdSheet(int idSheet) {
+        this.idSheet = idSheet;
     }
 
-    public List<ClientOrder> getOrders() {
+    public List<Integer> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<ClientOrder> orders) {
+    public void setOrders(List<Integer> orders) {
         this.orders = orders;
     }
 
@@ -122,11 +122,10 @@ public class User extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         User user = (User) o;
-
         if (status != user.status) return false;
         if (approvedEmail != user.approvedEmail) return false;
+        if (idSheet != user.idSheet) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (role != user.role) return false;
@@ -134,7 +133,6 @@ public class User extends Entity {
             return false;
         if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (sheet != null ? !sheet.equals(user.sheet) : user.sheet != null) return false;
         return orders != null ? orders.equals(user.orders) : user.orders == null;
     }
 
@@ -149,7 +147,7 @@ public class User extends Entity {
         result = 31 * result + (clientPassports != null ? clientPassports.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (sheet != null ? sheet.hashCode() : 0);
+        result = 31 * result + idSheet;
         result = 31 * result + (orders != null ? orders.hashCode() : 0);
         return result;
     }
@@ -165,7 +163,7 @@ public class User extends Entity {
                 .add("clientPassports=" + clientPassports)
                 .add("surname='" + surname + "'")
                 .add("name='" + name + "'")
-                .add("sheet=" + sheet)
+                .add("idSheet=" + idSheet)
                 .add("orders=" + orders)
                 .toString();
     }

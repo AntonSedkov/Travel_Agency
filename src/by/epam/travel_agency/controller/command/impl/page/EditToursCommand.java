@@ -5,6 +5,7 @@ import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.entity.Tour;
 import by.epam.travel_agency.model.service.TourService;
+import by.epam.travel_agency.model.service.impl.GeneralServiceImpl;
 import by.epam.travel_agency.model.service.impl.TourServiceImpl;
 import by.epam.travel_agency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +25,7 @@ public class EditToursCommand implements Command {
         HttpSession session = request.getSession();
         String page;
         try {
-            Set<String> tourTypes = tourService.formTourTypes();
+            Set<String> tourTypes = GeneralServiceImpl.getInstance().formTourTypes();
             session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
             List<Tour> tours = tourService.findAllTours();
             session.setAttribute(AttributeName.ALL_TOURS, tours);

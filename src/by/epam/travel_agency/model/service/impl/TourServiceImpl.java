@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -107,17 +106,6 @@ public class TourServiceImpl implements TourService {
             throw new ServiceException(e);
         }
         return result;
-    }
-
-    @Override
-    public Set<String> formTourTypes() {
-        Set<String> restTypes = new HashSet<>();
-        for (TourType type : TourType.values()) {
-            StringBuilder sb = new StringBuilder(type.toString().toLowerCase());
-            sb.replace(0, 1, sb.substring(0, 1).toUpperCase());
-            restTypes.add(sb.toString());
-        }
-        return restTypes;
     }
 
     @Override

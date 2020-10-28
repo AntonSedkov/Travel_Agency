@@ -56,23 +56,20 @@ public class UserServiceImpl implements UserService {
         UserDao dao = UserDaoImpl.getInstance();
         if (UserValidator.isValidLogin(enterLogin) && UserValidator.isValidPassword(enterPass)
                 && UserValidator.isValidEmail(enterEmail) && UserValidator.isValidRole(enterRole)) {
-            result = checkUniqueLogin(enterLogin.strip());
-            if (result) {
-                User newUser = new User(enterLogin.strip(), enterEmail.strip(), enterRole.strip());
-                String encryptedPassword = EncryptionManager.getSaltedHash(enterPass.strip());
-                try {
-                    result = dao.createNewUser(newUser, encryptedPassword);
-                    logger.info("Created new user - client");
-                } catch (DaoException e) {
-                    throw new ServiceException(e);
-                }
+            User newUser = new User(enterLogin.strip(), enterEmail.strip(), enterRole.strip());
+            String encryptedPassword = EncryptionManager.getSaltedHash(enterPass.strip());
+            try {
+                result = dao.createNewUser(newUser, encryptedPassword);
+                logger.info("Created new user - client");
+            } catch (DaoException e) {
+                throw new ServiceException(e);
             }
         }
         return result;
     }
 
     @Override
-    public UserType findRoleByLogin(String enterLogin) throws ServiceException {
+    public UserType findRoleByUsername(String enterLogin) throws ServiceException {
         UserType role = UserType.USER;
         if (UserValidator.isValidLogin(enterLogin)) {
             try {
@@ -158,14 +155,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(String login, String password) throws ServiceException {
+    public boolean changePassword(String login, String previousPassword, String newPassword) throws ServiceException {
         boolean result = false;
-        if (UserValidator.isValidLogin(login) && UserValidator.isValidPassword(password)) {
+        if (UserValidator.isValidLogin(login) && UserValidator.isValidPassword(previousPassword)
+                && UserValidator.isValidPassword(newPassword)) {
             UserDaoImpl dao = UserDaoImpl.getInstance();
-            String encryptedPassword = EncryptionManager.getSaltedHash(password.strip());
             try {
-                result = dao.changePassword(login.strip(), encryptedPassword);
-                logger.info("Password for login: " + login + " is " + result);
+                String encryptedDBPass = dao.findPassByLogin(login.strip());
+                if (encryptedDBPass == null || encryptedDBPass.isBlank()) {
+                    throw new ServiceException("Password from database is Empty for login " + login);
+                }
+                if (EncryptionManager.checkPassword(previousPassword.strip(), encryptedDBPass)) {
+                    String encryptedNewPass = EncryptionManager.getSaltedHash(newPassword.strip());
+                    result = dao.changePassword(login.strip(), encryptedNewPass);
+                    logger.info("Password for login: " + login + " is changed: " + result);
+                }
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
@@ -180,12 +184,46 @@ public class UserServiceImpl implements UserService {
             UserDaoImpl dao = UserDaoImpl.getInstance();
             try {
                 result = dao.changeEmail(login.strip(), email.strip());
-                logger.info("Email for login: " + login + " is " + result);
+                logger.info("Email for login: " + login + " is changed: " + result);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean changeUsername(String previousLogin, String newLogin) throws ServiceException {
+        boolean result = false;
+        if (UserValidator.isValidLogin(previousLogin) && UserValidator.isValidLogin(newLogin)) {
+            UserDaoImpl dao = UserDaoImpl.getInstance();
+            try {
+                if (dao.isUniqueLogin(newLogin)) {
+                    result = dao.changeUsername(previousLogin, newLogin);
+                    logger.info("New login: " + newLogin + " is changed: " + result);
+                }
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int findIdUserByLogin(String login) throws ServiceException {
+        int idUser = 0;
+        if (UserValidator.isValidLogin(login)) {
+            try {
+                idUser = UserDaoImpl.getInstance().findIdUserByLogin(login.strip());
+                logger.info("User type has been defined successfully");
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        if (idUser <= 0) {
+            throw new ServiceException("Id user from database is empty or wrong for login " + login);
+        }
+        return idUser;
     }
 
     @Override
@@ -202,26 +240,6 @@ public class UserServiceImpl implements UserService {
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
-        }
-        return result;
-    }
-
-    @Override
-    public int sumListValues(List<Integer> values) {
-        int sum = values.stream().mapToInt(Integer::intValue).sum();
-        return sum;
-    }
-
-    private boolean checkUniqueLogin(String login) throws ServiceException {
-        boolean result;
-        if (!UserValidator.isValidLogin(login.strip())) {
-            throw new ServiceException("Incorrect login format");
-        }
-        try {
-            result = UserDaoImpl.getInstance().isUniqueLogin(login.strip());
-            logger.info("Checked login for unique value successfully");
-        } catch (DaoException e) {
-            throw new ServiceException(e);
         }
         return result;
     }

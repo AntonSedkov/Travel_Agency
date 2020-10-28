@@ -3,8 +3,11 @@ package by.epam.travel_agency.controller.command.impl;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
+import by.epam.travel_agency.model.entity.ClientSheet;
 import by.epam.travel_agency.model.entity.UserType;
+import by.epam.travel_agency.model.service.SheetService;
 import by.epam.travel_agency.model.service.UserService;
+import by.epam.travel_agency.model.service.impl.SheetServiceImpl;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
 import by.epam.travel_agency.util.mail.MailTextCreator;
@@ -23,25 +26,27 @@ public class RegisterCommand implements Command {
     public String execute(HttpServletRequest request) {
         UserService service = UserServiceImpl.getInstance();
         String page;
-        String user = request.getParameter(AttributeName.USER);
+        String username = request.getParameter(AttributeName.USER);
         String password = request.getParameter(AttributeName.PASSWORD);
         String email = request.getParameter(AttributeName.EMAIL);
         String role = request.getParameter(AttributeName.ROLE);
         role = (role != null) ? role : DEFAULT_ROLE;
         try {
-            if (service.createNewUser(user, password, email, role)) {
+            if (service.createNewUser(username, password, email, role)) {
                 if (role.equals(DEFAULT_ROLE)) {
                     HttpSession session = request.getSession();
-                    session.setAttribute(AttributeName.USER, user);
-                    session.setAttribute(AttributeName.EMAIL, email);
+                    session.setAttribute(AttributeName.USER, username);
                     session.setAttribute(AttributeName.ROLE, role);
+                    SheetService sheetService = SheetServiceImpl.getInstance();
+                    ClientSheet sheet = sheetService.findSheetByUsername(username);
+                    session.setAttribute(AttributeName.SHEET, sheet);
                     page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
-                    logger.info("Register New user + " + user);
+                    logger.info("Register New username + " + username);
                 } else {
                     page = (String) request.getSession().getAttribute(AttributeName.CURRENT_PAGE);
                 }
                 String mailSubject = MailTextCreator.createMailSubject();
-                String mailText = MailTextCreator.createMailText(user, password);
+                String mailText = MailTextCreator.createMailText(username, password);
                 SendMailManager sender = new SendMailManager(email, mailSubject, mailText);
                 sender.send();
                 request.setAttribute(AttributeName.REGISTER_SUCCESS, true);

@@ -13,8 +13,7 @@ public class StatementSql {
     public static final String ACTIVATE_USER = "UPDATE users SET status = true WHERE id_user = (?)";
     public static final String ACTIVATE_USER_EMAIL = "UPDATE users SET email_approved = true WHERE login = (?)";
     public static final String FIND_ALL_USERS_WITHOUT_CURRENT = "SELECT id_user, login, email, role, status, email_approved FROM users WHERE login != (?)";
-    public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE login = (?)";
-    public static final String CHANGE_EMAIL = "UPDATE users SET email = (?), email_approved = false WHERE login = (?)";
+
     public static final String FIND_ALL_TOURS_ACTIVE = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path from tours where quantity_tours >= 1";
     public static final String FIND_TOUR_BY_PARAMETERS = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
@@ -36,27 +35,38 @@ public class StatementSql {
 
 
 
+    public static final String CREATE_SHEET_WITH_ID_USER = "INSERT INTO sheet(id_user_fk) VALUES (?)";
+    public static final String FIND_SHEET_BY_ID_USER = "SELECT id_sheet, sheet_sum, customer_discount FROM sheet WHERE id_user_fk = (?)";
+    public static final String CHANGE_SHEET_SUM = "UPDATE customers_sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
+
+    public static final String CHANGE_SHEET_DISCOUNT = "UPDATE customers_sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
+
+
+    public static final String FIND_ID_USER_BY_LOGIN = "SELECT id_user FROM users WHERE login = (?)";
+    public static final String CHANGE_LOGIN = "UPDATE users SET login = (?) WHERE login = (?)";
+    public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE login = (?)";
+    public static final String CHANGE_EMAIL = "UPDATE users SET email = (?), email_approved = false WHERE login = (?)";
+
+
+
+    public static final String CREATE_STAFF_PERSONAL_DATA = "INSERT INTO staff (id_user_fk, surname, name) VALUES (?,?,?)";
+    public static final String CREATE_HOT_TOURS = "INSERT INTO tours_hot (id_tour_fk, discount) VALUES (?,?)";
+
     // Passport and Orders write)))
 
 
-    public static final String CHANGE_LOGIN = "UPDATE users SET login = (?) WHERE id_user = (?)";
 
 
-    public static final String CREATE_SHEET = "INSERT INTO customers_sheet(id_user_fk) VALUES (?)";
-    public static final String CHANGE_SHEET_SUM = "UPDATE customers_sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
-    public static final String CHANGE_SHEET_DISCOUNT = "UPDATE customers_sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
-    public static final String FIND_USER_SHEET = "SELECT id_customer_sheet, sheet_sum, customer_discount WHERE id_user_fk = (?)";
+   ////TOURS
 
-
-    public static final String SELECT_AVAILABLE_PURPOSES = "SELECT DISTINCT tour_purpose FROM tours";
-
-    public static final String SELECT_AVAILABLE_HOTELS = "SELECT DISTINCT hotel_name, hotel_stars FROM tours";
-    public static final String SELECT_AVAILABLE_TRANSPORT = "SELECT DISTINCT transport FROM tours";
     public static final String SELECT_MIN_PRICE = "SELECT MIN(price) FROM tours";
     public static final String SELECT_MAX_PRICE = "SELECT MAX(price) FROM tours";
     public static final String SELECT_MIN_DAYS = "SELECT MIN(quantity_of_days) FROM tours";
     public static final String SELECT_MAX_DAYS = "SELECT MAX(quantity_of_days) FROM tours";
 
+    public static final String UPDATE_QUANTITY = "UPDATE tours SET quantity_tours = (?) WHERE id_tour = (?)";
+    public static final String FIND_TOUR_BY_ID = "SELECT tour_purpose, country, hotel_name, hotel_stars, transport, date_start," +
+            "quantity_of_days, price, quantity_tours, description, image_path from tours where id_tour = (?)";
 
     public static final String FIND_TOUR_BY_HOTEL_NAME = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, quantity_tours, description, image_path from tours where hotel_name = (?)";
@@ -72,22 +82,5 @@ public class StatementSql {
             "price, quantity_tours, description, image_path from tours where quantity_of_days >= (?)";
     public static final String FIND_TOUR_BY_QUANTITY_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
             "quantity_of_days, price, description, image_path from tours where quantity_tours >= (?)";
-
-
-
-
-
-    public static final String UPDATE_QUANTITY = "UPDATE tours SET quantity_tours = (?) WHERE id_tour = (?)";
-    public static final String FIND_TOUR_BY_ID = "SELECT tour_purpose, country, hotel_name, hotel_stars, transport, date_start," +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where id_tour = (?)";
-
-
-
-    public static final String CREATE_HOT_TOURS = "INSERT INTO tours_hot (id_tour_fk, discount) VALUES (?,?)";
-
-    public static final String CREATE_MODERATOR = "INSERT INTO users (login, password, email, role, status) " +
-            "VALUES (?,?,?,?,?)";
-    public static final String CREATE_STAFF_DATA = "INSERT INTO staff (id_user_fk, surname, name) VALUES (?,?,?)";
-
 
 }

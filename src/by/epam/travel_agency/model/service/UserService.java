@@ -13,7 +13,7 @@ public interface UserService {
 
     boolean createNewUser(String enterLogin, String enterPass, String enterEmail, String enterRole) throws ServiceException;
 
-    UserType findRoleByLogin(String enterLogin) throws ServiceException;
+    UserType findRoleByUsername(String enterLogin) throws ServiceException;
 
     boolean activateUser(String id) throws ServiceException;
 
@@ -23,12 +23,14 @@ public interface UserService {
 
     List<User> findAllUsersWithoutCurrent(String login) throws ServiceException;
 
-    boolean changePassword(String login, String password) throws ServiceException;
+    Map<String, Integer> countUsersQuantityByRole() throws ServiceException;
+
+    boolean changePassword(String login, String previousPassword, String newPassword) throws ServiceException;
 
     boolean changeEmail(String login, String email) throws ServiceException;
 
-    Map<String, Integer> countUsersQuantityByRole() throws ServiceException;
+    boolean changeUsername(String previousLogin, String newLogin) throws ServiceException;
 
-    int sumListValues(List<Integer> values);
+    int findIdUserByLogin(String login) throws ServiceException;
 
 }

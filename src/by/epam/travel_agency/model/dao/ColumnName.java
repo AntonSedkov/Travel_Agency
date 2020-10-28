@@ -39,7 +39,7 @@ public class ColumnName {
     public static final String QUANTITY ="quantity";
     public static final String TOUR_PAID ="tour_paid";
 
-    public static final String ID_CUSTOMER_SHEET = "id_customer_sheet";
+    public static final String ID_SHEET = "id_sheet";
     public static final String SHEET_SUM = "sheet_sum";
     public static final String CUSTOMER_DISCOUNT = "customer_discount";
 

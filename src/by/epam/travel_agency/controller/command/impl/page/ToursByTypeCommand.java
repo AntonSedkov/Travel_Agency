@@ -5,6 +5,7 @@ import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.entity.Tour;
 import by.epam.travel_agency.model.service.TourService;
+import by.epam.travel_agency.model.service.impl.GeneralServiceImpl;
 import by.epam.travel_agency.model.service.impl.TourServiceImpl;
 import by.epam.travel_agency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class ToursByTypeCommand implements Command {
         try {
             Set<String> countries = service.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
-            Set<String> tourTypes = service.formTourTypes();
+            Set<String> tourTypes = GeneralServiceImpl.getInstance().formTourTypes();
             session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
             Map<String, List<Tour>> tours = new HashMap<>();
             for (String type : tourTypes) {

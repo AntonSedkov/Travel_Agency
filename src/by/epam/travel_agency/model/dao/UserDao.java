@@ -23,11 +23,16 @@ public interface UserDao extends BaseDao<Integer, User> {
 
     boolean activateUserEmail(String login) throws DaoException;
 
+    List<User> findAllUsersWithoutCurrent(String login) throws DaoException;
+
+    int countUsersByRole(String role) throws DaoException;
+
     boolean changePassword(String login, String password) throws DaoException;
 
     boolean changeEmail(String login, String email) throws DaoException;
 
-    List<User> findAllUsersWithoutCurrent(String login) throws DaoException;
+    boolean changeUsername(String previousLogin, String newLogin) throws DaoException;
 
-    int countUsersByRole(String role) throws DaoException;
+    int findIdUserByLogin(String login) throws DaoException;
+
 }

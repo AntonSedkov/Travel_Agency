@@ -7,15 +7,15 @@ import by.epam.travel_agency.model.dao.StatementSql;
 import by.epam.travel_agency.model.dao.UserDao;
 import by.epam.travel_agency.model.entity.User;
 import by.epam.travel_agency.model.entity.UserType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+    private static Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private static final UserDaoImpl INSTANCE = new UserDaoImpl();
     private static ConnectionPool pool = ConnectionPool.INSTANCE;
 
@@ -92,16 +92,42 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean createNewUser(User user, String encryptedPassword) throws DaoException {
-        boolean result;
-        try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CREATE_USER)) {
-            preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, encryptedPassword);
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getRole().toString().toLowerCase());
-            result = preparedStatement.executeUpdate() > 0;
+        boolean result = false;
+        try (Connection connection = pool.getConnection()) {
+            try (PreparedStatement psCheckUnique = connection.prepareStatement(StatementSql.CHECK_LOGIN_UNIQUE);
+                 PreparedStatement psCreateUser = connection.prepareStatement(StatementSql.CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement psCreateSheet = connection.prepareStatement(StatementSql.CREATE_SHEET_WITH_ID_USER)) {
+                connection.setAutoCommit(false);
+                psCheckUnique.setString(1, user.getLogin());
+                ResultSet rsCheckUnique = psCheckUnique.executeQuery();
+                if (rsCheckUnique.next()) {
+                    result = rsCheckUnique.getInt(1) == 0;
+                    logger.info("Username unique is " + result);
+                }
+                if (result) {
+                    psCreateUser.setString(1, user.getLogin());
+                    psCreateUser.setString(2, encryptedPassword);
+                    psCreateUser.setString(3, user.getEmail());
+                    psCreateUser.setString(4, user.getRole().toString().toLowerCase());
+                    result = psCreateUser.executeUpdate() > 0;
+                    logger.info("User creation is " + result);
+                    ResultSet rsIdUser = psCreateUser.getGeneratedKeys();
+                    if (user.getRole().equals(UserType.USER) && result && rsIdUser.next()) {
+                        int idUser = rsIdUser.getInt(1);
+                        psCreateSheet.setInt(1, idUser);
+                        result = psCreateSheet.executeUpdate() > 0;
+                        logger.info("User sheet creation is " + result);
+                        connection.commit();
+                    }
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Exception of creating new User in database", e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            throw new DaoException("Exception of creating new User in database", e);
+            throw new DaoException(e);
         }
         return result;
     }
@@ -210,6 +236,36 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Exception of changing email in database", e);
         }
         return result;
+    }
+
+    @Override
+    public boolean changeUsername(String previousLogin, String newLogin) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.CHANGE_LOGIN)) {
+            preparedStatement.setString(1, newLogin);
+            preparedStatement.setString(2, previousLogin);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Exception of changing login in database", e);
+        }
+        return result;
+    }
+
+    @Override
+    public int findIdUserByLogin(String login) throws DaoException {
+        int resultId = 0;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_ID_USER_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                resultId = resultSet.getInt(ColumnName.ID_USER);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Exception of finding id user by login. ", e);
+        }
+        return resultId;
     }
 
 }
