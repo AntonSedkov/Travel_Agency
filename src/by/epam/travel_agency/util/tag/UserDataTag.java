@@ -27,7 +27,7 @@ public class UserDataTag extends TagSupport {
         role = (role != null) ? role : defaultRole;
         String top = "<li class=\"nav-item nav-text m-2\">";
         String endLiStartLi = "</li><li class=\"text-center m-2\">";
-        StringBuilder buildData = new StringBuilder(sheet.getSheetSum()).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
+        StringBuilder buildData = new StringBuilder().append(sheet.getSheetSum()).append("&yen;").append(endLiStartLi).append(username).append(endLiStartLi)
                 .append(email).append(endLiStartLi).append(role).append("</li>");
         try {
             JspWriter out = pageContext.getOut();

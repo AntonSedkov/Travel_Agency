@@ -185,18 +185,14 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="controller?command=sheet" id="navbarDropdown3"
+                    <a class="nav-link dropdown-toggle" href="controller?command=change_page&targetpage=path.user.sheet" id="navbarDropdown3"
                        role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
                         <fmt:message key="label.sheet"/>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                        <a class="dropdown-item" href="controller?command=sheet"><fmt:message
+                        <a class="dropdown-item" href="controller?command=change_page&targetpage=path.user.sheet"><fmt:message
                                 key="label.sheet"/></a>
-                        <a class="dropdown-item" href="controller?command=pay_tour"><fmt:message
-                                key="label.payfortours"/></a>
-                        <a class="dropdown-item" href="controller?command=add_sheet_sum"><fmt:message
-                                key="label.addsum"/></a>
                         <a class="dropdown-item" href="controller?command=see_operations"><fmt:message
                                 key="label.seeoperations"/></a>
                     </div>

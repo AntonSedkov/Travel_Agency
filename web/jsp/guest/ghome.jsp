@@ -40,13 +40,6 @@
 
     </div>
 
-    <%--TEST FUNCTIONS BUTTON--%>
-    <div class="col text-center">
-        <button type="submit" class="btn btn-primary m-2">
-            <a href="controller?command=change_page&targetpage=path.test" style="color: white">Test Page</a></button>
-    </div>
-    <%----%>
-
     <%@include file="../hottours.jsp" %>
 
     <%@include file="../gallery.jsp" %>

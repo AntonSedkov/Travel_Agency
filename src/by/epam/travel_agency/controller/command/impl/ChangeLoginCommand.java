@@ -3,7 +3,6 @@ package by.epam.travel_agency.controller.command.impl;
 import by.epam.travel_agency.controller.AttributeName;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.exception.ServiceException;
-import by.epam.travel_agency.model.entity.User;
 import by.epam.travel_agency.model.service.UserService;
 import by.epam.travel_agency.model.service.impl.UserServiceImpl;
 import by.epam.travel_agency.util.PathManager;
@@ -12,26 +11,25 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
-public class DeactivateUserCommand implements Command {
-    private static Logger logger = LogManager.getLogger(DeactivateUserCommand.class);
+public class ChangeLoginCommand implements Command {
+    private static Logger logger = LogManager.getLogger(ChangeLoginCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
         UserService service = UserServiceImpl.getInstance();
         HttpSession session = request.getSession();
         String page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
-        String idUserModerate = request.getParameter(AttributeName.ID_USER_MODERATE);
+        String currentLogin = (String) session.getAttribute(AttributeName.USER);
+        String newLogin = request.getParameter(AttributeName.NEW_USERNAME);
         try {
-            if (service.deactivateUser(idUserModerate)) {
-                String currentUser = (String) session.getAttribute(AttributeName.USER);
-                List<User> users = service.findAllUsersWithoutCurrent(currentUser);
-                session.setAttribute(AttributeName.USERS, users);
-                logger.info("Deactivate user: " + idUserModerate);
+            if (service.changeUsername(currentLogin, newLogin)) {
+                session.setAttribute(AttributeName.USER, newLogin);
+                request.setAttribute(AttributeName.CHANGE_LOGIN, true);
+                logger.info("Change login from " + currentLogin + " to " + newLogin);
             } else {
-                request.setAttribute(AttributeName.DEACTIVATE_USER_ERROR, true);
-                logger.warn("User" + idUserModerate + " deactivation is failed");
+                request.setAttribute(AttributeName.CHANGE_LOGIN, false);
+                logger.warn("Changing login is failed for " + currentLogin);
             }
         } catch (ServiceException e) {
             logger.error(e);

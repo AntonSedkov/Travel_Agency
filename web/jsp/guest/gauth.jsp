@@ -39,9 +39,6 @@
                         <input type="text" name="user" class="form-control" id="exampleInputAuth"
                                placeholder="${username}" required
                                pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                        <small id="loginHelp" class="form-text text-muted">
-                            ${loginhelp}
-                        </small>
                     </div>
                 </div>
             </div>
@@ -56,9 +53,6 @@
                                class="form-control" id="exampleInputPass"
                                placeholder="${pass}" required
                                pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                        <small id="passHelp" class="form-text text-muted">
-                            ${passhelp}
-                        </small>
                     </div>
                 </div>
             </div>

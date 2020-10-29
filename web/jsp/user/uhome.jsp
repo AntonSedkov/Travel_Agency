@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:setLocale value="${language}"/>
@@ -10,63 +9,170 @@
 
 <html lang="${language}">
 
-    <head>
-        <title>USER Page</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    </head>
+<head>
+    <title><fmt:message key="label.userhome"/></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-    <body style="background: lightsalmon">
+<body style="background: lightsteelblue">
 
-        <%@include file="../header.jsp" %>
+    <%@include file="../header.jsp" %>
 
-        <div class="container">
-            <h3 class="text-center"><fmt:message key="text.greetings"/> ${user}<fmt:message key="text.smileend"/></h3>
-        </div>
+    <%@include file="../search.jsp" %>
 
+    <%@include file="../greeting.jsp" %>
 
-        <div class="container">
-           <h4>sheet.id = ${sheet.id}</h4><br/>
-           <h4>sheet.sheetsum = ${sheet.sheetSum}</h4><br/>
-           <h4>sheet.discount = ${sheet.discount}</h4><br/>
-           <h4>user = ${user}</h4><br/>
-           <h4>role = ${role}</h4><br/>
-           <h4>email = ${email}</h4><br/>
-        </div>
+    <section class="curOrds">
+        <h3 class="font-weight-bold text-center" style="color: #BA4E27">??? Your actual Orders with STATE: and Button
+            Action(next state. Action) ???</h3>
+    </section>
 
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
-            See Tours</h3>
-        <div class="contaner">
-            Your tours
-        </div>
-
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
-            Choose Tours</h3>
-        <div class="contaner">
-            All tours - paging
-        </div>
-
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
-            See Travel Docs</h3>
-        <div class="contaner">
-            Your Travel Docs
-        </div>
-
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">
-            Add/Edit Passports</h3>
-        <div class="contaner">
-            Your passports
-        </div>
-
-        <div class="container">
-            <button type="submit" class="btn btn-primary float-right">
-                <a href="controller?command=logout" style="color: white">
-                    <fmt:message key="button.logout"/></a>
+    <section class="buttons">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="controller?command=all_passports" style="color: white"><fmt:message key="label.allpassports"/></a>
+            </button>
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="controller?command=all_orders" style="color: white"><fmt:message key="label.allorders"/></a>
+            </button>
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="controller?command=change_page&targetpage=path.user.sheet" style="color: white"><fmt:message key="label.sheet"/></a>
+            </button>
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="controller?command=all_tours" style="color: white"><fmt:message key="label.allcurrenttours"/></a>
+            </button>
+            <button type="submit" class="btn btn-primary m-2">
+                <a href="#" style="color: white"><fmt:message key="label.tours"/> ??? Travel Docs ???</a>
             </button>
         </div>
+    </section>
 
-        <%@include file="../footer.jsp" %>
+    <section class="change_info">
+        <div class="container p-5">
+            <div class="card-deck">
 
-    </body>
+                <form name="changePassForm" method="post" action="controller">
+                    <input type="hidden" name="command" value="change_password"/>
+
+                    <div class="card text-center" style="width: 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <fmt:message key="label.changepass"/>
+                            </h4>
+
+                            <p class="card-text">
+                                <input type="password" name="currentpassword" class="form-control"
+                                       placeholder=" <fmt:message key="label.currentpass"/>" required
+                                       pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                            </p>
+
+                            <p class="card-text">
+                                <input type="password" name="newpassword" class="form-control"
+                                       placeholder="<fmt:message key="label.newpass"/>" required
+                                       pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                <small class="form-text text-muted">
+                                    "<fmt:message key="authpage.passhelp"/>"
+                                </small>
+                            </p>
+
+                            <c:if test="${changepassword}">
+                                <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                    <fmt:message key="statement.changepasswordsuccess"/>
+                                </p>
+                            </c:if>
+                            <c:if test="${not empty changepassword and not changepassword}">
+                                <p class="card-text" style="color: darkred; font-weight: bold">
+                                    <fmt:message key="statement.changepasswordfail"/>
+                                </p>
+                            </c:if>
+
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.change"/></button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form name="changeLoginForm" method="post" action="controller">
+                    <input type="hidden" name="command" value="change_login"/>
+
+                    <div class="card text-center" style="width: 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <fmt:message key="label.changelogin"/>
+                            </h4>
+
+                            <p class="card-text">
+                                <input type="text" name="newusername" class="form-control"
+                                       placeholder="<fmt:message key="label.newusername"/>" required
+                                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                <small class="form-text text-muted">
+                                    <fmt:message key="authpage.loginhelp"/>
+                                </small>
+                            </p>
+
+                            <c:if test="${changelogin}">
+                                <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                    <fmt:message key="statement.changeloginsuccess"/>
+                                </p>
+                            </c:if>
+                            <c:if test="${not empty changelogin and not changelogin}">
+                                <p class="card-text" style="color: darkred; font-weight: bold">
+                                    <fmt:message key="statement.changeloginfail"/>
+                                </p>
+                            </c:if>
+
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.change"/></button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form name="changeEmailForm" method="post" action="controller">
+                    <input type="hidden" name="command" value="change_email"/>
+
+                    <div class="card text-center" style="width: 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <fmt:message key="label.changeemail"/>
+                            </h4>
+
+                            <p class="card-text">
+                                <input type="email" name="newemail" class="form-control"
+                                       placeholder="<fmt:message key="label.newemail"/>" required
+                                       pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
+                                <small class="form-text text-muted">
+                                    <fmt:message key="regpage.emailhelp"/>
+                                </small>
+                            </p>
+
+                            <c:if test="${changeemail}">
+                                <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                    <fmt:message key="statement.changeemailsuccess"/>
+                                </p>
+                            </c:if>
+                            <c:if test="${not empty changeemail and not changeemail}">
+                                <p class="card-text" style="color: darkred; font-weight: bold">
+                                    <fmt:message key="statement.changeemailfail"/>
+                                </p>
+                            </c:if>
+
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.change"/></button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <%@include file="../hottours.jsp" %>
+
+    <%@include file="../floatlogout.jsp" %>
+
+    <%@include file="../footer.jsp" %>
+
+</body>
 
 </html>

@@ -29,6 +29,17 @@ public class AttributeName {
     public static final String EMAIL = "email";
     public static final String ROLE = "role";
     public static final String USERS = "users";
+    public static final String ID_USER_MODERATE = "idusermoderate";
+
+    public static final String NEW_USERNAME = "newusername";
+    public static final String CHANGE_LOGIN = "changelogin";
+    public static final String CURRENT_PASSWORD = "currentpassword";
+    public static final String NEW_PASSWORD = "newpassword";
+    public static final String CHANGE_PASSWORD = "changepassword";
+    public static final String NEW_EMAIL = "newemail";
+    public static final String CHANGE_EMAIL = "changeemail";
+
+
 
     public static final String HOT_TOURS = "hottours";
     public static final String TOUR_TYPES = "tourtypes";

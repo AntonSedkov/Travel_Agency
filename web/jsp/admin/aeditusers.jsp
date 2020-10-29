@@ -50,7 +50,7 @@
                     <div class="col text-left"><c:out value="${user.approvedEmail}"/></div>
                     <div class="col text-center">
                         <form name="activateUser" method="post" action="controller">
-                            <input type="hidden" name="iduser" value="${user.id}"/>
+                            <input type="hidden" name="idusermoderate" value="${user.id}"/>
                             <input type="hidden" name="command" value="activate_user"/>
                             <button type="submit" class="btn btn-primary float-center">
                                 <fmt:message key="admin.activate"/></button>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col text-center">
                         <form name="deactivateUser" method="post" action="controller">
-                            <input type="hidden" name="iduser" value="${user.id}"/>
+                            <input type="hidden" name="idusermoderate" value="${user.id}"/>
                             <input type="hidden" name="command" value="deactivate_user"/>
                             <button type="submit" class="btn btn-primary float-center">
                                 <fmt:message key="admin.deactivate"/></button>

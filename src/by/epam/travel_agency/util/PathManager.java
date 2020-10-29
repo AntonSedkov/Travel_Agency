@@ -27,8 +27,10 @@ public class PathManager {
 
 
     public static final String PAGE_USER_HOME = "path.user.home";
-    public static final String PAGE_USER_PERSONAL_DATA = "path.user.personaldata";
-    public static final String PAGE_USER_TOUR_DATA = "path.user.tourdata";
+    public static final String PAGE_USER_SHEET = "path.user.sheet";
+    public static final String PAGE_USER_PASSPORTS = "path.user.passports";
+    public static final String PAGE_USER_ORDERS = "path.user.orders.all";
+
 
     private static final String RESOURCE_PATH = "configuration.paths";
 

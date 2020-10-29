@@ -22,16 +22,16 @@ public class ActivateUserCommand implements Command {
         UserService service = UserServiceImpl.getInstance();
         HttpSession session = request.getSession();
         String page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
-        String idUser = request.getParameter(AttributeName.ID_USER);
+        String idUserModerate = request.getParameter(AttributeName.ID_USER_MODERATE);
         try {
-            if (service.activateUser(idUser)) {
+            if (service.activateUser(idUserModerate)) {
                 String currentUser = (String) session.getAttribute(AttributeName.USER);
                 List<User> users = service.findAllUsersWithoutCurrent(currentUser);
                 session.setAttribute(AttributeName.USERS, users);
-                logger.info("Activate user: " + idUser);
+                logger.info("Activate user: " + idUserModerate);
             } else {
                 request.setAttribute(AttributeName.ACTIVATE_USER_ERROR, true);
-                logger.warn("User" + idUser + " activation is failed");
+                logger.warn("User" + idUserModerate + " activation is failed");
             }
         } catch (ServiceException e) {
             logger.error(e);

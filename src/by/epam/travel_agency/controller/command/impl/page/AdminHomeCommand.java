@@ -34,7 +34,6 @@ public class AdminHomeCommand implements Command {
             logger.error(e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
-
         return page;
     }
 

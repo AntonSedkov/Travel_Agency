@@ -5,7 +5,7 @@ import by.epam.travel_agency.model.dao.SheetDao;
 import by.epam.travel_agency.model.dao.impl.SheetDaoImpl;
 import by.epam.travel_agency.model.entity.ClientSheet;
 import by.epam.travel_agency.model.service.SheetService;
-import by.epam.travel_agency.validator.UserValidator;
+import by.epam.travel_agency.validator.GeneralValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,13 +23,16 @@ public class SheetServiceImpl implements SheetService {
     }
 
     @Override
-    public ClientSheet findSheetByUsername(String login) throws SecurityException {
+    public ClientSheet findSheetByIdUser(String idUser) throws SecurityException {
         ClientSheet clientSheet = new ClientSheet();
-        if (UserValidator.isValidLogin(login)) {
+        if (GeneralValidator.isDigitValue(idUser)) {
             SheetDao dao = SheetDaoImpl.getInstance();
             try {
-                clientSheet = dao.findSheetByIdUser(login);
-                logger.info("Find sheet for username " + login);
+                int idUserInt = Integer.parseInt(idUser);
+                clientSheet = dao.findSheetByIdUser(idUserInt);
+                logger.info("Find sheet for id user " + idUser);
+            } catch (NumberFormatException e) {
+                throw new SecurityException("Wrong Id user integer format value");
             } catch (DaoException e) {
                 throw new SecurityException(e);
             }
@@ -37,23 +40,20 @@ public class SheetServiceImpl implements SheetService {
         return clientSheet;
     }
 
-
-    public Optional<ClientSheet> findOptionalSheetByLogin(String login) throws SecurityException {
+    public Optional<ClientSheet> findOptionalSheetByLogin(String idUser) throws SecurityException {
         SheetDao dao = SheetDaoImpl.getInstance();
         try {
-            Optional<ClientSheet> clientSheet = (UserValidator.isValidLogin(login))
-                    ? Optional.ofNullable(dao.findSheetByIdUser(login))
+            int idUserInt = Integer.parseInt(idUser);
+            Optional<ClientSheet> clientSheet = (GeneralValidator.isDigitValue(idUser))
+                    ? Optional.ofNullable(dao.findSheetByIdUser(idUserInt))
                     : Optional.empty();
-            logger.info("Find sheet for username " + login);
+            logger.info("Find sheet for id user " + idUser);
             return clientSheet;
+        } catch (NumberFormatException e) {
+            throw new SecurityException("Wrong Id user integer format value");
         } catch (DaoException e) {
             throw new SecurityException(e);
         }
-    }
-
-    @Override
-    public ClientSheet findSheetByIdSheet(String login) throws SecurityException {
-        return null;
     }
 
 }

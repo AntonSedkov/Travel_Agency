@@ -34,10 +34,12 @@ public class LoginCommand implements Command {
                 session.setAttribute(AttributeName.USER, username);
                 UserType role = service.findRoleByUsername(username);
                 session.setAttribute(AttributeName.ROLE, role.toString().toLowerCase());
+                int idUser = service.findIdUserByLogin(username);
+                session.setAttribute(AttributeName.ID_USER, idUser);
                 switch (role) {
                     case USER -> {
                         SheetService sheetService = SheetServiceImpl.getInstance();
-                        ClientSheet sheet = sheetService.findSheetByUsername(username);
+                        ClientSheet sheet = sheetService.findSheetByIdUser(String.valueOf(idUser));
                         session.setAttribute(AttributeName.SHEET, sheet);
                         page = PathManager.getProperty(PathManager.PAGE_USER_HOME);  // TODO: 29.09.2020
                         logger.info("Client log in successfully.");
