@@ -38,6 +38,8 @@ public class StatementSql {
     public static final String FIND_PAYCARD_BY_NUMBER = "SELECT id_paycard, card_sum, card_quantity FROM paycards WHERE card_quantity>1 AND card_number = (?)";
     public static final String CREATE_OPERATION = "INSERT INTO operation (id_sheet_fk, operation_sum, operation_purpose) VALUES (?,?,?)";
     public static final String FIND_OPERATIONS_BY_ID_SHEET = "SELECT id_operation, operation_sum, operation_purpose FROM operation WHERE id_sheet_fk = (?)";
+    public static final String FIND_PASSPORTS_BY_ID_USER = "SELECT surname, name, birth_date, passport_number, passport_image FROM passport WHERE id_user_fk = (?)";
+
 
     public static final String CHANGE_SHEET_SUM = "UPDATE sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
     public static final String CHANGE_SHEET_DISCOUNT = "UPDATE sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
@@ -49,16 +51,13 @@ public class StatementSql {
     public static final String CHANGE_EMAIL = "UPDATE users SET email = (?), email_approved = false WHERE login = (?)";
 
 
-
     public static final String CREATE_STAFF_PERSONAL_DATA = "INSERT INTO staff (id_user_fk, surname, name) VALUES (?,?,?)";
     public static final String CREATE_HOT_TOURS = "INSERT INTO tours_hot (id_tour_fk, discount) VALUES (?,?)";
 
     // Passport and Orders write)))
 
 
-
-
-   ////TOURS
+    ////TOURS
 
     public static final String SELECT_MIN_PRICE = "SELECT MIN(price) FROM tours";
     public static final String SELECT_MAX_PRICE = "SELECT MAX(price) FROM tours";

@@ -27,7 +27,7 @@ public class OperationDaoImpl implements OperationDao {
 
     @Override
     public List<SheetOperation> findOperationsByIdSheet(int idSheet) throws DaoException {
-        List<SheetOperation> result = new ArrayList<>();
+        List<SheetOperation> operations = new ArrayList<>();
         try (Connection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_OPERATIONS_BY_ID_SHEET)) {
             preparedStatement.setInt(1, idSheet);
@@ -37,12 +37,12 @@ public class OperationDaoImpl implements OperationDao {
                 operation.setId(resultSet.getInt(ColumnName.ID_OPERATION));
                 operation.setOperationSum(resultSet.getInt(ColumnName.OPERATION_SUM));
                 operation.setOperationPurpose(resultSet.getString(ColumnName.OPERATION_PURPOSE));
-                result.add(operation);
+                operations.add(operation);
             }
         } catch (SQLException ex) {
             throw new DaoException("Exception of finding operations by id sheet.", ex);
         }
-        return result;
+        return operations;
     }
 
 }

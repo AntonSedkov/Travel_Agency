@@ -43,16 +43,12 @@ public class ColumnName {
     public static final String SHEET_SUM = "sheet_sum";
     public static final String CUSTOMER_DISCOUNT = "customer_discount";
 
-    public static final String ID_CUSTOMER_PASSPORT = "id_customer_passport";
+    public static final String ID_PASSPORT = "id_passport";
     public static final String SURNAME = "surname";
     public static final String NAME = "name";
-    public static final String DATE_OF_BIRTH = "date_of_birth";
-    public static final String GENDER = "gender";
-    public static final String IDENTIFICATION_NUMBER = "identification_number";
-    public static final String PASSPORT_SERIES = "passport_series";
+    public static final String BIRTH_DATE = "birth_date";
     public static final String PASSPORT_NUMBER = "passport_number";
-    public static final String PASSPORT_DATE_OF_ISSUE = "passport_date_of_issue";
-    public static final String PASSPORT_DATE_OF_EXPIRY = "passport_date_of_expiry";
+    public static final String PASSPORT_IMAGE = "passport_image";
 
     public static final String ID_TRAVEL_DOCUMENTS = "id_travel_documents";
     public static final String ID_CUSTOMER_PASSPORT_FK = "id_customer_passport_fk";

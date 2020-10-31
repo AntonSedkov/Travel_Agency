@@ -28,7 +28,6 @@ public enum CommandType {
 
     USER_IN(new UserHomeCommand()),
     SEE_OPERATIONS(new SeeOperationsCommand()),
-
     ALL_PASSPORTS(new AllPassportsCommand()),
 
     ALL_ORDERS(new AllOrdersCommand()),

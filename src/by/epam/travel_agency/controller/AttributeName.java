@@ -82,4 +82,6 @@ public class AttributeName {
 
     public static final String OPERATIONS = "operations";
 
+    public static final String PASSPORTS = "passports";
+
 }

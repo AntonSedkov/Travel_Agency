@@ -33,20 +33,20 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> findAllTours() throws ServiceException {
-        List<Tour> result;
+        List<Tour> tours;
         TourDaoImpl dao = TourDaoImpl.getInstance();
         try {
-            result = dao.findAllTours();
+            tours = dao.findAllTours();
             logger.info("Find all tours.");
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return tours;
     }
 
     @Override
     public List<Tour> findToursByParameters(String restType, String country, String startDate, String minDays, String maxPrice) throws ServiceException {
-        List<Tour> result = new ArrayList<>();
+        List<Tour> tours = new ArrayList<>();
         if (TourValidator.isValidTourType(restType) && GeneralValidator.isLatinLiterals(country)
                 && GeneralValidator.isDateFormat(startDate) && TourValidator.isDaysValue(minDays)
                 && TourValidator.isDigitParamValue(maxPrice)) {
@@ -56,56 +56,56 @@ public class TourServiceImpl implements TourService {
             int days = Integer.parseInt(minDays.strip());
             int price = Integer.parseInt(maxPrice.strip());
             try {
-                result = dao.findToursByParameters(restType.strip(), country.strip(), dateSec, days, price);
+                tours = dao.findToursByParameters(restType.strip(), country.strip(), dateSec, days, price);
                 logger.info("Find tours with parameters.");
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
         }
-        return result;
+        return tours;
     }
 
     @Override
     public List<Tour> findToursByCountry(String country) throws ServiceException {
-        List<Tour> result = new ArrayList<>();
+        List<Tour> tours = new ArrayList<>();
         if (GeneralValidator.isLatinLiterals(country)) {
             TourDao dao = TourDaoImpl.getInstance();
             try {
-                result = dao.findToursByCountry(country.strip());
+                tours = dao.findToursByCountry(country.strip());
                 logger.info("Find tours by country " + country);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
         }
-        return result;
+        return tours;
     }
 
     @Override
     public List<Tour> findToursByType(String tourType) throws ServiceException {
-        List<Tour> result = new ArrayList<>();
+        List<Tour> tours = new ArrayList<>();
         if (TourValidator.isValidTourType(tourType)) {
             TourDao dao = TourDaoImpl.getInstance();
             try {
-                result = dao.findToursByType(tourType.strip());
+                tours = dao.findToursByType(tourType.strip());
                 logger.info("Find tours by type " + tourType);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
         }
-        return result;
+        return tours;
     }
 
     @Override
     public List<Tour> findAllHotTours() throws ServiceException {
-        List<Tour> result;
+        List<Tour> hottours;
         TourDao dao = TourDaoImpl.getInstance();
         try {
-            result = dao.findAllHotTours();
+            hottours = dao.findAllHotTours();
             logger.info("Find hot tours.");
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return hottours;
     }
 
     @Override

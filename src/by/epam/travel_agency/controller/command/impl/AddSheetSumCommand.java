@@ -21,7 +21,7 @@ public class AddSheetSumCommand implements Command {
         String numberPaycard = request.getParameter(AttributeName.PAYCARD);
         HttpSession session = request.getSession();
         String page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
-        int idUser = (Integer) session.getAttribute(AttributeName.ID_USER);
+        int idUser = (int) session.getAttribute(AttributeName.ID_USER);
         SheetService sheetService = SheetServiceImpl.getInstance();
         try {
             if (sheetService.addSheetSum(idUser, numberPaycard)) {

@@ -143,15 +143,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsersWithoutCurrent(String login) throws ServiceException {
-        List<User> result;
+        List<User> users;
         UserDaoImpl dao = UserDaoImpl.getInstance();
         try {
-            result = dao.findAllUsersWithoutCurrent(login);
+            users = dao.findAllUsersWithoutCurrent(login);
             logger.info("Find all users.");
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return users;
     }
 
     @Override
@@ -228,20 +228,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Integer> countUsersQuantityByRole() throws ServiceException {
-        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> usersQuantityByRole = new HashMap<>();
         UserType[] types = UserType.values();
         UserDao dao = UserDaoImpl.getInstance();
         for (UserType type : types) {
             String keyType = type.name().toLowerCase();
             try {
                 int valueType = dao.countUsersByRole(keyType);
-                result.put(keyType, valueType);
+                usersQuantityByRole.put(keyType, valueType);
                 logger.info("Count quantity for " + keyType);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
         }
-        return result;
+        return usersQuantityByRole;
     }
 
 }

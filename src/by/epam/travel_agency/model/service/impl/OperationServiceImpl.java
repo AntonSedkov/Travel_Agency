@@ -28,6 +28,7 @@ public class OperationServiceImpl implements OperationService {
         OperationDao dao = OperationDaoImpl.getInstance();
         try {
             operations = dao.findOperationsByIdSheet(idSheet);
+            logger.info("Finf operations for sheet " + idSheet);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

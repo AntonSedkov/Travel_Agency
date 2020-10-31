@@ -21,7 +21,7 @@ public class PayOrderCommand implements Command {
         String sumOrder = request.getParameter(AttributeName.MINUSSUM);             // TODO: 31.10.2020
         HttpSession session = request.getSession();
         String page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
-        int idUser = (Integer) session.getAttribute(AttributeName.ID_USER);
+        int idUser = (int) session.getAttribute(AttributeName.ID_USER);
         SheetService sheetService = SheetServiceImpl.getInstance();
         try {
             if (sheetService.payOrder(idUser, sumOrder)) {                  // TODO: 31.10.2020 After order
