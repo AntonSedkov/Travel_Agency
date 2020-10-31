@@ -10,7 +10,7 @@
 <html lang="${language}">
 
 <head>
-    <title><fmt:message key="label.userhome"/> SHEET</title>
+    <title><fmt:message key="label.sheet"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -23,7 +23,101 @@
 
     <%@include file="../greeting.jsp" %>
 
-                                         <%@include file="currentfunction1.jsp" %>
+    <section class="base_info">
+        <div class="container text-center p-5" style="width: 30rem">
+            <div class="card-deck">
+                <div class="card text-center" style="width: 20rem;">
+                    <div class="card-body" style="background-color: lemonchiffon">
+                        <h4 class="card-title pb-2 pt-1" style="text-align: left; font-weight: bold">
+                            <fmt:message key="label.sheetnumber"/> ${sheet.id}<br/>
+                        </h4>
+                        <h4 class="card-title pb-2" style="text-align: left; font-weight: bold">
+                            <fmt:message key="label.sheetsum"/> ${sheet.sheetSum} <fmt:message key="icon.currency"/><br/>
+                        </h4>
+                        <h4 class="card-title " style="text-align: left; font-weight: bold">
+                            <fmt:message key="label.sheetdiscount"/> ${sheet.discount.value} <fmt:message
+                                key="icon.percent"/>
+                        </h4>
+                        <p class="card-text">
+                            <button type="submit" class="btn btn-primary m-2">
+                                <a href="controller?command=see_operations" style="color: white">
+                                    <fmt:message key="label.seeoperations"/></a>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sheet_operations">
+        <div class="container text-center p-5">
+            <div class="card-deck">
+
+                <form name="addSumForm" method="post" action="controller">
+                    <input type="hidden" name="command" value="add_sheet_sum"/>
+
+                    <div class="card text-center" style="width: 30rem;">
+                        <div class="card-body">
+                            <h4 class="card-title" ><fmt:message key="label.addsum"/></h4>
+                            <p class="card-text">
+                                <input type="text" name="paycard" class="form-control"
+                                       placeholder="<fmt:message key="label.paycardnumber"/>" required
+                                       pattern="[\d]{7}"/>
+                            </p>
+
+                            <c:if test="${addsumresult}">
+                                <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                    <fmt:message key="statement.addsumresultsuccess"/>
+                                </p>
+                            </c:if>
+                            <c:if test="${not empty addsumresult and not addsumresult}">
+                                <p class="card-text" style="color: darkred; font-weight: bold">
+                                    <fmt:message key="statement.addsumresultfail"/>
+                                </p>
+                            </c:if>
+
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.replenish"/></button>
+                        </div>
+                    </div>
+                </form>
+
+                <form name="payOrderForm" method="post" action="controller">
+                    <input type="hidden" name="command" value="pay_order"/>
+
+                    <div class="card text-center" style="width: 30rem;">
+                        <div class="card-body">
+                            <h4 class="card-title"><fmt:message key="label.payfortours"/></h4>
+
+                            <p class="card-text">
+                                <input type="text" name="minussum" class="form-control"
+                                       placeholder="Minus Sum" required
+                                       pattern="[\d]{1,6}"/>
+                            </p>
+
+                            <p class="card-text">
+                                HERE MUST BE OPTION AND FOREACH WITH CURRENT UNPAID ORDERS
+                            </p>
+
+                            <c:if test="${payorderresult}">
+                                <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                    <fmt:message key="statement.payordersuccess"/>
+                                </p>
+                            </c:if>
+                            <c:if test="${not empty payorderresult and not payorderresult}">
+                                <p class="card-text" style="color: darkred; font-weight: bold">
+                                    <fmt:message key="statement.payorderfail"/>
+                                </p>
+                            </c:if>
+
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.payfororder"/></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
 
     <%@include file="../hottours.jsp" %>
 

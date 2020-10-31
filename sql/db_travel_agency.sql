@@ -187,15 +187,23 @@ VALUES (4, 1500000, '0');
 INSERT INTO sheet(id_user_fk, sheet_sum, customer_discount)
 VALUES (5, 50000000, '15');
 
-create table operation
+create table sheetOperation
 (
     id_operation      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_sheet_fk       INT UNSIGNED UNIQUE NOT NULL,
-    operation_sum     INT(7) UNSIGNED     NOT NULL DEFAULT 0,
-    operation_purpose VARCHAR(64)         NOT NULL DEFAULT 'default Error',
+    id_sheet_fk       INT UNSIGNED NOT NULL,
+    operation_sum     INT(7)       NOT NULL DEFAULT 0,
+    operation_purpose VARCHAR(64)  NOT NULL DEFAULT 'default Error',
     FOREIGN KEY (id_sheet_fk) REFERENCES sheet (id_sheet)
 );
 
+INSERT INTO sheetOperation (id_sheet_fk, operation_sum, operation_purpose)
+VALUES (2002, 20000, 'add one payment');
+INSERT INTO sheetOperation (id_sheet_fk, operation_sum, operation_purpose)
+VALUES (2002, -200000, 'payment for tour');
+INSERT INTO sheetOperation (id_sheet_fk, operation_sum, operation_purpose)
+VALUES (2002, 100000, 'add paycard sum');
+INSERT INTO sheetOperation (id_sheet_fk, operation_sum, operation_purpose)
+VALUES (2002, -150000, 'order payment');
 
 /*one user - one admin_moderator*/
 create table staff
@@ -231,6 +239,36 @@ create table orders
     FOREIGN KEY (id_travel_docs_fk) REFERENCES travel_docs (id_travel_docs)
 );
 
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (6, 6, 1, 1627648000, 'new');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (5, 6, 2, 1627648000, 'confirm');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (4, 6, 3, 1627648000, 'paid');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (3, 6, 4, 1627648000, 'add_docs');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (2, 6, 5, 1627648000, 'finished');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (1, 6, 6, 1627648000, 'paid');
+
+create table paycards
+(
+    id_paycard    INT UNSIGNED UNIQUE AUTO_INCREMENT PRIMARY KEY,
+    card_number   INT(7) UNSIGNED UNIQUE NOT NULL,
+    card_sum      INT UNSIGNED           NOT NULL,
+    card_quantity INT UNSIGNED           NOT NULL
+);
+
+INSERT INTO paycards(card_number, card_sum, card_quantity)
+VALUES (1111111, 10000, 30);
+INSERT INTO paycards(card_number, card_sum, card_quantity)
+VALUES (5000000, 50000, 20);
+INSERT INTO paycards(card_number, card_sum, card_quantity)
+VALUES (7777777, 100000, 10);
+INSERT INTO paycards(card_number, card_sum, card_quantity)
+VALUES (3339333, 300000, 5);
+
 
 
 /*may be*/
@@ -248,7 +286,7 @@ create table tours_unavailable
 
 select * from users;
 select * from sheet;
-select * from operation;
+select * from sheetOperation;
 select * from staff;
 select * from passport;
 select * from travel_docs;

@@ -33,13 +33,14 @@ public class StatementSql {
     public static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM users WHERE role = (?)";
     public static final String CLOSE_TOUR = "UPDATE tours SET quantity_tours = 0 WHERE id_tour = (?)";
 
-
-
     public static final String CREATE_SHEET_WITH_ID_USER = "INSERT INTO sheet(id_user_fk) VALUES (?)";
     public static final String FIND_SHEET_BY_ID_USER = "SELECT id_sheet, sheet_sum, customer_discount FROM sheet WHERE id_user_fk = (?)";
-    public static final String CHANGE_SHEET_SUM = "UPDATE customers_sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
+    public static final String FIND_PAYCARD_BY_NUMBER = "SELECT id_paycard, card_sum, card_quantity FROM paycards WHERE card_quantity>1 AND card_number = (?)";
+    public static final String CREATE_OPERATION = "INSERT INTO operation (id_sheet_fk, operation_sum, operation_purpose) VALUES (?,?,?)";
+    public static final String FIND_OPERATIONS_BY_ID_SHEET = "SELECT id_operation, operation_sum, operation_purpose FROM operation WHERE id_sheet_fk = (?)";
 
-    public static final String CHANGE_SHEET_DISCOUNT = "UPDATE customers_sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
+    public static final String CHANGE_SHEET_SUM = "UPDATE sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
+    public static final String CHANGE_SHEET_DISCOUNT = "UPDATE sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
 
 
     public static final String FIND_ID_USER_BY_LOGIN = "SELECT id_user FROM users WHERE login = (?)";

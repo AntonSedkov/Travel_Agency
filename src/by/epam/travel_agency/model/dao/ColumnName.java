@@ -34,10 +34,10 @@ public class ColumnName {
     public static final String ID_TOUR_HOT = "id_tour_hot";
     public static final String ID_TOUR_FK = "id_tour_fk";
 
-    public static final String ID_ORDER ="id_order";
-    public static final String ID_DATE_ORDER ="date_order";
-    public static final String QUANTITY ="quantity";
-    public static final String TOUR_PAID ="tour_paid";
+    public static final String ID_ORDER = "id_order";
+    public static final String ID_DATE_ORDER = "date_order";
+    public static final String QUANTITY = "quantity";
+    public static final String TOUR_PAID = "tour_paid";
 
     public static final String ID_SHEET = "id_sheet";
     public static final String SHEET_SUM = "sheet_sum";
@@ -62,9 +62,14 @@ public class ColumnName {
     public static final String TICKET_FLIGHT = "ticket_flight";
     public static final String TICKET_BUS = "ticket_bus";
 
+    public static final String ID_PAYCARD = "id_paycard";
+    public static final String CARD_NUMBER = "card_number";
+    public static final String CARD_SUM = "card_sum";
+    public static final String CARD_QUANTITY = "card_quantity";
 
-
-
-
+    public static final String ID_OPERATION = "id_operation";
+    public static final String ID_SHEET_FK = "id_sheet_fk";
+    public static final String OPERATION_SUM = "operation_sum";
+    public static final String OPERATION_PURPOSE = "operation_purpose";
 
 }

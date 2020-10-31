@@ -28,7 +28,7 @@ public class CloseTourCommand implements Command {
                 request.setAttribute(AttributeName.CLOSE_TOUR_ERROR, false);
                 List<Tour> tours = service.findAllTours();
                 session.setAttribute(AttributeName.ALL_TOURS, tours);
-                logger.warn("Tour has been closed.");
+                logger.info("Tour has been closed.");
             } else {
                 request.setAttribute(AttributeName.CLOSE_TOUR_ERROR, true);
                 logger.warn("Tour has not been closed.");

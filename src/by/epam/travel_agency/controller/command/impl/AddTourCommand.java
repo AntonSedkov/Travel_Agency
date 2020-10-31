@@ -34,7 +34,7 @@ public class AddTourCommand implements Command {
         try {
             if (service.createTour(tourType, country, hotelName, hotelStars, transport, startDate, tourDays, tourPrice, quantityTours, description, imageName)) {
                 request.setAttribute(AttributeName.CREATE_TOUR_ERROR, false);
-                logger.warn("Tour has been created.");
+                logger.info("Tour has been created.");
             } else {
                 request.setAttribute(AttributeName.CREATE_TOUR_ERROR, true);
                 logger.warn("Tour has not been created.");

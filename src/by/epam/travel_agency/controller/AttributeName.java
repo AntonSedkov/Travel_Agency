@@ -39,8 +39,6 @@ public class AttributeName {
     public static final String NEW_EMAIL = "newemail";
     public static final String CHANGE_EMAIL = "changeemail";
 
-
-
     public static final String HOT_TOURS = "hottours";
     public static final String TOUR_TYPES = "tourtypes";
 
@@ -73,14 +71,15 @@ public class AttributeName {
     public static final String TOURS_BY_COUNTRIES = "toursbycountries";
     public static final String ALL_TOURS = "alltours";
 
-
     public static final String USERS_BY_ROLES = "usersbyroles";
     public static final String QUANTITY_USERS = "quantityusers";
 
+    public static final String ADD_SUM_RESULT = "addsumresult";
+    public static final String PAYCARD = "paycard";
 
+    public static final String PAY_ORDER_RESULT = "payorderresult";
+    public static final String MINUSSUM = "minussum";       // TODO: 31.10.2020 delete after order exchange
 
-
-
-
+    public static final String OPERATIONS = "operations";
 
 }

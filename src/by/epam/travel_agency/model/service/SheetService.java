@@ -5,6 +5,10 @@ import by.epam.travel_agency.model.entity.ClientSheet;
 
 public interface SheetService {
 
-    ClientSheet findSheetByIdUser(String idUser) throws ServiceException;
+    ClientSheet findSheetByIdUser(int idUser) throws ServiceException;
+
+    boolean addSheetSum(int idUser, String numberPaycard) throws ServiceException;
+
+    boolean payOrder(int idUser, String sum) throws ServiceException;
 
 }

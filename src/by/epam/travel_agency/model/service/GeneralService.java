@@ -9,4 +9,6 @@ public interface GeneralService {
 
     Set<String> formTourTypes();
 
+    String xssSafeString(String enterString);
+
 }

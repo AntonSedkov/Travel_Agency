@@ -7,14 +7,14 @@ public enum DiscountType {
     FOURTHLVL(10),
     FIFTHLVL(15);
 
-    private final int discount;
+    private final int value;
 
-    DiscountType(int discount) {
-        this.discount = discount;
+    DiscountType(int value) {
+        this.value = value;
     }
 
-    public int getDiscountValue() {
-        return discount;
+    public int getValue() {
+        return value;
     }
 
     public static DiscountType getDiscountTypeByValue(int value) {

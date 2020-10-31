@@ -7,6 +7,8 @@ public interface SheetDao {
 
     ClientSheet findSheetByIdUser(int idUser) throws DaoException;
 
+    boolean addSheetSum(int idUser, int numberPaycard) throws DaoException;
+
     boolean changeSheetSum(int idUser, int newSum) throws DaoException;
 
 }

@@ -7,6 +7,9 @@ import by.epam.travel_agency.model.dao.SheetDao;
 import by.epam.travel_agency.model.dao.StatementSql;
 import by.epam.travel_agency.model.entity.ClientSheet;
 import by.epam.travel_agency.model.entity.DiscountType;
+import by.epam.travel_agency.model.entity.OperationPurpose;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SheetDaoImpl implements SheetDao {
+    private static Logger logger = LogManager.getLogger(SheetDaoImpl.class);
     private static final SheetDaoImpl INSTANCE = new SheetDaoImpl();
     private static ConnectionPool pool = ConnectionPool.INSTANCE;
 
@@ -50,6 +54,59 @@ public class SheetDaoImpl implements SheetDao {
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
             throw new DaoException("Exception of updating sheet sum by id user.", ex);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean addSheetSum(int idUser, int numberPaycard) throws DaoException {
+        boolean result = false;
+        try (Connection connection = pool.getConnection()) {
+            try (PreparedStatement psSheet = connection.prepareStatement(StatementSql.FIND_SHEET_BY_ID_USER, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+                 PreparedStatement psPaycard = connection.prepareStatement(StatementSql.FIND_PAYCARD_BY_NUMBER, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+                 PreparedStatement psOperation = connection.prepareStatement(StatementSql.CREATE_OPERATION)) {
+                connection.setAutoCommit(false);
+                psPaycard.setInt(1, numberPaycard);
+                ResultSet rsPaycard = psPaycard.executeQuery();
+                int sumCard = 0;
+                if (rsPaycard.next()) {
+                    sumCard = rsPaycard.getInt(ColumnName.CARD_SUM);
+                    int quantityCard = rsPaycard.getInt(ColumnName.CARD_QUANTITY);
+                    quantityCard--;
+                    rsPaycard.updateInt(ColumnName.CARD_QUANTITY, quantityCard);
+                    rsPaycard.updateRow();
+                    logger.info("Sum take from paycard: " + numberPaycard + " left quantity: " + quantityCard);
+                }
+                int sheetId = 0;
+                if (sumCard > 0) {
+                    psSheet.setInt(1, idUser);
+                    ResultSet rsSheet = psSheet.executeQuery();
+                    if (rsSheet.next()) {
+                        sheetId = rsSheet.getInt(ColumnName.ID_SHEET);
+                        int sumSheet = rsSheet.getInt(ColumnName.SHEET_SUM);
+                        sumSheet += sumCard;
+                        rsSheet.updateInt(ColumnName.SHEET_SUM, sumSheet);
+                        rsSheet.updateRow();
+                        logger.info("Sum add to the sheet " + sheetId);
+                    }
+                }
+                if (sheetId > 0) {
+                    psOperation.setInt(1, sheetId);
+                    psOperation.setInt(2, sumCard);
+                    psOperation.setString(3, OperationPurpose.ADD);
+                    result = psOperation.executeUpdate() > 0;
+                    logger.info("Create operation" + result);
+                    connection.commit();
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Exception of adding sum to sheet from paycard in database", e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
+        } catch (
+                SQLException e) {
+            throw new DaoException(e);
         }
         return result;
     }

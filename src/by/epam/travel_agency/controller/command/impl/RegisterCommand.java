@@ -40,7 +40,7 @@ public class RegisterCommand implements Command {
                     int idUser = service.findIdUserByLogin(username);
                     session.setAttribute(AttributeName.ID_USER, idUser);
                     SheetService sheetService = SheetServiceImpl.getInstance();
-                    ClientSheet sheet = sheetService.findSheetByIdUser(String.valueOf(idUser));
+                    ClientSheet sheet = sheetService.findSheetByIdUser(idUser);
                     session.setAttribute(AttributeName.SHEET, sheet);
                     page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
                     logger.info("Register New username + " + username);

@@ -9,6 +9,8 @@ import java.util.Set;
 
 public class GeneralServiceImpl implements GeneralService {
     private static final GeneralServiceImpl INSTANCE = new GeneralServiceImpl();
+    private static final String XSS_REGEXP = "</?script>";
+    private static final String EMPTY_STRING = "";
 
     private GeneralServiceImpl() {
     }
@@ -31,6 +33,11 @@ public class GeneralServiceImpl implements GeneralService {
             restTypes.add(sb.toString());
         }
         return restTypes;
+    }
+
+    @Override
+    public String xssSafeString(String enterString) {
+        return enterString.replaceAll(XSS_REGEXP, EMPTY_STRING);
     }
 
 }

@@ -1,15 +1,15 @@
 package by.epam.travel_agency.model.service.impl;
 
 import by.epam.travel_agency.exception.DaoException;
+import by.epam.travel_agency.exception.ServiceException;
 import by.epam.travel_agency.model.dao.SheetDao;
 import by.epam.travel_agency.model.dao.impl.SheetDaoImpl;
 import by.epam.travel_agency.model.entity.ClientSheet;
 import by.epam.travel_agency.model.service.SheetService;
 import by.epam.travel_agency.validator.GeneralValidator;
+import by.epam.travel_agency.validator.PaycardValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Optional;
 
 public class SheetServiceImpl implements SheetService {
     private static final SheetServiceImpl INSTANCE = new SheetServiceImpl();
@@ -23,37 +23,48 @@ public class SheetServiceImpl implements SheetService {
     }
 
     @Override
-    public ClientSheet findSheetByIdUser(String idUser) throws SecurityException {
-        ClientSheet clientSheet = new ClientSheet();
-        if (GeneralValidator.isDigitValue(idUser)) {
-            SheetDao dao = SheetDaoImpl.getInstance();
-            try {
-                int idUserInt = Integer.parseInt(idUser);
-                clientSheet = dao.findSheetByIdUser(idUserInt);
-                logger.info("Find sheet for id user " + idUser);
-            } catch (NumberFormatException e) {
-                throw new SecurityException("Wrong Id user integer format value");
-            } catch (DaoException e) {
-                throw new SecurityException(e);
-            }
+    public ClientSheet findSheetByIdUser(int idUser) throws ServiceException {
+        ClientSheet clientSheet;
+        SheetDao dao = SheetDaoImpl.getInstance();
+        try {
+            clientSheet = dao.findSheetByIdUser(idUser);
+            logger.info("Find sheet for id user " + idUser);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
         return clientSheet;
     }
 
-    public Optional<ClientSheet> findOptionalSheetByLogin(String idUser) throws SecurityException {
-        SheetDao dao = SheetDaoImpl.getInstance();
-        try {
-            int idUserInt = Integer.parseInt(idUser);
-            Optional<ClientSheet> clientSheet = (GeneralValidator.isDigitValue(idUser))
-                    ? Optional.ofNullable(dao.findSheetByIdUser(idUserInt))
-                    : Optional.empty();
-            logger.info("Find sheet for id user " + idUser);
-            return clientSheet;
-        } catch (NumberFormatException e) {
-            throw new SecurityException("Wrong Id user integer format value");
-        } catch (DaoException e) {
-            throw new SecurityException(e);
+    @Override
+    public boolean addSheetSum(int idUser, String numberPaycard) throws ServiceException {
+        boolean result = false;
+        if (PaycardValidator.isPaycardValue(numberPaycard)) {
+            SheetDao dao = SheetDaoImpl.getInstance();
+            try {
+                int numberPaycardInt = Integer.parseInt(numberPaycard);
+                result = dao.addSheetSum(idUser, numberPaycardInt);
+                logger.info("Add sum for id user " + idUser);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
+        return result;
+    }
+
+    @Override
+    public boolean payOrder(int idUser, String sum) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(sum)) {                   // TODO: 31.10.2020  order check
+            SheetDao dao = SheetDaoImpl.getInstance();
+            try {
+                int sumInt = Integer.parseInt(sum);
+                result = dao.changeSheetSum(idUser, sumInt);        // TODO: 31.10.2020 another method
+                logger.info("Pay order for id user " + idUser);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
     }
 
 }

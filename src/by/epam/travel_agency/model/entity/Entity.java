@@ -1,22 +1,23 @@
 package by.epam.travel_agency.model.entity;
 
 public class Entity {
-    private long id;
+    private int id;
 
     public Entity() {
     }
 
-    public Entity(long id) {
+    public Entity(int id) {
         this.id = id;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -28,7 +29,7 @@ public class Entity {
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id;
     }
 
 }

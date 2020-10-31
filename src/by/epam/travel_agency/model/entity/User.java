@@ -22,7 +22,7 @@ public class User extends Entity {
     public User() {
     }
 
-    public User(long id, String login, String email, UserType role, boolean status) {
+    public User(int id, String login, String email, UserType role, boolean status) {
         super(id);
         this.login = login;
         this.email = email;

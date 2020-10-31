@@ -2,15 +2,15 @@ package by.epam.travel_agency.model.entity;
 
 import java.util.StringJoiner;
 
-public class Operation extends Entity {
+public class SheetOperation extends Entity {
     private int idSheet;
     private int operationSum;
     private String operationPurpose;
 
-    public Operation() {
+    public SheetOperation() {
     }
 
-    public Operation(int idSheet, int operationSum, String operationPurpose) {
+    public SheetOperation(int idSheet, int operationSum, String operationPurpose) {
         this.idSheet = idSheet;
         this.operationSum = operationSum;
         this.operationPurpose = operationPurpose;
@@ -45,10 +45,10 @@ public class Operation extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Operation operation = (Operation) o;
-        if (idSheet != operation.idSheet) return false;
-        if (operationSum != operation.operationSum) return false;
-        return operationPurpose != null ? operationPurpose.equals(operation.operationPurpose) : operation.operationPurpose == null;
+        SheetOperation sheetOperation = (SheetOperation) o;
+        if (idSheet != sheetOperation.idSheet) return false;
+        if (operationSum != sheetOperation.operationSum) return false;
+        return operationPurpose != null ? operationPurpose.equals(sheetOperation.operationPurpose) : sheetOperation.operationPurpose == null;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Operation extends Entity {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Operation.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", SheetOperation.class.getSimpleName() + "[", "]")
                 .add("idSheet=" + idSheet)
                 .add("operationSum=" + operationSum)
                 .add("operationPurpose='" + operationPurpose + "'")

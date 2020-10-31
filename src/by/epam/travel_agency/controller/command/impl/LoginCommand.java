@@ -39,7 +39,7 @@ public class LoginCommand implements Command {
                 switch (role) {
                     case USER -> {
                         SheetService sheetService = SheetServiceImpl.getInstance();
-                        ClientSheet sheet = sheetService.findSheetByIdUser(String.valueOf(idUser));
+                        ClientSheet sheet = sheetService.findSheetByIdUser(idUser);
                         session.setAttribute(AttributeName.SHEET, sheet);
                         page = PathManager.getProperty(PathManager.PAGE_USER_HOME);  // TODO: 29.09.2020
                         logger.info("Client log in successfully.");
