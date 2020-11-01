@@ -117,6 +117,8 @@ public class UserDaoImpl implements UserDao {
                         psCreateSheet.setInt(1, idUser);
                         result = psCreateSheet.executeUpdate() > 0;
                         logger.info("User sheet creation is " + result);
+                    }
+                    if (result){
                         connection.commit();
                     }
                 }

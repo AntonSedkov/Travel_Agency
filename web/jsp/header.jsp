@@ -142,7 +142,6 @@
 
             </c:if>
 
-
             <c:if test="${userhomepage}">
 
                 <li class="nav-item active">
@@ -161,8 +160,8 @@
                                 key="label.allorders"/></a>
                         <a class="dropdown-item" href="controller?command=actual_orders"><fmt:message
                                 key="label.actualorders"/></a>
-                        <a class="dropdown-item" href="controller?command=previous_orders"><fmt:message
-                                key="label.previousorders"/></a>
+                        <a class="dropdown-item" href="controller?command=make_order_page"><fmt:message
+                                key="label.makeorder"/></a>
                     </div>
                 </li>
 

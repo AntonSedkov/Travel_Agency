@@ -1,7 +1,5 @@
 package by.epam.travel_agency.model.entity;
 
-import by.epam.travel_agency.model.entity.state.OrderState;
-
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
@@ -13,16 +11,11 @@ public class ClientOrder extends Entity {
     private OrderState orderState;
     private String comment;
 
-    public ClientOrder() {
-    }
+    private ClientPassport passport;
+    private Tour tour;
+    private TourDocs tourDocs;
 
-    public ClientOrder(int idTour, int idPassport, int idTravelDoc, LocalDateTime dateTimeOrder, OrderState orderState, String comment) {
-        this.idTour = idTour;
-        this.idPassport = idPassport;
-        this.idTravelDoc = idTravelDoc;
-        this.dateTimeOrder = dateTimeOrder;
-        this.orderState = orderState;
-        this.comment = comment;
+    public ClientOrder() {
     }
 
     public int getIdTour() {
@@ -73,19 +66,46 @@ public class ClientOrder extends Entity {
         this.comment = comment;
     }
 
+    public ClientPassport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(ClientPassport passport) {
+        this.passport = passport;
+    }
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public TourDocs getTourDocs() {
+        return tourDocs;
+    }
+
+    public void setTourDocs(TourDocs tourDocs) {
+        this.tourDocs = tourDocs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        ClientOrder that = (ClientOrder) o;
-        if (idTour != that.idTour) return false;
-        if (idPassport != that.idPassport) return false;
-        if (idTravelDoc != that.idTravelDoc) return false;
-        if (dateTimeOrder != null ? !dateTimeOrder.equals(that.dateTimeOrder) : that.dateTimeOrder != null)
+        ClientOrder order = (ClientOrder) o;
+        if (idTour != order.idTour) return false;
+        if (idPassport != order.idPassport) return false;
+        if (idTravelDoc != order.idTravelDoc) return false;
+        if (dateTimeOrder != null ? !dateTimeOrder.equals(order.dateTimeOrder) : order.dateTimeOrder != null)
             return false;
-        if (orderState != null ? !orderState.equals(that.orderState) : that.orderState != null) return false;
-        return comment != null ? comment.equals(that.comment) : that.comment == null;
+        if (orderState != order.orderState) return false;
+        if (comment != null ? !comment.equals(order.comment) : order.comment != null) return false;
+        if (passport != null ? !passport.equals(order.passport) : order.passport != null) return false;
+        if (tour != null ? !tour.equals(order.tour) : order.tour != null) return false;
+        return tourDocs != null ? tourDocs.equals(order.tourDocs) : order.tourDocs == null;
     }
 
     @Override
@@ -97,19 +117,25 @@ public class ClientOrder extends Entity {
         result = 31 * result + (dateTimeOrder != null ? dateTimeOrder.hashCode() : 0);
         result = 31 * result + (orderState != null ? orderState.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (passport != null ? passport.hashCode() : 0);
+        result = 31 * result + (tour != null ? tour.hashCode() : 0);
+        result = 31 * result + (tourDocs != null ? tourDocs.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", ClientOrder.class.getSimpleName() + "[", "]")
-                .add("id=" + getId() + "")
+                .add("id=" + getId())
                 .add("idTour=" + idTour)
                 .add("idPassport=" + idPassport)
                 .add("idTravelDoc=" + idTravelDoc)
                 .add("dateTimeOrder=" + dateTimeOrder)
                 .add("orderState=" + orderState)
                 .add("comment='" + comment + "'")
+                .add("passport=" + passport)
+                .add("tour=" + tour)
+                .add("tourDocs=" + tourDocs)
                 .toString();
     }
 

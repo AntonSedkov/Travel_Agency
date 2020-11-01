@@ -53,7 +53,7 @@
 
                                 <form name="hotTourForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="close_tour"/>
-                                    <input type="hidden" name="id_tour" value="${concreteTour.id}">
+                                    <input type="hidden" name="idtour" value="${concreteTour.id}">
 
                                     <div class="card text-center" style="width: 20rem;">
                                         <img src="${pageContext.request.contextPath}/pics/tours/${concreteTour.imagePath}"

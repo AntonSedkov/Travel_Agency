@@ -35,9 +35,8 @@ public class ColumnName {
     public static final String ID_TOUR_FK = "id_tour_fk";
 
     public static final String ID_ORDER = "id_order";
-    public static final String ID_DATE_ORDER = "date_order";
-    public static final String QUANTITY = "quantity";
-    public static final String TOUR_PAID = "tour_paid";
+    public static final String DATE_ORDER = "date_order";
+    public static final String STATE = "state";
 
     public static final String ID_SHEET = "id_sheet";
     public static final String SHEET_SUM = "sheet_sum";
@@ -50,13 +49,10 @@ public class ColumnName {
     public static final String PASSPORT_NUMBER = "passport_number";
     public static final String PASSPORT_IMAGE = "passport_image";
 
-    public static final String ID_TRAVEL_DOCUMENTS = "id_travel_documents";
-    public static final String ID_CUSTOMER_PASSPORT_FK = "id_customer_passport_fk";
-    public static final String CUSTOMER_VISA = "customer_visa";
-    public static final String TOURIST_VOUCHER = "tourist_voucher";
-    public static final String INSURANCE_POLICY = "insurance_policy";
-    public static final String TICKET_FLIGHT = "ticket_flight";
-    public static final String TICKET_BUS = "ticket_bus";
+    public static final String ID_TRAVEL_DOCS = "id_travel_docs";
+    public static final String VOUCHER = "voucher";
+    public static final String INSURANCE = "insurance";
+    public static final String TICKET = "ticket";
 
     public static final String ID_PAYCARD = "id_paycard";
     public static final String CARD_NUMBER = "card_number";

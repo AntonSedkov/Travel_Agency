@@ -181,8 +181,15 @@
                     <c:forEach var="findTour" items="${searchtours}">
 
                         <form name="hotTourForm" method="post" action="controller">
-                            <input type="hidden" name="command" value="make_order"/>
-                            <input type="hidden" name="id_tour" value="${findTour.id}">
+                            <c:choose>
+                                <c:when test="${userhomepage}">
+                                    <input type="hidden" name="command" value="make_order_page"/>
+                                    <input type="hidden" name="idtour" value="${concreteTour.id}">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="hidden" name="command" value="login_page"/>
+                                </c:otherwise>
+                            </c:choose>
 
                             <div class="card text-center" style="width: 20rem;">
                                 <img src="${pageContext.request.contextPath}/pics/tours/${findTour.imagePath}"

@@ -34,18 +34,34 @@ public class TourDaoImpl implements TourDao {
 
     @Override
     public List<Tour> findAllTours() throws DaoException {
-        List<Tour> result = new ArrayList<>();
+        List<Tour> tours = new ArrayList<>();
         try (Connection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_ALL_TOURS_ACTIVE)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Tour tour = createTourFromResultSet(resultSet);
-                result.add(tour);
+                tours.add(tour);
             }
         } catch (SQLException ex) {
             throw new DaoException("Exception of finding all tours.", ex);
         }
-        return result;
+        return tours;
+    }
+
+    @Override
+    public Tour findTourById(int idConcreteTour) throws DaoException {
+        Tour tour = new Tour();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(StatementSql.FIND_TOUR_BY_ID)) {
+            preparedStatement.setInt(1, idConcreteTour);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                tour = createTourFromResultSet(resultSet);
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Exception of finding tour by id.", ex);
+        }
+        return tour;
     }
 
     @Override
@@ -146,7 +162,7 @@ public class TourDaoImpl implements TourDao {
             preparedStatement.setString(4, tour.getHotelType().name().toLowerCase());
             preparedStatement.setString(5, tour.getTransport().name().toLowerCase());
             LocalDate localDate = tour.getStartDate();
-            long date = DateTimeUtil.countLongFromLocalDate(localDate);
+            long date = DateTimeUtil.convertLongFromLocalDate(localDate);
             preparedStatement.setLong(6, date);
             preparedStatement.setInt(7, tour.getDays());
             preparedStatement.setInt(8, tour.getPrice());

@@ -10,6 +10,8 @@ public interface TourService {
 
     List<Tour> findAllTours() throws ServiceException;
 
+    Tour findTourById(String idConcreteTour) throws ServiceException;
+
     List<Tour> findToursByParameters(String restType, String country, String startDate, String minDays, String maxPrice) throws ServiceException;
 
     List<Tour> findToursByCountry(String country) throws ServiceException;

@@ -36,6 +36,7 @@ public class PassportDaoImpl implements PassportDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClientPassport passport = new ClientPassport();
+                passport.setId(resultSet.getInt(ColumnName.ID_PASSPORT));
                 passport.setSurname(resultSet.getString(ColumnName.SURNAME));
                 passport.setName(resultSet.getString(ColumnName.NAME));
                 LocalDate localDate = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.BIRTH_DATE));

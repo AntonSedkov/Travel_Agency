@@ -11,6 +11,7 @@ public enum CommandType {
     COUNTRY_TOURS(new ToursByCountryCommand()),
     HOT_TOURS(new ToursHotCommand()),
     CHANGE_PAGE(new StaticPageCommand()),
+    LOGIN_PAGE(new LoginPageCommand()),
 
     ADMIN_IN(new AdminHomeCommand()),
     EDIT_USERS(new EditUsersCommand()),
@@ -29,8 +30,9 @@ public enum CommandType {
     USER_IN(new UserHomeCommand()),
     SEE_OPERATIONS(new SeeOperationsCommand()),
     ALL_PASSPORTS(new AllPassportsCommand()),
-
+    MAKE_ORDER_PAGE(new MakeOrderPageCommand()),
     ALL_ORDERS(new AllOrdersCommand()),
+
 
     LOGOUT(new LogoutCommand()),
     CHANGE_LOGIN(new ChangeLoginCommand()),
@@ -38,6 +40,9 @@ public enum CommandType {
     CHANGE_EMAIL(new ChangeEmailCommand()),
     ADD_SHEET_SUM(new AddSheetSumCommand()),
     PAY_ORDER(new PayOrderCommand()),
+    MAKE_ORDER(new MakeOrderCommand()),
+
+
 
 
 
@@ -47,7 +52,7 @@ public enum CommandType {
     add_passport(new TestTTT()),
     edit_passports(new TestTTT()),
     confirm_passports(new TestTTT()),
-    MAKE_ORDER(new MakeOrderCommand()),
+
 
 
 

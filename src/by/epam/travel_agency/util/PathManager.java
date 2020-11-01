@@ -31,7 +31,8 @@ public class PathManager {
     public static final String PAGE_USER_SEE_OPERATIONS = "path.user.seeoperations";
 
     public static final String PAGE_USER_PASSPORTS = "path.user.passports";
-    public static final String PAGE_USER_ORDERS = "path.user.orders.all";
+    public static final String PAGE_USER_SEE_ORDERS = "path.user.orders.all";
+    public static final String PAGE_USER_MAKE_ORDER = "path.user.orders.make";
 
 
     private static final String RESOURCE_PATH = "configuration.paths";

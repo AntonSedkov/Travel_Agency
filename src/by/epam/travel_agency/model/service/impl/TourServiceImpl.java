@@ -45,6 +45,24 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public Tour findTourById(String idConcreteTour) throws ServiceException {
+        Tour tour = new Tour();
+        if (GeneralValidator.isDigitValue(idConcreteTour)) {
+            TourDao dao = TourDaoImpl.getInstance();
+            int idConcreteTourInt = Integer.parseInt(idConcreteTour);
+            try {
+                tour = dao.findTourById(idConcreteTourInt);
+                logger.info("Find concrete tour.");
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return tour;
+    }
+
+    @Override
     public List<Tour> findToursByParameters(String restType, String country, String startDate, String minDays, String maxPrice) throws ServiceException {
         List<Tour> tours = new ArrayList<>();
         if (TourValidator.isValidTourType(restType) && GeneralValidator.isLatinLiterals(country)
@@ -52,7 +70,7 @@ public class TourServiceImpl implements TourService {
                 && TourValidator.isDigitParamValue(maxPrice)) {
             TourDao dao = TourDaoImpl.getInstance();
             LocalDate date = LocalDate.parse(startDate.strip());
-            long dateSec = DateTimeUtil.countLongFromLocalDate(date);
+            long dateSec = DateTimeUtil.convertLongFromLocalDate(date);
             int days = Integer.parseInt(minDays.strip());
             int price = Integer.parseInt(maxPrice.strip());
             try {

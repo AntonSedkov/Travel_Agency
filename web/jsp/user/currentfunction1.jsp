@@ -9,39 +9,38 @@
 
     <c:if test="${not empty orders}">
 
-        <div class="container-fluid p-3 text-center" style="max-width: 65%; background: lightseagreen">
+        <div class="container-fluid p-3 text-center" style="max-width: 100%; background: lightseagreen">
             <div class="form-row pb-2">
-                <div class="col" style="max-width: 4%; text-align: left"><fmt:message key="icon.number"/></div>
-                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.surname"/></div>
-                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.name"/></div>
-                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.birthdate"/></div>
-                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.passportno"/></div>
-                <div class="col" style="max-width: 24%; text-align: center"><fmt:message key="label.passportimage"/></div>
-                <div class="col" style="max-width: 16%; text-align: center"></div>
+                <div class="col" style="max-width: 25%; text-align: left">ORDER</div>
+                <div class="col" style="max-width: 25%; text-align: center">TOUR</div>
+                <div class="col" style="max-width: 25%; text-align: center">PASSPORT</div>
+                <div class="col" style="max-width: 25%; text-align: center">TRAVEL DOCS</div>
             </div>
 
-            <c:forEach items="${orders}" varStatus="counter">
+            <c:forEach items="${orders}" var="currentOrder">
                 <div class="form-row">
-                    <div class="col" style="max-width: 4%; text-align: left">
-                            ${counter.count}</div>
-                    <div class="col" style="max-width: 14%; text-align: center">
-                            ${counter.current.surname}</div>
-                    <div class="col" style="max-width: 14%; text-align: center">
-                            ${counter.current.name}</div>
-                    <div class="col" style="max-width: 14%; text-align: center">
-                            ${counter.current.birthDate}</div>
-                    <div class="col" style="max-width: 14%; text-align: center">
-                            ${counter.current.passportNumber}</div>
-                    <div class="col" style="max-width: 24%; text-align: center">
-                            ${counter.current.passportImage}</div>
-                    <div class="col" style="max-width: 16%; text-align: center">
-                        <form name="smthDo" method="post" action="controller">
-                            <input type="hidden" name="idusermoderate" value="${counter.current.id}"/>
-                            <input type="hidden" name="command" value="smth_do"/>
-                            <button type="submit" class="btn btn-primary float-center">
-                                smth DO</button>
-                        </form>
+                    <div class="col" style="max-width: 25%; text-align: left">
+                            ${currentOrder.idTour},
+                            ${currentOrder.idPassport},
+                            ${currentOrder.dateTimeOrder},
+                            ${currentOrder.orderState.value}
+
                     </div>
+
+                    <div class="col" style="max-width: 25%; text-align: center">
+                            ${currentOrder.passport.surname}
+                            ${currentOrder.passport.name}
+                    </div>
+                    <div class="col" style="max-width: 25%; text-align: center">
+                            ${currentOrder.tour.tourType.value},
+                            ${currentOrder.tour.country},
+                            ${currentOrder.tour.startDate},
+                            ${currentOrder.tour.price},
+                    </div>
+                    <div class="col" style="max-width: 25%; text-align: center">
+                            ${currentOrder.idTravelDoc}
+                    </div>
+
                 </div>
             </c:forEach>
 

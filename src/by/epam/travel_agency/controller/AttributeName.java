@@ -65,7 +65,7 @@ public class AttributeName {
     public static final String TRANSPORT = "transport";
     public static final String DESCRIPTION = "description";
 
-    public static final String ID_TOUR = "id_tour";
+    public static final String ID_TOUR = "idtour";
 
     public static final String TOURS_BY_TYPES = "toursbytypes";
     public static final String TOURS_BY_COUNTRIES = "toursbycountries";
@@ -83,5 +83,12 @@ public class AttributeName {
     public static final String OPERATIONS = "operations";
 
     public static final String PASSPORTS = "passports";
+    public static final String ID_PASSPORT = "idpassport";
+
+    public static final String CREATE_ORDER = "createorder";
+    public static final String CONCRETE_TOUR = "concretetour";
+
+    public static final String ORDERS = "orders";
+
 
 }

@@ -10,6 +10,8 @@ public interface TourDao extends BaseDao<Integer, Tour> {
 
     List<Tour> findAllTours() throws DaoException;
 
+    Tour findTourById(int idConcreteTour) throws DaoException;
+
     List<Tour> findToursByParameters(String restType, String country, long startDate, int minDays, int maxPrice) throws DaoException;
 
     List<Tour> findToursByCountry(String country) throws DaoException;
