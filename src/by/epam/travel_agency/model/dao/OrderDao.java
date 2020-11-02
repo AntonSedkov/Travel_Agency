@@ -17,11 +17,4 @@ public interface OrderDao {
 
     List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws DaoException;
 
-    boolean doConfirm() throws DaoException;
-
-    boolean doPaid() throws DaoException;
-
-    boolean doAddDocs() throws DaoException;
-
-    boolean doFinished() throws DaoException;
 }

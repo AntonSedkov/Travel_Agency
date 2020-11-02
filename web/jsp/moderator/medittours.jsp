@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.edittours"/></title>
@@ -28,20 +28,20 @@
                 <h2><fmt:message key="label.edittours"/></h2>
             </div>
 
-            <c:if test="${not empty closetourerror}">
+            <c:if test="${not empty requestScope.closetour}">
                 <div class="text-center">
-                    <c:if test="${closetourerror}">
-                        <h4 style="color: red"><fmt:message key="label.closetourerror"/></h4>
-                    </c:if>
-                    <c:if test="${not closetourerror}">
+                    <c:if test="${requestScope.closetour}">
                         <h4 style="color: darkgreen"><fmt:message key="label.closetoursuccess"/></h4>
+                    </c:if>
+                    <c:if test="${not requestScope.closetour}">
+                        <h4 style="color: red"><fmt:message key="label.closetourerror"/></h4>
                     </c:if>
                 </div>
             </c:if>
 
             <c:choose>
 
-                <c:when test="${empty alltours}">
+                <c:when test="${empty sessionScope.alltours}">
                     <fmt:message key="label.nocurrenttours"/>
                 </c:when>
 
@@ -49,7 +49,7 @@
                     <div class="container p-5">
                         <div class="card-deck">
 
-                            <c:forEach var="concreteTour" items="${alltours}">
+                            <c:forEach var="concreteTour" items="${sessionScope.alltours}">
 
                                 <form name="hotTourForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="close_tour"/>

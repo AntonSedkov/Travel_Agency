@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="regpage.title"/></title>
@@ -33,10 +33,10 @@
             <div class="form-row">
                 <div class="col">
                     <div class="form-froup">
-                        <label for="exampleInputReg">
+                        <label for="inputReg">
                             ${username}
                         </label>
-                        <input type="text" name="user" class="form-control" id="exampleInputReg"
+                        <input type="text" name="user" class="form-control" id="inputReg"
                                placeholder="${username}" required
                                pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                         <small id="loginHelpReg" class="form-text text-muted">
@@ -49,12 +49,11 @@
             <div class="form-row">
                 <div class="col">
                     <div class="form-froup">
-                        <label for="exampleInputReg">
+                        <label for="inputPassReg">
                             ${pass}
                         </label>
                         <input type="password" name="password" class="form-control"
-                               id="exampleInputPassReg"
-                               placeholder="${pass}" required
+                               id="inputPassReg" placeholder="${pass}" required
                                pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                         <small id="passHelpReg" class="form-text text-muted">
                             ${passhelp}
@@ -66,10 +65,10 @@
             <div class="form-row">
                 <div class="col">
                     <div class="form-froup">
-                        <label for="exampleInputReg">
+                        <label for="inputEmailReg">
                             ${emailVal}
                         </label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail"
+                        <input type="email" name="email" class="form-control" id="inputEmailReg"
                                placeholder="${emailVal}" required
                                pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
                         <small id="emailHelp" class="form-text text-muted">
@@ -82,9 +81,9 @@
             <input type="submit" class="btn btn-primary float-center" value="${register}">
 
             <div class="text-uppercase" style="color: red">
-                <c:if test="${registererror}"> <fmt:message key="regpage.registererror"/></c:if><br/>
-                <c:if test="${activateemailerror}"> <fmt:message key="regpage.activateemailerror"/></c:if>
-                <c:if test="${activateemailsuccess}"> <fmt:message key="regpage.activateemailsuccess"/></c:if>
+                <c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if><br/>
+                <c:if test="${requestScope.activateemailerror}"> <fmt:message key="regpage.activateemailerror"/></c:if>
+                <c:if test="${requestScope.activateemailsuccess}"> <fmt:message key="regpage.activateemailsuccess"/></c:if>
             </div>
 
         </form>

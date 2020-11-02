@@ -31,7 +31,6 @@ public class OrderDaoImpl implements OrderDao {
         return INSTANCE;
     }
 
-
     @Override
     public boolean createOrder(int idTour, int idPassport, long dateTimeOrder) throws DaoException {
         boolean result = false;
@@ -102,6 +101,7 @@ public class OrderDaoImpl implements OrderDao {
                 LocalDate date = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.DATE_START));
                 tour.setStartDate(date);
                 tour.setPrice(resultSet.getInt(ColumnName.PRICE));
+                tour.setDays(resultSet.getInt(ColumnName.QUANTITY_OF_DAYS));
                 ClientPassport passport = new ClientPassport();
                 passport.setSurname(resultSet.getString(ColumnName.SURNAME));
                 passport.setName(resultSet.getString(ColumnName.NAME));
@@ -128,26 +128,6 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws DaoException {
         return null;
-    }
-
-    @Override
-    public boolean doConfirm() throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean doPaid() throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean doAddDocs() throws DaoException {
-        return false;
-    }
-
-    @Override
-    public boolean doFinished() throws DaoException {
-        return false;
     }
 
 }

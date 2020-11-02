@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.userhome"/></title>
@@ -23,9 +23,102 @@
 
     <%@include file="../greeting.jsp" %>
 
-    <section class="curOrds">
-        <h3 class="font-weight-bold text-center" style="color: #BA4E27">??? Your actual Orders with STATE: and Button
-            Action(next state. Action) ???</h3>
+    <section class="current_orders">
+        <c:if test="${not empty sessionScope.orders}">
+<%--
+            <div class="user_pay_state">
+                <div class="container p-5">
+                    <div class="card-deck">
+
+                        <c:forEach items="${sessionScope.orders}" var="currentOrder">
+                            <c:if test="${currentOrder.orderState.value.equals('confirm')}">
+
+                                <div class="card text-center" style="width: 20rem; background: lightseagreen">
+                                    <div class="card-body">
+                                        <h4><fmt:message key="label.wpayment"/></h4>
+                                        <h4>${currentOrder.tour.price}<fmt:message key="icon.currency"/></h4>
+                                        <p class="card-text">
+                                                ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
+                                            <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
+                                                ${currentOrder.tour.days} <fmt:message key="label.days"/>
+                                        </p>
+                                        <p class="card-text">
+                                                ${currentOrder.passport.surname}
+                                                ${currentOrder.passport.name}
+                                        </p>
+                                        <form name="cancelOrderConfirmForm" method="post" action="controller">
+                                            <input type="hidden" name="command" value="cancel_order">
+                                            <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message key="label.cancelorder"/>
+                                            </button>
+                                        </form>
+                                        <form name="payOrderForm" method="post" action="controller">
+                                            <input type="hidden" name="command" value="pay_order">
+                                            <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message key="label.payorder"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user_add_docs_state">
+                <div class="container p-5">
+                    <div class="card-deck">
+
+                        <c:forEach items="${sessionScope.orders}" var="currentOrder">
+                            <c:if test="${currentOrder.orderState.value.equals('add_docs')}">
+
+                                <div class="card text-center" style="width: 20rem; background: lightskyblue">
+                                    <div class="card-body">
+                                        <h4><fmt:message key="label.enjoytour"/></h4>
+                                        <form name="seDocsForm" method="post" action="controller">
+                                            <input type="hidden" name="command" value="see_travel_docs">
+                                            <input type="hidden" name="iddocs" value="${currentOrder.idTravelDoc}">
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message key="label.seedocs"/>
+                                            </button>
+                                        </form>
+                                        <p class="card-text">
+                                                ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
+                                            <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
+                                                ${currentOrder.tour.days} <fmt:message key="label.days"/><br/>
+                                                ${currentOrder.tour.price}
+                                            <fmt:message key="icon.currency"/>
+                                        </p>
+                                        <p class="card-text">
+                                                ${currentOrder.passport.surname}
+                                                ${currentOrder.passport.name}
+                                        </p>
+                                        <form name="finishOrderForm" method="post" action="controller">
+                                            <input type="hidden" name="command" value="finish_order">
+                                            <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                            <p><fmt:message key="label.entercomment"/></p>
+                                            <p><label>
+                                                <textarea rows="10" cols="45" name="comment"></textarea>
+                                            </label></p>
+                                            <button type="submit" class="btn btn-primary">
+                                                <fmt:message key="label.finishorder"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </c:if>
+                        </c:forEach>
+
+                    </div>
+                </div>
+            </div>
+
+        --%>
     </section>
 
     <section class="buttons">
@@ -41,9 +134,6 @@
             </button>
             <button type="submit" class="btn btn-primary m-2">
                 <a href="controller?command=all_tours" style="color: white"><fmt:message key="label.allcurrenttours"/></a>
-            </button>
-            <button type="submit" class="btn btn-primary m-2">
-                <a href="#" style="color: white"><fmt:message key="label.tours"/> ??? Travel Docs ???</a>
             </button>
         </div>
     </section>
@@ -62,26 +152,30 @@
                             </h4>
 
                             <p class="card-text">
-                                <input type="password" name="currentpassword" class="form-control"
-                                       placeholder=" <fmt:message key="label.currentpass"/>" required
-                                       pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                <label>
+                                    <input type="password" name="currentpassword" class="form-control"
+                                           placeholder=" <fmt:message key="label.currentpass"/>" required
+                                           pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                </label>
                             </p>
 
                             <p class="card-text">
-                                <input type="password" name="newpassword" class="form-control"
-                                       placeholder="<fmt:message key="label.newpass"/>" required
-                                       pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                <label>
+                                    <input type="password" name="newpassword" class="form-control"
+                                           placeholder="<fmt:message key="label.newpass"/>" required
+                                           pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                </label>
                                 <small class="form-text text-muted">
                                     "<fmt:message key="authpage.passhelp"/>"
                                 </small>
                             </p>
 
-                            <c:if test="${changepassword}">
+                            <c:if test="${requestScope.changepassword}">
                                 <p class="card-text" style="color: darkgreen; font-weight: bold">
                                     <fmt:message key="statement.changepasswordsuccess"/>
                                 </p>
                             </c:if>
-                            <c:if test="${not empty changepassword and not changepassword}">
+                            <c:if test="${requestScope.changepassword eq false}">
                                 <p class="card-text" style="color: darkred; font-weight: bold">
                                     <fmt:message key="statement.changepasswordfail"/>
                                 </p>
@@ -103,20 +197,22 @@
                             </h4>
 
                             <p class="card-text">
-                                <input type="text" name="newusername" class="form-control"
-                                       placeholder="<fmt:message key="label.newusername"/>" required
-                                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                <label>
+                                    <input type="text" name="newusername" class="form-control"
+                                           placeholder="<fmt:message key="label.newusername"/>" required
+                                           pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                                </label>
                                 <small class="form-text text-muted">
                                     <fmt:message key="authpage.loginhelp"/>
                                 </small>
                             </p>
 
-                            <c:if test="${changelogin}">
+                            <c:if test="${requestScope.changelogin}">
                                 <p class="card-text" style="color: darkgreen; font-weight: bold">
                                     <fmt:message key="statement.changeloginsuccess"/>
                                 </p>
                             </c:if>
-                            <c:if test="${not empty changelogin and not changelogin}">
+                            <c:if test="${requestScope.changelogin eq false}">
                                 <p class="card-text" style="color: darkred; font-weight: bold">
                                     <fmt:message key="statement.changeloginfail"/>
                                 </p>
@@ -138,20 +234,22 @@
                             </h4>
 
                             <p class="card-text">
-                                <input type="email" name="newemail" class="form-control"
-                                       placeholder="<fmt:message key="label.newemail"/>" required
-                                       pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
+                                <label>
+                                    <input type="email" name="newemail" class="form-control"
+                                           placeholder="<fmt:message key="label.newemail"/>" required
+                                           pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
+                                </label>
                                 <small class="form-text text-muted">
                                     <fmt:message key="regpage.emailhelp"/>
                                 </small>
                             </p>
 
-                            <c:if test="${changeemail}">
+                            <c:if test="${requestScope.changeemail}">
                                 <p class="card-text" style="color: darkgreen; font-weight: bold">
                                     <fmt:message key="statement.changeemailsuccess"/>
                                 </p>
                             </c:if>
-                            <c:if test="${not empty changeemail and not changeemail}">
+                            <c:if test="${requestScope.changeemail eq false}">
                                 <p class="card-text" style="color: darkred; font-weight: bold">
                                     <fmt:message key="statement.changeemailfail"/>
                                 </p>

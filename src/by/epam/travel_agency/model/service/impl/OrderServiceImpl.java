@@ -74,23 +74,4 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
-    @Override
-    public boolean doConfirm() throws ServiceException {
-        return false;
-    }
-
-    @Override
-    public boolean doPaid() throws ServiceException {
-        return false;
-    }
-
-    @Override
-    public boolean doAddDocs() throws ServiceException {
-        return false;
-    }
-
-    @Override
-    public boolean doFinished() throws ServiceException {
-        return false;
-    }
 }

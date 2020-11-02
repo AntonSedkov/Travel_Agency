@@ -32,9 +32,9 @@ public class SearchTourCommand implements Command {
         try {
             List<Tour> tours = service.findToursByParameters(tourPurpose, country, startDate, toutDays, maxPrice);
             if (tours.size() > 0) {
-                session.setAttribute(AttributeName.SEARCH_TOURS, tours);
+                request.setAttribute(AttributeName.SEARCH_TOURS, tours);
             } else {
-                session.setAttribute(AttributeName.SEARCH_TOURS_NOTHING, true);
+                request.setAttribute(AttributeName.SEARCH_TOURS_NOTHING, true);
             }
             page = (String) session.getAttribute(AttributeName.CURRENT_PAGE);
             logger.info("Search has been completed by parameters");

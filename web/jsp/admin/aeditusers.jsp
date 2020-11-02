@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.editusers"/></title>
@@ -40,7 +40,7 @@
                 <div class="col text-center"><fmt:message key="label.deactivation"/></div>
             </div>
 
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="user" items="${sessionScope.users}">
                 <div class="row">
                     <div class="col text-center"><c:out value="${user.id}"/></div>
                     <div class="col text-left"><c:out value="${user.login}"/></div>
@@ -68,8 +68,8 @@
             </c:forEach>
 
             <div class="text-uppercase" style="color: red">
-                <c:if test="${activateusererror}"> <fmt:message key="admin.activateusererror"/></c:if> <br/>
-                <c:if test="${deactivateusererror}"> <fmt:message key="admin.deactivateusererror"/></c:if> <br/>
+                <c:if test="${requestScope.activateusererror}"> <fmt:message key="admin.activateusererror"/></c:if> <br/>
+                <c:if test="${requestScope.deactivateusererror}"> <fmt:message key="admin.deactivateusererror"/></c:if> <br/>
             </div>
 
         </div>

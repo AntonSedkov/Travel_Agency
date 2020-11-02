@@ -33,10 +33,10 @@ public class AddTourCommand implements Command {
         String imageName = (String) request.getAttribute(AttributeName.IMAGE_NAME);
         try {
             if (service.createTour(tourType, country, hotelName, hotelStars, transport, startDate, tourDays, tourPrice, quantityTours, description, imageName)) {
-                request.setAttribute(AttributeName.CREATE_TOUR_ERROR, false);
+                request.setAttribute(AttributeName.CREATE_TOUR, true);
                 logger.info("Tour has been created.");
             } else {
-                request.setAttribute(AttributeName.CREATE_TOUR_ERROR, true);
+                request.setAttribute(AttributeName.CREATE_TOUR, false);
                 logger.warn("Tour has not been created.");
             }
         } catch (ServiceException e) {

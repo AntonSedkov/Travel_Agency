@@ -10,18 +10,18 @@
         </div>
 
         <p style="text-align: center; font-weight: bold; font-size: 24pt">
-            <c:if test="${(not empty hottoursnothing) and (hottoursnothing)}"><fmt:message
-                    key="hottours.nothing"/></c:if>
+            <c:if test="${(not empty requestScope.hottoursnothing) and (requestScope.hottoursnothing)}">
+                <fmt:message key="hottours.nothing"/></c:if>
         </p>
 
         <div class="container p-5">
             <div class="card-deck">
 
-                <c:forEach var="concreteTour" items="${hottours}">
+                <c:forEach var="concreteTour" items="${sessionScope.hottours}">
 
                     <form name="hotTourForm" method="post" action="controller">
                         <c:choose>
-                            <c:when test="${userhomepage}">
+                            <c:when test="${isuser}">
                                 <input type="hidden" name="command" value="make_order_page"/>
                                 <input type="hidden" name="idtour" value="${concreteTour.id}">
                             </c:when>

@@ -182,9 +182,9 @@
 
                         <form name="hotTourForm" method="post" action="controller">
                             <c:choose>
-                                <c:when test="${userhomepage}">
+                                <c:when test="${isuser}">
                                     <input type="hidden" name="command" value="make_order_page"/>
-                                    <input type="hidden" name="idtour" value="${concreteTour.id}">
+                                    <input type="hidden" name="idtour" value="${findTour.id}">
                                 </c:when>
                                 <c:otherwise>
                                     <input type="hidden" name="command" value="login_page"/>

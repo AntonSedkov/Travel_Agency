@@ -28,7 +28,7 @@ public class ChangeEmailCommand implements Command {
             if (service.changeEmail(login, newEmail)) {
                 request.setAttribute(AttributeName.CHANGE_EMAIL, true);
                 String mailSubject = MailTextCreator.createChangeMailSubject();
-                String mailText = MailTextCreator.createCnangeMailText(login);
+                String mailText = MailTextCreator.createChangeMailText(login);
                 SendMailManager sender = new SendMailManager(newEmail, mailSubject, mailText);
                 sender.send();
                 logger.info("Changing email is complete for " + login);

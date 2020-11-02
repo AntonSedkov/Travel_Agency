@@ -27,7 +27,6 @@ public class ColumnName {
 
     public static final String DISCOUNT = "discount";
 
-
     public static final String ID_STAFF = "id_staff";
     public static final String ID_USER_FK = "id_user_fk";
 

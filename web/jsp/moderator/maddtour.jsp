@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.addtour"/></title>
@@ -36,7 +36,7 @@
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.tourtype"/></h4>
                     <div aria-required="true">
-                        <c:forEach var="currentType" items="${tourtypes}">
+                        <c:forEach var="currentType" items="${sessionScope.tourtypes}">
                             <input type="radio" name="tourtype" id="${currentType}" value="${currentType}"
                                    class="form-control" required checked>
                             <label for="${currentType}"><fmt:message key="label.${currentType}"/></label>
@@ -46,9 +46,11 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.country"/></h4>
-                    <input type="text" name="country" class="form-control"
+                    <label>
+                        <input type="text" name="country" class="form-control"
                            id="country" placeholder="<fmt:message key='label.country'/>" required
                            pattern="[A-Za-z]{1,20}"/>
+                    </label>
                     <small id="countryHelp" class="form-text text-muted">
                         <fmt:message key="label.stringhelp"/>
                     </small>
@@ -56,9 +58,11 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.hotelname"/></h4>
-                    <input type="text" name="hotelname" class="form-control"
+                    <label>
+                        <input type="text" name="hotelname" class="form-control"
                            placeholder="<fmt:message key="label.hotelname"/>" required
                            pattern="[A-Za-z]{1,20}"/>
+                    </label>
                     <small id="hotelHelp" class="form-text text-muted">
                         <fmt:message key="label.stringhelp"/>
                     </small>
@@ -88,16 +92,20 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.startdate"/></h4>
+                    <label>
                     <input type="date" name="startdate" class="form-control"
                            id="startdate" placeholder="<fmt:message key="label.startdate"/>"
                            min="1000-01-01" required/>
+                    </label>
                 </div>
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.tourdays"/></h4>
+                    <label>
                     <input type="text" name="tourdays" class="form-control"
                            placeholder="<fmt:message key="label.tourdays"/>"
                            required pattern="\d{1,3}"/>
+                    </label>
                     <small id="daysHelp" class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
@@ -105,9 +113,11 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.price"/></h4>
+                    <label>
                     <input type="text" name="tourprice" class="form-control"
                            placeholder="<fmt:message key="label.price"/> <fmt:message key="icon.currency"/>"
                            required pattern="\d{1,7}"/>
+                    </label>
                     <small id="priceHelp" class="form-text text-muted">
                         <fmt:message key="label.pricehelp"/>
                     </small>
@@ -115,9 +125,11 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.quantitytours"/></h4>
+                    <label>
                     <input type="text" name="quantitytours" class="form-control"
                            placeholder="<fmt:message key="label.quantitytours"/>"
                            required pattern="\d{1,3}"/>
+                    </label>
                     <small id="quantityHelp" class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
@@ -125,9 +137,11 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.description"/></h4>
+                    <label>
                     <input type="text" name="description" class="form-control"
                            id="description" placeholder="<fmt:message key="label.description"/>"
                            required pattern="[A-Za-z]{1,20}"/>
+                    </label>
                     <small id="descriptionHelp" class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
@@ -148,15 +162,17 @@
 
             </form>
 
-            <c:if test="${uploadresult and (not createtourerror)}">
-                <p style="color: green">Image has been upload to server successfully and New Tour is created.</p>
-            </c:if>
-            <c:if test="${createtourerror}">
-                <p style="color: orange">Image has been upload to server successfully but New Tour isn't created.</p>
-            </c:if>
-            <c:if test="${ulpoadresult eq false}">
-                <p style="color: red">Image hasn't been upload to server and New Tour isn't created.</p>
-            </c:if>
+            <c:choose>
+                <c:when test="${requestScope.uploadresult and (requestScope.createtour)}">
+                    <p style="color: green"><fmt:message key="label.imageuploadandtourcreated"/></p>
+                </c:when>
+                <c:when test="${requestScope.uploadresult and not requestScope.createtour}">
+                    <p style="color: orange"><fmt:message key="label.imageuploadandtournotcreated"/></p>
+                </c:when>
+                <c:when test="${requestScope.uploadresult eq false}">
+                    <p style="color: red"><fmt:message key="label.imagenotuploadandtournotcreated"/></p>
+                </c:when>
+            </c:choose>
 
         </div>
     </section>

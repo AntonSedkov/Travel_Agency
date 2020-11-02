@@ -64,8 +64,9 @@ public class StatementSql {
     public static final String FIND_TOUR_QUANTITY_BY_ID = "SELECT id_tour, quantity_tours from tours where id_tour = (?)";
 
     public static final String SELECT_ORDERS_INFO_BY_ID_USER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start,t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, o.date_order, o.state " +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
+                    "o.id_order, o.date_order, o.state " +
                     "from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
                     "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
@@ -73,52 +74,34 @@ public class StatementSql {
                     "WHERE p.id_user_fk = (?) ORDER BY o.date_order DESC";
 
     public static final String SELECT_ACTUAL_ORDERS_BY_ID_USER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start,t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, o.date_order, o.state " +
-                    "from orders AS o" +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
+                    "o.id_order, o.date_order, o.state " +
+                    "from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
                     "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE p.id_user_fk = (?) AND o.state != 'finished' ORDER BY o.date_order DESC";
 
     public static final String SELECT_ORDERS_BY_ID_USER_AND_STATE =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start,t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, o.date_order, o.state " +
-                    "from orders AS o" +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
+                    "o.id_order, o.date_order, o.state " +
+                    "from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
                     "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE p.id_user_fk = (?) AND o.state = (?) ORDER BY o.date_order DESC";
 
     public static final String SELECT_ORDERS_BY_ID_USER_AND_ID_ORDER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start,t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, o.date_order, o.state " +
-                    "from orders AS o" +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
+                    "o.id_order, o.date_order, o.state " +
+                    "from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
                     "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE p.id_user_fk = (?) AND o.id_order = (?) ORDER BY o.date_order DESC";
 
-
-    public static final String SELECT_MIN_PRICE = "SELECT MIN(price) FROM tours";
-    public static final String SELECT_MAX_PRICE = "SELECT MAX(price) FROM tours";
-    public static final String SELECT_MIN_DAYS = "SELECT MIN(quantity_of_days) FROM tours";
-    public static final String SELECT_MAX_DAYS = "SELECT MAX(quantity_of_days) FROM tours";
-
-
-    public static final String FIND_TOUR_BY_HOTEL_NAME = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where hotel_name = (?)";
-    public static final String FIND_TOUR_BY_HOTEL_STARS_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, transport, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where  hotel_stars >= (?)";
-    public static final String FIND_TOUR_BY_TRANSPORT = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where  transport = (?)";
-    public static final String FIND_TOUR_BY_DATE_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where date_start >= (?)";
-    public static final String FIND_TOUR_BY_PRICE_LOWER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days, price, quantity_tours, description, image_path from tours where price <= (?)";
-    public static final String FIND_TOUR_BY_DAYS_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
-            "price, quantity_tours, description, image_path from tours where quantity_of_days >= (?)";
-    public static final String FIND_TOUR_BY_QUANTITY_BIGGER_THAN = "SELECT id_tour, tour_purpose, country, hotel_name, hotel_stars, transport, date_start, " +
-            "quantity_of_days, price, description, image_path from tours where quantity_tours >= (?)";
 
 }

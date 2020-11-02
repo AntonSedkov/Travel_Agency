@@ -12,20 +12,8 @@ public class ModeratorHomeCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        /*TourService tourService = TourServiceImpl.getInstance();
-        HttpSession session = request.getSession();
-        String page;
-        try {
-            Set<String> tourTypes = tourService.formTourTypes();
-            session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
-            List<Tour> tours = tourService.findAllTours();
-            session.setAttribute(AttributeName.TOURS, tours);*/
         String page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
         logger.info("Moderator home page reload.");
-      /*  } catch (ServiceException e) {
-            logger.error(e);
-            page = PathManager.getProperty(PathManager.PAGE_ERROR);
-        }*/
         return page;
     }
 

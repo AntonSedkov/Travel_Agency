@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.addstaff"/></title>
@@ -70,12 +70,15 @@
 
                 <div class="form-row">
                     <div class="col form-froup">
-                        <fmt:message key="admin.role" var="roleVal"/>
-                        <label>${roleVal}</label>
-                        <input type="radio" name="role" value="moderator" class="form-control" checked>
-                        <fmt:message key="label.moderator"/><br/>
-                        <input type="radio" name="role" value="admin" class="form-control">
-                        <fmt:message key="label.admin"/><br/>
+                        <label><fmt:message key="admin.role"/></label><br/>
+                        <label>
+                            <input type="radio" name="role" value="moderator" class="form-control" checked>
+                            <fmt:message key="label.moderator"/><br/>
+                        </label>
+                        <label>
+                            <input type="radio" name="role" value="admin" class="form-control">
+                            <fmt:message key="label.admin"/><br/>
+                        </label>
                         <small id="roleHelp" class="form-text text-muted"><fmt:message key="admin.rolehelp"/></small>
                     </div>
                 </div>
@@ -83,8 +86,8 @@
                 <input type="submit" class="btn btn-primary float-center" value="<fmt:message key="button.register"/>"/>
 
                 <div class="text-uppercase">
-                    <c:if test="${registererror}"> <fmt:message key="regpage.registererror"/></c:if> <br/><br/>
-                    <c:if test="${registersuccess}"> <fmt:message key="regpage.registersuccess"/></c:if> <br/><br/>
+                    <c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if> <br/><br/>
+                    <c:if test="${requestScope.registersuccess}"> <fmt:message key="regpage.registersuccess"/></c:if> <br/><br/>
                 </div>
 
             </form>

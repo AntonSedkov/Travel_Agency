@@ -205,25 +205,6 @@ VALUES (2002, 100000, 'add paycard sum');
 INSERT INTO sheetOperation (id_sheet_fk, operation_sum, operation_purpose)
 VALUES (2002, -150000, 'order payment');
 
-/*one user - one admin_moderator*/
-create table staff
-(
-    id_staff   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_user_fk INT UNSIGNED UNIQUE NOT NULL,
-    surname    VARCHAR(32)         NOT NULL,
-    name       VARCHAR(32)         NOT NULL,
-    FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
-);
-
-INSERT INTO staff(id_user_fk, surname, name)
-VALUES (1, 'Sergeev', 'Sergey');
-INSERT INTO staff(id_user_fk, surname, name)
-VALUES (2, 'Andreeva', 'Ilona');
-INSERT INTO staff(id_user_fk, surname, name)
-VALUES (6, 'Chubrik', 'Gennadiy');
-INSERT INTO staff(id_user_fk, surname, name)
-VALUES (7, 'Zayceva', 'Irina');
-
 /*one order - many tours - many passports - one travel_documents*/
 create table orders
 (
@@ -270,18 +251,6 @@ INSERT INTO paycards(card_number, card_sum, card_quantity)
 VALUES (3339333, 300000, 5);
 
 
-
-/*may be*/
-create table tours_unavailable
-(   id_tour          INT UNSIGNED UNIQUE,
-    tour_purpose     ENUM ('rest', 'excursion','shopping' )     NOT NULL,
-    country          VARCHAR(32)                                NOT NULL,
-    hotel_name       VARCHAR(32)                                NOT NULL,
-    hotel_stars      ENUM('hostel', 'three', 'four', 'five')    NOT NULL,
-    transport        ENUM ('bus','airplane')                    NOT NULL,
-    price            INT(5) UNSIGNED                            NOT NULL,
-    image_path       VARCHAR(64)                                NOT NULL DEFAULT 'img/tours/default.jpg'
-);
 
 
 select * from users;

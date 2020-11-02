@@ -11,9 +11,8 @@ public class AttributeName {
     public static final String ACTIVATE_EMAIL_SUCCESS = "activateemailsuccess";
     public static final String ACTIVATE_USER_ERROR = "activateusererror";
     public static final String DEACTIVATE_USER_ERROR = "deactivateusererror";
-    public static final String CREATE_TOUR_ERROR = "createtourerror";
-    public static final String CLOSE_TOUR_ERROR = "closetourerror";
-
+    public static final String CREATE_TOUR = "createtour";
+    public static final String CLOSE_TOUR = "closetour";
 
     public static final String TARGET_PAGE = "targetpage";
 
@@ -89,6 +88,5 @@ public class AttributeName {
     public static final String CONCRETE_TOUR = "concretetour";
 
     public static final String ORDERS = "orders";
-
-
+    
 }

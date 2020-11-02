@@ -17,12 +17,4 @@ public interface OrderService {
 
     List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws ServiceException;
 
-    boolean doConfirm() throws ServiceException;
-
-    boolean doPaid() throws ServiceException;
-
-    boolean doAddDocs() throws ServiceException;
-
-    boolean doFinished() throws ServiceException;
-
 }

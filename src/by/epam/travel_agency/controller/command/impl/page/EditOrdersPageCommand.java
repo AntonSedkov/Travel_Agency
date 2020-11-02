@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class EditOrdersCommand implements Command {
-    private static Logger logger = LogManager.getLogger(EditOrdersCommand.class);
+public class EditOrdersPageCommand implements Command {
+    private static Logger logger = LogManager.getLogger(EditOrdersPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {

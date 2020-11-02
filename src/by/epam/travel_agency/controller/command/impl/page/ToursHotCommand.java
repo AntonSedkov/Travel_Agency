@@ -28,7 +28,7 @@ public class ToursHotCommand implements Command {
             if (hotTours.size() > 0) {
                 session.setAttribute(AttributeName.HOT_TOURS, hotTours);
             } else {
-                session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+                request.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
             }
             Set<String> countries = service.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);

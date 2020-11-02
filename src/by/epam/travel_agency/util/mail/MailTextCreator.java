@@ -25,7 +25,7 @@ public class MailTextCreator {
         return mailText.toString();
     }
 
-    public static String createCnangeMailText(String user) {
+    public static String createChangeMailText(String user) {
         StringBuilder mailText = new StringBuilder(MAIL_TEXT_GREETINGS).append(MAIL_TEXT_CONFIRMATION)
                 .append(String.format(MAIL_TEXT_LINK, user));
         return mailText.toString();

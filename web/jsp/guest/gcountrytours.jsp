@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.countrytours"/></title>
@@ -30,7 +30,7 @@
 
             <c:choose>
 
-                <c:when test="${empty toursbycountries}">
+                <c:when test="${empty sessionScope.toursbycountries}">
                     <div class="section_tittle text-center">
                         <h2 class="p-3"><fmt:message key="label.nocurrenttours"/></h2>
                     </div>
@@ -38,7 +38,7 @@
 
                 <c:otherwise>
 
-                    <c:forEach var="countryMapEntry" items="${toursbycountries}">
+                    <c:forEach var="countryMapEntry" items="${sessionScope.toursbycountries}">
 
                         <div class="section_tittle text-center">
                             <h2 class="p-3"><fmt:message key="label.${countryMapEntry.key}"/></h2>
@@ -60,7 +60,7 @@
                                             <form name="hotTourForm" method="post" action="controller">
 
                                                 <c:choose>
-                                                    <c:when test="${userhomepage}">
+                                                    <c:when test="${isuser}">
                                                         <input type="hidden" name="command" value="make_order_page"/>
                                                         <input type="hidden" name="idtour" value="${currentCountryTour.id}">
                                                     </c:when>

@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.sheet"/></title>
@@ -29,13 +29,13 @@
                 <div class="card text-center" style="width: 20rem;">
                     <div class="card-body" style="background-color: lemonchiffon">
                         <h4 class="card-title pb-2 pt-1" style="text-align: left; font-weight: bold">
-                            <fmt:message key="label.sheetnumber"/> ${sheet.id}<br/>
+                            <fmt:message key="label.sheetnumber"/> ${sessionScope.sheet.id}<br/>
                         </h4>
                         <h4 class="card-title pb-2" style="text-align: left; font-weight: bold">
-                            <fmt:message key="label.sheetsum"/> ${sheet.sheetSum} <fmt:message key="icon.currency"/><br/>
+                            <fmt:message key="label.sheetsum"/> ${sessionScope.sheet.sheetSum} <fmt:message key="icon.currency"/><br/>
                         </h4>
                         <h4 class="card-title " style="text-align: left; font-weight: bold">
-                            <fmt:message key="label.sheetdiscount"/> ${sheet.discount.value} <fmt:message
+                            <fmt:message key="label.sheetdiscount"/> ${sessionScope.sheet.discount.value} <fmt:message
                                 key="icon.percent"/>
                         </h4>
                         <p class="card-text">
@@ -61,17 +61,19 @@
                         <div class="card-body">
                             <h4 class="card-title" ><fmt:message key="label.addsum"/></h4>
                             <p class="card-text">
-                                <input type="text" name="paycard" class="form-control"
-                                       placeholder="<fmt:message key="label.paycardnumber"/>" required
-                                       pattern="[\d]{7}"/>
+                                <label>
+                                    <input type="text" name="paycard" class="form-control"
+                                           placeholder="<fmt:message key="label.paycardnumber"/>" required
+                                           pattern="[\d]{7}"/>
+                                </label>
                             </p>
 
-                            <c:if test="${addsumresult}">
+                            <c:if test="${requestScope.addsumresult}">
                                 <p class="card-text" style="color: darkgreen; font-weight: bold">
                                     <fmt:message key="statement.addsumresultsuccess"/>
                                 </p>
                             </c:if>
-                            <c:if test="${not empty addsumresult and not addsumresult}">
+                            <c:if test="${requestScope.addsumresult eq false}">
                                 <p class="card-text" style="color: darkred; font-weight: bold">
                                     <fmt:message key="statement.addsumresultfail"/>
                                 </p>
@@ -90,21 +92,23 @@
                             <h4 class="card-title"><fmt:message key="label.payfortours"/></h4>
 
                             <p class="card-text">
-                                <input type="text" name="minussum" class="form-control"
-                                       placeholder="Minus Sum" required
-                                       pattern="[\d]{1,6}"/>
+                                <label>
+                                    <input type="text" name="minussum" class="form-control"
+                                           placeholder="Minus Sum" required
+                                           pattern="[\d]{1,6}"/>
+                                </label>
                             </p>
 
                             <p class="card-text">
                                 HERE MUST BE OPTION AND FOREACH WITH CURRENT UNPAID ORDERS
                             </p>
 
-                            <c:if test="${payorderresult}">
+                            <c:if test="${requestScope.payorderresult}">
                                 <p class="card-text" style="color: darkgreen; font-weight: bold">
                                     <fmt:message key="statement.payordersuccess"/>
                                 </p>
                             </c:if>
-                            <c:if test="${not empty payorderresult and not payorderresult}">
+                            <c:if test="${requestScope.payorderresult eq false}">
                                 <p class="card-text" style="color: darkred; font-weight: bold">
                                     <fmt:message key="statement.payorderfail"/>
                                 </p>

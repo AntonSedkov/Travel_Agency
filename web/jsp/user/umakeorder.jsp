@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.makeorder"/></title>
@@ -38,29 +38,32 @@
 
                         <c:choose>
 
-                            <c:when test="${not empty concretetour}">
-                                <input type="hidden" name="idtour" value="${concretetour.id}"/>
+                            <c:when test="${not empty requestScope.concretetour}">
+                                <input type="hidden" name="idtour" value="${requestScope.concretetour.id}"/>
                                 <p>
-                                        ${concretetour.country}, ${concretetour.tourType.value},
-                                        ${concretetour.price}<fmt:message key="icon.currency"/>,
-                                    <fmt:message key="label.startdate"/> ${concretetour.startDate},
-                                        ${concretetour.days} <fmt:message key="label.days"/>
+                                        ${requestScope.concretetour.country},
+                                        ${requestScope.concretetour.tourType.value},
+                                        ${requestScope.concretetour.price}<fmt:message key="icon.currency"/>,
+                                    <fmt:message key="label.startdate"/> ${requestScope.concretetour.startDate},
+                                        ${requestScope.concretetour.days} <fmt:message key="label.days"/>
                                 </p>
                             </c:when>
 
                             <c:otherwise>
                                 <p>
-                                    <select class="nc_select" name="idtour" required>
-                                        <option selected><fmt:message key="label.choosetour"/></option>
-                                        <c:forEach var="concreteTour" items="${alltours}">
-                                            <option value="${concreteTour.id}">
-                                                    ${concreteTour.country}, ${concreteTour.tourType.value},
-                                                    ${concreteTour.price}<fmt:message key="icon.currency"/>,
-                                                <fmt:message key="label.startdate"/> ${concreteTour.startDate},
-                                                    ${concreteTour.days} <fmt:message key="label.days"/>
-                                            </option>
-                                        </c:forEach>
-                                    </select>
+                                    <label>
+                                        <select class="nc_select" name="idtour" required>
+                                            <option selected><fmt:message key="label.choosetour"/></option>
+                                            <c:forEach var="concreteTour" items="${sessionScope.alltours}">
+                                                <option value="${concreteTour.id}">
+                                                        ${concreteTour.country}, ${concreteTour.tourType.value},
+                                                        ${concreteTour.price}<fmt:message key="icon.currency"/>,
+                                                    <fmt:message key="label.startdate"/> ${concreteTour.startDate},
+                                                        ${concreteTour.days} <fmt:message key="label.days"/>
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </label>
                                 </p>
                             </c:otherwise>
                         </c:choose>
@@ -68,27 +71,29 @@
                         <h4 class="card-title"><fmt:message key="label.passport"/></h4>
 
                         <p class="card-text">
-                            <select class="nc_select" name="idpassport" required>
-                                <option selected><fmt:message key="label.choosepassport"/></option>
-                                <c:forEach var="concretePassport" items="${passports}">
-                                    <option value="${concretePassport.id}">
-                                            ${concretePassport.surname}, ${concretePassport.name},
-                                            ${concretePassport.passportNumber}
-                                    </option>
-                                </c:forEach>
-                            </select>
+                            <label>
+                                <select class="nc_select" name="idpassport" required>
+                                    <option selected><fmt:message key="label.choosepassport"/></option>
+                                    <c:forEach var="concretePassport" items="${sessionScope.passports}">
+                                        <option value="${concretePassport.id}">
+                                                ${concretePassport.surname}, ${concretePassport.name},
+                                                ${concretePassport.passportNumber}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </label>
                         </p>
 
                         <button type="submit" class="btn btn-primary"><fmt:message key="button.order"/></button>
                         <br/>
 
-                        <c:if test="${createorder}">
+                        <c:if test="${requestScope.createorder}">
                             <p class="card-text" style="color: darkgreen; font-weight: bold">
                                 <fmt:message key="statement.createordersuccess"/>
                             </p>
                         </c:if>
 
-                        <c:if test="${not empty createorder and not createorder}">
+                        <c:if test="${requestScope.createorder eq false}">
                             <p class="card-text" style="color: darkred; font-weight: bold">
                                 <fmt:message key="statement.createorderfail"/>
                             </p>

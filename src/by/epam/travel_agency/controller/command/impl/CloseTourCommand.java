@@ -25,12 +25,12 @@ public class CloseTourCommand implements Command {
         String idTour = request.getParameter(AttributeName.ID_TOUR);
         try {
             if (service.closeTour(idTour)) {
-                request.setAttribute(AttributeName.CLOSE_TOUR_ERROR, false);
+                request.setAttribute(AttributeName.CLOSE_TOUR, true);
                 List<Tour> tours = service.findAllTours();
                 session.setAttribute(AttributeName.ALL_TOURS, tours);
                 logger.info("Tour has been closed.");
             } else {
-                request.setAttribute(AttributeName.CLOSE_TOUR_ERROR, true);
+                request.setAttribute(AttributeName.CLOSE_TOUR, false);
                 logger.warn("Tour has not been closed.");
             }
         } catch (ServiceException e) {

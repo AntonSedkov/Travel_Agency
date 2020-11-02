@@ -22,8 +22,8 @@ public enum CommandType {
     MODERATOR_IN(new ModeratorHomeCommand()),
     ADD_TOUR_PAGE(new AddTourPageCommand()),
     EDIT_TOURS(new EditToursCommand()),
-    EDIT_ORDERS(new EditOrdersCommand()),
-    ADD_ORDER_DOCUMENTS(new AddOrderDocsCommand()),
+    EDIT_ORDERS_PAGE(new EditOrdersPageCommand()),             // TODO: 02.11.2020
+    ADD_ORDER_DOCS_PAGE(new AddOrderDocsPageCommand()),         // TODO: 02.11.2020
     ADD_TOUR(new AddTourCommand()),
     CLOSE_TOUR(new CloseTourCommand()),
 
@@ -33,7 +33,6 @@ public enum CommandType {
     MAKE_ORDER_PAGE(new MakeOrderPageCommand()),
     ALL_ORDERS(new AllOrdersCommand()),
 
-
     LOGOUT(new LogoutCommand()),
     CHANGE_LOGIN(new ChangeLoginCommand()),
     CHANGE_PASSWORD(new ChangePasswordCommand()),
@@ -42,19 +41,15 @@ public enum CommandType {
     PAY_ORDER(new PayOrderCommand()),
     MAKE_ORDER(new MakeOrderCommand()),
 
+    actual_orders(new ToDo()),
+    add_passport(new ToDo()),
 
+    see_travel_docs(new ToDo()),
+    finish_order(new ToDo()),
+    cancel_order(new ToDo()),
+    pay_order(new ToDo()),
 
-
-
-    actual_orders(new TestTTT()),
-    previous_orders(new TestTTT()),
-
-    add_passport(new TestTTT()),
-    edit_passports(new TestTTT()),
-    confirm_passports(new TestTTT()),
-
-
-
+    set_hot_tour(new ToDo()),
 
     CHANGE_LANG(new ChangeLanguageCommand()),
     LOGIN(new LoginCommand()),

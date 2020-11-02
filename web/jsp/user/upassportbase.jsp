@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="i18n.content"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/travel_agency.css" type="text/css">
 
-<html lang="${language}">
+<html lang="${sessionScope.language}">
 
 <head>
     <title><fmt:message key="label.allpassports"/></title>
@@ -26,10 +26,10 @@
     <section class="see_all_passports">
 
         <p style="text-align: center; font-weight: bold; font-size: 20pt">
-            <c:if test="${empty passports}"><fmt:message key="passports.nothing"/></c:if>
+            <c:if test="${empty sessionScope.passports}"><fmt:message key="passports.nothing"/></c:if>
         </p>
 
-        <c:if test="${not empty passports}">
+        <c:if test="${not empty sessionScope.passports}">
 
             <div class="container-fluid p-3 text-center" style="max-width: 65%; background: lightseagreen">
                 <div class="form-row pb-2">
@@ -43,7 +43,7 @@
                     <div class="col" style="max-width: 16%; text-align: center"></div>
                 </div>
 
-                <c:forEach items="${passports}" varStatus="counter">
+                <c:forEach items="${sessionScope.passports}" varStatus="counter">
                     <div class="form-row">
                         <div class="col" style="max-width: 4%; text-align: left">
                                 ${counter.count}</div>
@@ -58,17 +58,29 @@
                         <div class="col" style="max-width: 24%; text-align: center">
                                 ${counter.current.passportImage}</div>
                         <div class="col" style="max-width: 16%; text-align: center">
-                            <form name="smthDo" method="post" action="controller">
-                                <input type="hidden" name="idusermoderate" value="${counter.current.id}"/>
-                                <input type="hidden" name="command" value="smth_do"/>
+                            <form name="deletePassportForm" method="post" action="controller">
+                                <input type="hidden" name="idpassport" value="${counter.current.id}"/>
+                                <input type="hidden" name="command" value="delete_passport"/>
                                 <button type="submit" class="btn btn-primary float-center">
-                                    smth DO
+                                    <fmt:message key="label.deletepassport"/>
                                 </button>
                             </form>
                         </div>
                     </div>
                 </c:forEach>
+<%--
+                <c:if test="${requestScope.deletepassport}">
+                    <p class="card-text" style="color: darkgreen; font-weight: bold">
+                        <fmt:message key="statement.deletepassport"/>
+                    </p>
+                </c:if>
 
+                <c:if test="${requestScope.deletepassport eq false}">
+                    <p class="card-text" style="color: darkred; font-weight: bold">
+                        <fmt:message key="statement.nodeletepassport"/>
+                    </p>
+                </c:if>
+                --%>
             </div>
         </c:if>
     </section>
