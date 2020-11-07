@@ -53,6 +53,12 @@ public class QuerySql {
     public static final String FIND_PASSPORTS_BY_ID_USER = "SELECT id_passport, surname, name, birth_date, passport_number, passport_image FROM passport WHERE id_user_fk = (?)";
     public static final String CREATE_PASSPORT = "INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image) VALUES (?,?,?,?,?,?)";
 
+    // TravelDocsDao
+    public static final String FIND_TRAVEL_DOCS_BY_ID = "SELECT voucher, insurance, ticket FROM travel_docs WHERE id_travel_docs = (?)";
+    public static final String ADD_VOUCHER_TO_TRAVEL_DOCS = "UPDATE travel_docs SET voucher = (?) WHERE id_travel_docs = (?)";
+    public static final String ADD_INSURANCE_TO_TRAVEL_DOCS = "UPDATE travel_docs SET insurance = (?) WHERE id_travel_docs = (?)";
+    public static final String ADD_TICKET_TO_TRAVEL_DOCS = "UPDATE travel_docs SET ticket = (?) WHERE id_travel_docs = (?)";
+
     //OrderDao
     public static final String CREATE_ORDER = "INSERT INTO orders (id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order) VALUES (?,?,?,?)";
     public static final String CREATE_EMPTY_TRAVEL_DOCS = "INSERT INTO travel_docs VALUES ()";
@@ -80,6 +86,13 @@ public class QuerySql {
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE p.id_user_fk = (?) AND o.state != 'finished' ORDER BY o.date_order DESC";
 
+    public static final String FIND_ORDER_BY_ID_ORDER =
+            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "td.id_travel_docs from orders AS o " +
+                    "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
+                    "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
+                    "WHERE o.id_order = (?)";
+
     public static final String SELECT_ORDERS_BY_ID_USER_AND_STATE =
             "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
                     "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
@@ -90,15 +103,17 @@ public class QuerySql {
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE p.id_user_fk = (?) AND o.state = (?) ORDER BY o.date_order DESC";
 
-    public static final String SELECT_ORDERS_BY_ID_USER_AND_ID_ORDER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
-                    "o.id_order, o.date_order, o.state " +
+    public static final String FIND_ORDERS_WITH_USERS_TO_ADD_DOCS =
+            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+                    "p.surname, p.name, " +
+                    "td.id_travel_docs, td.voucher, td.insurance, td.ticket, " +
+                    "o.id_order, o.date_order, o.state, u.login " +
                     "from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
-                    "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
-                    "WHERE p.id_user_fk = (?) AND o.id_order = (?) ORDER BY o.date_order DESC";
+                    "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
+                    "INNER JOIN users AS u ON p.id_user_fk = u.id_user " +
+                    "WHERE o.state = 'paid' ORDER BY o.date_order DESC";
 
     private QuerySql() {
     }

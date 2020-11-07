@@ -1,38 +1,38 @@
-package by.epam.tagency.controller.command.impl.page;
+package by.epam.tagency.controller.command.impl;
 
 import by.epam.tagency.controller.AttributeName;
 import by.epam.tagency.controller.command.Command;
 import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.model.entity.ClientOrder;
+import by.epam.tagency.model.entity.TravelDocs;
 import by.epam.tagency.model.service.OrderService;
-import by.epam.tagency.model.service.TourService;
+import by.epam.tagency.model.service.TravelDocsService;
 import by.epam.tagency.model.service.impl.OrderServiceImpl;
-import by.epam.tagency.model.service.impl.TourServiceImpl;
+import by.epam.tagency.model.service.impl.TravelDocsServiceImpl;
 import by.epam.tagency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Set;
 
-public class ActualOrdersPageCommand implements Command {
-    private static Logger logger = LogManager.getLogger(ActualOrdersPageCommand.class);
+public class SeeTravelDocsCommand implements Command {
+    private static Logger logger = LogManager.getLogger(SeeTravelDocsCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int idUser = (int) session.getAttribute(AttributeName.ID_USER);
+        String idDocs = request.getParameter(AttributeName.ID_DOCS);
+        String idOrder = request.getParameter(AttributeName.ID_ORDER);
         String page;
-        TourService tourService = TourServiceImpl.getInstance();
+        TravelDocsService docsService = TravelDocsServiceImpl.getInstance();
         OrderService orderService = OrderServiceImpl.getInstance();
         try {
-            List<ClientOrder> orders = orderService.findActualOrdersWithValues(idUser);
-            session.setAttribute(AttributeName.ORDERS, orders);
-            Set<String> countries = tourService.findAvailableCountries();
-            session.setAttribute(AttributeName.COUNTRIES, countries);
-            page = PathManager.getProperty(PathManager.PAGE_USER_ORDERS_ACTUAL);
+            ClientOrder order = orderService.findConcreteOrderWithValues(idOrder);
+            session.setAttribute(AttributeName.ORDER, order);
+            TravelDocs docs = docsService.findTravelDocsById(idDocs);
+            session.setAttribute(AttributeName.TOUR_DOCS, docs);
+            page = PathManager.getProperty(PathManager.PAGE_USER_TOUR_DOCS);
         } catch (ServiceException e) {
             logger.error(e);
             request.setAttribute(AttributeName.ERROR_INFO, e);

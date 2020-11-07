@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
     private static final OrderServiceImpl INSTANCE = new OrderServiceImpl();
@@ -24,7 +25,6 @@ public class OrderServiceImpl implements OrderService {
     public static OrderServiceImpl getInstance() {
         return INSTANCE;
     }
-
 
     @Override
     public boolean createOrder(String idTour, String idPassport) throws ServiceException {
@@ -79,16 +79,48 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<ClientOrder> findActualOrdersWithValues(int idUser) throws ServiceException {
-        return null;
+        List<ClientOrder> orders;
+        try {
+            OrderDao dao = OrderDaoImpl.getInstance();
+            orders = dao.findActualOrdersWithValues(idUser);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public ClientOrder findConcreteOrderWithValues(String idOrder) throws ServiceException {
+        ClientOrder order = new ClientOrder();
+        if (GeneralValidator.isDigitValue(idOrder)) {
+            int idOrderInt = Integer.parseInt(idOrder);
+            OrderDao dao = OrderDaoImpl.getInstance();
+            try {
+                order = dao.findConcreteOrderWithValues(idOrderInt);
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return order;
+    }
+
+    @Override
+    public Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws ServiceException {
+        Map<ClientOrder, String> usersAndOrders;
+        try {
+            OrderDao dao = OrderDaoImpl.getInstance();
+            usersAndOrders = dao.findOrdersAndUsersToAddDocs();
+            logger.info("Orders and users to add docs has been found.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return usersAndOrders;
     }
 
     @Override
     public List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws ServiceException {
-        return null;
-    }
-
-    @Override
-    public List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws ServiceException {
         return null;
     }
 

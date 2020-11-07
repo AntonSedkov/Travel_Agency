@@ -17,7 +17,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
     private static Logger logger = LogManager.getLogger(OrderDaoImpl.class);
@@ -123,26 +125,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(1, idUser);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ClientOrder order = new ClientOrder();
-                order.setId(resultSet.getInt(ColumnName.ID_ORDER));
-                order.setIdTour(resultSet.getInt(ColumnName.ID_TOUR));
-                order.setIdPassport(resultSet.getInt(ColumnName.ID_PASSPORT));
-                order.setIdTravelDoc(resultSet.getInt(ColumnName.ID_TRAVEL_DOCS));
-                LocalDateTime dateTime = DateTimeUtil.convertLocalDateTimeFromLong(resultSet.getLong(ColumnName.DATE_ORDER));
-                order.setDateTimeOrder(dateTime);
-                order.setOrderState(OrderState.valueOf(resultSet.getString(ColumnName.STATE).toUpperCase()));
-                Tour tour = new Tour();
-                tour.setTourType(TourType.valueOf(resultSet.getString(ColumnName.TOUR_PURPOSE).toUpperCase()));
-                tour.setCountry(resultSet.getString(ColumnName.COUNTRY));
-                LocalDate date = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.DATE_START));
-                tour.setStartDate(date);
-                tour.setPrice(resultSet.getInt(ColumnName.PRICE));
-                tour.setDays(resultSet.getInt(ColumnName.QUANTITY_OF_DAYS));
-                ClientPassport passport = new ClientPassport();
-                passport.setSurname(resultSet.getString(ColumnName.SURNAME));
-                passport.setName(resultSet.getString(ColumnName.NAME));
-                order.setTour(tour);
-                order.setPassport(passport);
+                ClientOrder order = createOrderFromResultSet(resultSet);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -153,7 +136,41 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<ClientOrder> findActualOrdersWithValues(int idUser) throws DaoException {
-        return null;
+        List<ClientOrder> orders = new ArrayList<>();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SELECT_ACTUAL_ORDERS_BY_ID_USER)) {
+            preparedStatement.setInt(1, idUser);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ClientOrder order = createOrderFromResultSet(resultSet);
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public ClientOrder findConcreteOrderWithValues(int idOrder) throws DaoException {
+        ClientOrder order = new ClientOrder();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.FIND_ORDER_BY_ID_ORDER)) {
+            preparedStatement.setInt(1, idOrder);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = new ClientOrder();
+                order.setId(idOrder);
+                TravelDocs docs = new TravelDocs();
+                docs.setId(resultSet.getInt(ColumnName.ID_TRAVEL_DOCS));
+                order.setTravelDocs(docs);
+                Tour tour = createTourForOrderFromResultSet(resultSet);
+                order.setTour(tour);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return order;
     }
 
     @Override
@@ -162,8 +179,60 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws DaoException {
-        return null;
+    public Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws DaoException {
+        Map<ClientOrder, String> usersAndOrders = new HashMap<>();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.FIND_ORDERS_WITH_USERS_TO_ADD_DOCS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ClientOrder order = createOrderFromResultSet(resultSet);
+                TravelDocs docs = createTravelDocsForOrderFromResultSet(resultSet);
+                order.setTravelDocs(docs);
+                String username = resultSet.getString(ColumnName.LOGIN);
+                usersAndOrders.put(order, username);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return usersAndOrders;
+    }
+
+    private ClientOrder createOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        ClientOrder order = new ClientOrder();
+        order.setId(resultSet.getInt(ColumnName.ID_ORDER));
+        LocalDateTime dateTime = DateTimeUtil.convertLocalDateTimeFromLong(resultSet.getLong(ColumnName.DATE_ORDER));
+        order.setDateTimeOrder(dateTime);
+        order.setOrderState(OrderState.valueOf(resultSet.getString(ColumnName.STATE).toUpperCase()));
+        Tour tour = createTourForOrderFromResultSet(resultSet);
+        order.setTour(tour);
+        ClientPassport passport = new ClientPassport();
+        passport.setSurname(resultSet.getString(ColumnName.SURNAME));
+        passport.setName(resultSet.getString(ColumnName.NAME));
+        order.setPassport(passport);
+        TravelDocs docs = new TravelDocs();
+        docs.setId(resultSet.getInt(ColumnName.ID_TRAVEL_DOCS));
+        order.setTravelDocs(docs);
+        return order;
+    }
+
+    private Tour createTourForOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        Tour tour = new Tour();
+        tour.setTourType(TourType.valueOf(resultSet.getString(ColumnName.TOUR_PURPOSE).toUpperCase()));
+        tour.setCountry(resultSet.getString(ColumnName.COUNTRY));
+        LocalDate date = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.DATE_START));
+        tour.setStartDate(date);
+        tour.setPrice(resultSet.getInt(ColumnName.PRICE));
+        tour.setDays(resultSet.getInt(ColumnName.QUANTITY_OF_DAYS));
+        return tour;
+    }
+
+    private TravelDocs createTravelDocsForOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        TravelDocs docs = new TravelDocs();
+        docs.setId(resultSet.getInt(ColumnName.ID_TRAVEL_DOCS));
+        docs.setVoucher(resultSet.getString(ColumnName.VOUCHER));
+        docs.setInsurance(resultSet.getString(ColumnName.INSURANCE));
+        docs.setTicket(resultSet.getString(ColumnName.TICKET));
+        return docs;
     }
 
 }

@@ -4,6 +4,7 @@ import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.model.entity.ClientOrder;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -15,8 +16,9 @@ public interface OrderService {
 
     List<ClientOrder> findActualOrdersWithValues(int idUser) throws ServiceException;
 
+    ClientOrder findConcreteOrderWithValues(String idOrder) throws ServiceException;
+
+    Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws ServiceException;
+
     List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws ServiceException;
-
-    List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws ServiceException;
-
 }

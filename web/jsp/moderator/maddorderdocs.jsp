@@ -10,31 +10,176 @@
 <html lang="${sessionScope.language}">
 
 <head>
-    <title>Add order docs</title>
+    <title><fmt:message key="label.addorderdoc"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
 <body style="background: lightgreen">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="moder_add_order_doc">
+<section class="moder_add_order_doc">
+    <h2 class="text-center"><fmt:message key="label.addorderdoc"/></h2>
 
+    <p style="text-align: center; font-weight: bold; font-size: 20pt">
+        <c:if test="${empty sessionScope.ordersandusers}"><fmt:message key="docs.nothing"/></c:if>
+    </p>
 
-        <h1>ADD TOUR DOC</h1>
+    <c:if test="${not empty sessionScope.ordersandusers}">
 
+        <c:if test="${requestScope.uploadresult and requestScope.adddoc}">
+            <p class="card-text" style="color: darkgreen; font-weight: bold; text-align: center">
+                <fmt:message key="statement.adddocsuccess"/>
+            </p>
+        </c:if>
 
+        <c:if test="${requestScope.uploadresult eq false and requestScope.adddoc eq false}">
+            <p class="card-text" style="color: darkred; font-weight: bold; text-align: center">
+                <fmt:message key="statement.adddocfail"/>
+            </p>
+        </c:if>
 
-    </section>
+        <div class="container-fluid p-3 text-center" style="background: lemonchiffon">
+            <c:forEach items="${sessionScope.ordersandusers}" var="current">
 
-    <%@include file="../carousel.jsp" %>
+                <div class="form-row pb-2">
+                    <div class="col" style="font-weight: bold">
+                        <fmt:message key="label.user"/><fmt:message key="label.colon"/>
+                            ${current.value}
+                    </div>
+                </div>
 
-    <%@include file="../floatlogout.jsp" %>
+                <div class="form-row pb-2">
+                    <div class="col" style="font-weight: bold">
+                        <fmt:message key="label.tour"/><fmt:message key="label.colon"/>
+                        <fmt:message key="label.${current.key.tour.country}"/>,
+                        <fmt:message key="label.${current.key.tour.tourType.value}"/>,
+                        <fmt:message key="label.startdate"/> ${current.key.tour.startDate},
+                            ${current.key.tour.days} <fmt:message key="label.days"/>
+                    </div>
+                </div>
 
-    <%@include file="../footer.jsp" %>
+                <div class="form-row pb-2">
+                    <div class="col" style="font-weight: bold">
+                            ${current.key.passport.surname}
+                            ${current.key.passport.name}
+                    </div>
+                </div>
+
+                <div class="form-row pb-2">
+
+                    <div class="col" style="text-align: center; max-width: 33%">
+                        <form method="post" action="upload" enctype="multipart/form-data">
+                            <input type="hidden" name="command" value="add_order_doc"/>
+                            <input type="hidden" name="uploadtarget" value="newtourdoc"/>
+                            <input type="hidden" name="iddocs" value="${current.key.travelDocs.id}"/>
+                            <input type="hidden" name="doctype" value="voucher"/>
+
+                            <p><fmt:message key="label.voucher"/></p>
+                            <c:choose>
+                                <c:when test="${not empty current.key.travelDocs.voucher}">
+                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.voucher}">
+                                            ${current.key.travelDocs.voucher}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <p><fmt:message key="label.nodoc"/></p>
+                                </c:otherwise>
+                            </c:choose>
+                            <br/>
+                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="button.adddoc"/></button>
+
+                        </form>
+                    </div>
+
+                    <div class="col" style="text-align: center; max-width: 33%">
+                        <form method="post" action="upload" enctype="multipart/form-data">
+                            <input type="hidden" name="command" value="add_order_doc"/>
+                            <input type="hidden" name="uploadtarget" value="newtourdoc"/>
+                            <input type="hidden" name="iddocs" value="${current.key.travelDocs.id}"/>
+                            <input type="hidden" name="doctype" value="insurance"/>
+
+                            <p><fmt:message key="label.insurance"/></p>
+                            <c:choose>
+                                <c:when test="${not empty current.key.travelDocs.insurance}">
+                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.insurance}">
+                                            ${current.key.travelDocs.insurance}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <p><fmt:message key="label.nodoc"/></p>
+                                </c:otherwise>
+                            </c:choose>
+                            <br/>
+                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="button.adddoc"/></button>
+
+                        </form>
+                    </div>
+
+                    <div class="col" style="text-align: center; max-width: 33%">
+                        <form method="post" action="upload" enctype="multipart/form-data">
+                            <input type="hidden" name="command" value="add_order_doc"/>
+                            <input type="hidden" name="uploadtarget" value="newtourdoc"/>
+                            <input type="hidden" name="iddocs" value="${current.key.travelDocs.id}"/>
+                            <input type="hidden" name="doctype" value="ticket"/>
+
+                            <p><fmt:message key="label.tickets"/></p>
+                            <c:choose>
+                                <c:when test="${not empty current.key.travelDocs.ticket}">
+                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.ticket}">
+                                            ${current.key.travelDocs.ticket}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <p><fmt:message key="label.nodoc"/></p>
+                                </c:otherwise>
+                            </c:choose>
+                            <br/>
+                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
+                            <br/>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="button.adddoc"/></button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="form-row pb-2">
+                    <div class="col">
+                        <fmt:message key="statement.imagehelp"/>
+                    </div>
+                </div>
+                <div class="form-row pb-2">
+                    <div class="col text-center">
+                        <form method="post" action="upload" enctype="multipart/form-data">
+                            <input type="hidden" name="command" value="add_docs_state"/>
+                            <input type="hidden" name="idorder" value="${current.key.id}"/>
+                            <button type="submit" class="btn btn-primary">
+                                <fmt:message key="button.stateadddocs"/>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <br/>
+
+            </c:forEach>
+        </div>
+    </c:if>
+
+</section>
+
+<%@include file="../floatlogout.jsp" %>
+
+<%@include file="../footer.jsp" %>
 
 </body>
 

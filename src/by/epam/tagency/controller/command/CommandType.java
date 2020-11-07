@@ -23,7 +23,8 @@ public enum CommandType {
     ADD_TOUR_PAGE(new AddTourPageCommand()),
     EDIT_TOURS(new EditToursCommand()),
     EDIT_ORDERS_PAGE(new EditOrdersPageCommand()),             // TODO: 02.11.2020
-    ADD_ORDER_DOCS_PAGE(new AddOrderDocsPageCommand()),         // TODO: 02.11.2020
+    ADD_ORDER_DOCS_PAGE(new AddOrderDocsPageCommand()),
+    ADD_ORDER_DOC(new AddOrderDocCommand()),
     ADD_TOUR(new AddTourCommand()),
     CLOSE_TOUR(new CloseTourCommand()),
 
@@ -44,9 +45,8 @@ public enum CommandType {
     MAKE_ORDER(new MakeOrderCommand()),
     CANCEL_ORDER(new CancelOrderCommand()),
     ADD_PASSPORT(new AddPassportCommand()),
+    SEE_TRAVEL_DOCS(new SeeTravelDocsCommand()),
 
-
-    see_travel_docs(new ToDo()),
     finish_order(new ToDo()),
     pay_order(new ToDo()),
 

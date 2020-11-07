@@ -2,15 +2,15 @@ package by.epam.tagency.model.entity;
 
 import java.util.StringJoiner;
 
-public class TourDocs extends Entity {
+public class TravelDocs extends Entity {
     private String voucher;
     private String insurance;
     private String ticket;
 
-    public TourDocs() {
+    public TravelDocs() {
     }
 
-    public TourDocs(String voucher, String insurance, String ticket) {
+    public TravelDocs(String voucher, String insurance, String ticket) {
         this.voucher = voucher;
         this.insurance = insurance;
         this.ticket = ticket;
@@ -45,7 +45,7 @@ public class TourDocs extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        TourDocs that = (TourDocs) o;
+        TravelDocs that = (TravelDocs) o;
         if (voucher != null ? !voucher.equals(that.voucher) : that.voucher != null) return false;
         if (insurance != null ? !insurance.equals(that.insurance) : that.insurance != null) return false;
         return ticket != null ? ticket.equals(that.ticket) : that.ticket == null;
@@ -62,7 +62,7 @@ public class TourDocs extends Entity {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", TourDocs.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", TravelDocs.class.getSimpleName() + "[", "]")
                 .add("voucher='" + voucher + "'")
                 .add("insurance='" + insurance + "'")
                 .add("ticket='" + ticket + "'")

@@ -48,25 +48,25 @@
             <div class="container p-5">
                 <div class="card-deck">
 
-                    <c:forEach items="${sessionScope.orders}" var="currentOrder">
-                        <c:if test="${currentOrder.orderState.value.equals('new')}">
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('new')}">
 
                             <div class="card text-center" style="width: 20rem; background: lightgreen">
                                 <div class="card-body">
                                     <h4><fmt:message key="label.wapproval"/></h4>
-                                    <h4>${currentOrder.tour.price}<fmt:message key="icon.currency"/></h4>
+                                    <h4>${order.tour.price}<fmt:message key="icon.currency"/></h4>
                                     <p class="card-text">
-                                            ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
-                                            ${currentOrder.tour.days} <fmt:message key="label.days"/>
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/>
                                     </p>
                                     <p class="card-text">
-                                            ${currentOrder.passport.surname}
-                                            ${currentOrder.passport.name}
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
                                     </p>
                                     <form name="cancelNewOrderForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="cancel_order">
-                                        <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                        <input type="hidden" name="idorder" value="${order.id}">
                                         <button type="submit" class="btn btn-primary">
                                             <fmt:message key="label.cancelorder"/>
                                         </button>
@@ -85,32 +85,32 @@
             <div class="container p-5">
                 <div class="card-deck">
 
-                    <c:forEach items="${sessionScope.orders}" var="currentOrder">
-                        <c:if test="${currentOrder.orderState.value.equals('confirm')}">
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('confirm')}">
 
                             <div class="card text-center" style="width: 20rem; background: lightseagreen">
                                 <div class="card-body">
                                     <h4><fmt:message key="label.wpayment"/></h4>
-                                    <h4>${currentOrder.tour.price}<fmt:message key="icon.currency"/></h4>
+                                    <h4>${order.tour.price}<fmt:message key="icon.currency"/></h4>
                                     <p class="card-text">
-                                            ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
-                                            ${currentOrder.tour.days} <fmt:message key="label.days"/>
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/>
                                     </p>
                                     <p class="card-text">
-                                            ${currentOrder.passport.surname}
-                                            ${currentOrder.passport.name}
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
                                     </p>
                                     <form name="cancelOrderConfirmForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="cancel_order">
-                                        <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                        <input type="hidden" name="idorder" value="${order.id}">
                                         <button type="submit" class="btn btn-primary">
                                             <fmt:message key="label.cancelorder"/>
                                         </button>
                                     </form>
                                     <form name="payOrderForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="pay_order">
-                                        <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                        <input type="hidden" name="idorder" value="${order.id}">
                                         <button type="submit" class="btn btn-primary">
                                             <fmt:message key="label.payorder"/>
                                         </button>
@@ -129,22 +129,22 @@
             <div class="container p-5">
                 <div class="card-deck">
 
-                    <c:forEach items="${sessionScope.orders}" var="currentOrder">
-                        <c:if test="${currentOrder.orderState.value.equals('paid')}">
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('paid')}">
 
                             <div class="card text-center" style="width: 20rem;background: lightcyan">
                                 <div class="card-body">
                                     <h4><fmt:message key="label.wdocs"/></h4>
                                     <p class="card-text">
-                                            ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
-                                            ${currentOrder.tour.days} <fmt:message key="label.days"/><br/>
-                                            ${currentOrder.tour.price}
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
+                                            ${order.tour.price}
                                         <fmt:message key="icon.currency"/>
                                     </p>
                                     <p class="card-text">
-                                            ${currentOrder.passport.surname}
-                                            ${currentOrder.passport.name}
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
                                     </p>
                                 </div>
                             </div>
@@ -160,33 +160,34 @@
             <div class="container p-5">
                 <div class="card-deck">
 
-                    <c:forEach items="${sessionScope.orders}" var="currentOrder">
-                        <c:if test="${currentOrder.orderState.value.equals('add_docs')}">
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('add_docs')}">
 
                             <div class="card text-center" style="width: 20rem; background: lightskyblue">
                                 <div class="card-body">
                                     <h4><fmt:message key="label.enjoytour"/></h4>
                                     <form name="seDocsForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="see_travel_docs">
-                                        <input type="hidden" name="iddocs" value="${currentOrder.idTravelDoc}">
+                                        <input type="hidden" name="idorder" value="${order.id}">
+                                        <input type="hidden" name="iddocs" value="${order.travelDocs.id}">
                                         <button type="submit" class="btn btn-primary">
                                             <fmt:message key="label.seedocs"/>
                                         </button>
                                     </form>
                                     <p class="card-text">
-                                            ${currentOrder.tour.country}, ${currentOrder.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${currentOrder.tour.startDate},
-                                            ${currentOrder.tour.days} <fmt:message key="label.days"/><br/>
-                                            ${currentOrder.tour.price}
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
+                                            ${order.tour.price}
                                         <fmt:message key="icon.currency"/>
                                     </p>
                                     <p class="card-text">
-                                            ${currentOrder.passport.surname}
-                                            ${currentOrder.passport.name}
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
                                     </p>
                                     <form name="finishOrderForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="finish_order">
-                                        <input type="hidden" name="idorder" value="${currentOrder.id}">
+                                        <input type="hidden" name="idorder" value="${order.id}">
                                         <p><fmt:message key="label.entercomment"/></p>
                                         <p><label>
                                             <textarea rows="10" cols="45" name="comment"></textarea>

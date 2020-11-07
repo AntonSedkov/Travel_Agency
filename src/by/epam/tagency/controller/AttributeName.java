@@ -95,11 +95,17 @@ public class AttributeName {
     public static final String CONCRETE_TOUR = "concretetour";
 
     public static final String ORDERS = "orders";
+    public static final String ORDER = "order";
     public static final String ID_ORDER = "idorder";
+    public static final String ID_DOCS = "iddocs";
+    public static final String TOUR_DOCS = "tourdocs";
+    public static final String ORDERS_AND_USERS = "ordersandusers";
+    public static final String DOC_TYPE = "doctype";
+    public static final String ADD_DOC = "adddoc";
+
 
     public static final String DISCOUNT = "discount";
     public static final String HOT_TOUR_GOOD = "hottourgood";
-
 
 
 }

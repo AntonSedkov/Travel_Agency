@@ -4,6 +4,7 @@ import by.epam.tagency.exception.DaoException;
 import by.epam.tagency.model.entity.ClientOrder;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderDao {
 
@@ -15,8 +16,10 @@ public interface OrderDao {
 
     List<ClientOrder> findActualOrdersWithValues(int idUser) throws DaoException;
 
+    ClientOrder findConcreteOrderWithValues(int idOrder) throws DaoException;
+
     List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException;
 
-    List<ClientOrder> findConcreteOrderWithValues(int idUser, int idOrder) throws DaoException;
+    Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws DaoException;
 
 }

@@ -35,7 +35,7 @@ public class PathManager {
     public static final String PAGE_USER_ORDERS_ALL = "path.user.orders.all";
     public static final String PAGE_USER_ORDERS_ACTUAL = "path.user.orders.actual";
     public static final String PAGE_USER_MAKE_ORDER = "path.user.orders.make";
-
+    public static final String PAGE_USER_TOUR_DOCS = "path.user.docs";
 
 
     private static final String RESOURCE_PATH = "configuration.paths";
