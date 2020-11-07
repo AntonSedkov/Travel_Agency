@@ -151,7 +151,7 @@
                     <h4 style="font-weight: bold"><fmt:message key="label.image"/></h4>
                     <input type="file" name="imagecontent" accept="image/jpeg" required>
                     <small id="imageHelp" class="form-text text-muted">
-                        <fmt:message key="label.imagehelp"/>
+                        <fmt:message key="statement.imagehelp"/>
                     </small
                 </div>
 
@@ -164,13 +164,13 @@
 
             <c:choose>
                 <c:when test="${requestScope.uploadresult and (requestScope.createtour)}">
-                    <p style="color: green"><fmt:message key="label.imageuploadandtourcreated"/></p>
+                    <p style="color: green"><fmt:message key="statement.imagetourdone"/></p>
                 </c:when>
                 <c:when test="${requestScope.uploadresult and not requestScope.createtour}">
-                    <p style="color: orange"><fmt:message key="label.imageuploadandtournotcreated"/></p>
+                    <p style="color: orange"><fmt:message key="statement.imagedonetourfail"/></p>
                 </c:when>
                 <c:when test="${requestScope.uploadresult eq false}">
-                    <p style="color: red"><fmt:message key="label.imagenotuploadandtournotcreated"/></p>
+                    <p style="color: red"><fmt:message key="statement.imagetourfail"/></p>
                 </c:when>
             </c:choose>
 

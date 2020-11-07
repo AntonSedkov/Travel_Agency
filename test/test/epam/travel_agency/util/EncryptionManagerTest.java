@@ -1,7 +1,7 @@
 package test.epam.travel_agency.util;
 
-import by.epam.travel_agency.exception.ServiceException;
-import by.epam.travel_agency.util.EncryptionManager;
+import by.epam.tagency.exception.ServiceException;
+import by.epam.tagency.util.EncryptionManager;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;

@@ -17,89 +17,179 @@
 
 <body style="background: lightgreen">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="all_tours_section">
-        <div class="container-fluid mt-5" style="background-color:lightseagreen">
+<section class="all_tours_header">
+    <div class="container-fluid mt-5" style="background-color:lightseagreen">
 
-            <div class="section_tittle text-center mt-2 mb-2">
-                <h2><fmt:message key="label.edittours"/></h2>
-            </div>
-
-            <c:if test="${not empty requestScope.closetour}">
-                <div class="text-center">
-                    <c:if test="${requestScope.closetour}">
-                        <h4 style="color: darkgreen"><fmt:message key="label.closetoursuccess"/></h4>
-                    </c:if>
-                    <c:if test="${not requestScope.closetour}">
-                        <h4 style="color: red"><fmt:message key="label.closetourerror"/></h4>
-                    </c:if>
-                </div>
-            </c:if>
-
-            <c:choose>
-
-                <c:when test="${empty sessionScope.alltours}">
-                    <fmt:message key="label.nocurrenttours"/>
-                </c:when>
-
-                <c:otherwise>
-                    <div class="container p-5">
-                        <div class="card-deck">
-
-                            <c:forEach var="concreteTour" items="${sessionScope.alltours}">
-
-                                <form name="hotTourForm" method="post" action="controller">
-                                    <input type="hidden" name="command" value="close_tour"/>
-                                    <input type="hidden" name="idtour" value="${concreteTour.id}">
-
-                                    <div class="card text-center" style="width: 20rem;">
-                                        <img src="${pageContext.request.contextPath}/pics/tours/${concreteTour.imagePath}"
-                                             alt="tour photo" class="card-img-top">
-                                        <div class="card-body">
-                                            <h4 class="card-title"><fmt:message key="label.${concreteTour.country}"/></h4>
-                                            <h4 class="card-title"><fmt:message key="label.price"/> ${concreteTour.price}
-                                                <fmt:message key="icon.currency"/>
-                                            </h4>
-                                            <p class="card-text"><fmt:message key="label.hotel"/> ${concreteTour.hotelName}
-                                                    ${concreteTour.hotelType.category}
-                                                <fmt:message key="icon.star"/>
-                                            </p>
-                                            <p class="card-text">
-                                                <fmt:message key="label.tourstart"/> ${concreteTour.startDate}<br/>
-                                                <fmt:message key="label.duration"/> ${concreteTour.days} <fmt:message
-                                                    key="label.days"/>
-                                                <fmt:message key="label.quantityleft"/> ${concreteTour.availableQuantity}
-                                                <fmt:message key="label.tours"/><br/>
-                                                <fmt:message key="label.travelby"/> <fmt:message
-                                                    key="label.${concreteTour.transport.value}"/><br/>
-                                                <fmt:message key="label.tourtype"/> <fmt:message
-                                                    key="label.${concreteTour.tourType.value}"/>
-                                            </p>
-                                                <%----%> <p class="card-text">${concreteTour.description}</p>
-                                            <button type="submit" class="btn btn-primary"><fmt:message
-                                                    key="button.closetour"/></button>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                            </c:forEach>
-
-                        </div>
-                    </div>
-                </c:otherwise>
-
-            </c:choose>
-
+        <div class="section_tittle text-center mt-2 mb-2">
+            <h2><fmt:message key="label.edittours"/></h2>
         </div>
-    </section>
 
-    <%@include file="../floatlogout.jsp" %>
+        <c:if test="${not empty requestScope.closetour}">
+            <div class="text-center">
+                <c:if test="${requestScope.closetour}">
+                    <h4 style="color: darkgreen"><fmt:message key="statement.closetoursuccess"/></h4>
+                </c:if>
+                <c:if test="${not requestScope.closetour}">
+                    <h4 style="color: red"><fmt:message key="statement.closetourerror"/></h4>
+                </c:if>
+            </div>
+        </c:if>
 
-    <%@include file="../footer.jsp" %>
+        <c:if test="${not empty requestScope.hottourgood}">
+            <div class="text-center">
+                <c:if test="${requestScope.hottourgood}">
+                    <h4 style="color: darkgreen"><fmt:message key="statement.hottoursuccess"/></h4>
+                </c:if>
+                <c:if test="${not requestScope.hottourgood}">
+                    <h4 style="color: red"><fmt:message key="statement.hottourerror"/></h4>
+                </c:if>
+            </div>
+        </c:if>
+
+    </div>
+</section>
+
+<section class="set_hot_tours">
+    <div class="container-fluid mt-5" style="background-color:lightseagreen">
+
+        <div class="section_tittle text-center mt-2 mb-2">
+            <h4><fmt:message key="button.setdiscount"/></h4>
+        </div>
+
+        <c:choose>
+
+            <c:when test="${empty sessionScope.alltours}">
+                <fmt:message key="label.nocurrenttours"/>
+            </c:when>
+
+            <c:otherwise>
+                <div class="container p-5">
+                    <div class="card-deck">
+
+                        <c:forEach var="concreteTour" items="${sessionScope.alltours}">
+
+                            <form name="hotTourForm" method="post" action="controller">
+                                <input type="hidden" name="command" value="set_hot_tour"/>
+                                <input type="hidden" name="idtour" value="${concreteTour.id}">
+
+                                <div class="card text-center" style="width: 20rem">
+                                    <img src="${pageContext.request.contextPath}/pics/tours/${concreteTour.imagePath}"
+                                         alt="tour photo" class="card-img-top">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><fmt:message key="label.${concreteTour.country}"/></h4>
+                                        <h4 class="card-title"><fmt:message key="label.price"/> ${concreteTour.price}
+                                            <fmt:message key="icon.currency"/><br/>
+                                            <fmt:message key="label.discount"/> ${concreteTour.discount}<fmt:message
+                                                key="icon.percent"/></h4>
+                                        <p class="card-text"><fmt:message key="label.hotel"/> ${concreteTour.hotelName}
+                                                ${concreteTour.hotelType.category}
+                                            <fmt:message key="icon.star"/>
+                                        </p>
+                                        <p class="card-text">
+                                            <fmt:message key="label.tourstart"/> ${concreteTour.startDate}<br/>
+                                            <fmt:message key="label.duration"/> ${concreteTour.days} <fmt:message
+                                                key="label.days"/>
+                                            <fmt:message key="label.quantityleft"/> ${concreteTour.availableQuantity}
+                                            <fmt:message key="label.tours"/><br/>
+                                            <fmt:message key="label.travelby"/> <fmt:message
+                                                key="label.${concreteTour.transport.value}"/><br/>
+                                            <fmt:message key="label.tourtype"/> <fmt:message
+                                                key="label.${concreteTour.tourType.value}"/>
+                                        </p>
+                                            <%----%> <p class="card-text">${concreteTour.description}</p>
+                                        <p><label>
+                                            <input type="text" name="discount"
+                                                   placeholder="<fmt:message key="label.moderdiscount"/>"
+                                                   pattern="\d{1,2}" required/>
+                                        </label></p>
+                                        <button type="submit" class="btn btn-primary">
+                                            <fmt:message key="button.setdiscount"/></button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </c:forEach>
+
+                    </div>
+                </div>
+            </c:otherwise>
+
+        </c:choose>
+    </div>
+</section>
+
+<section class="close_tours">
+    <div class="container-fluid mt-5" style="background-color:lightseagreen">
+
+        <div class="section_tittle text-center mt-2 mb-2">
+            <h4><fmt:message key="button.closetour"/></h4>
+        </div>
+
+        <c:choose>
+
+            <c:when test="${empty sessionScope.alltours}">
+                <fmt:message key="label.nocurrenttours"/>
+            </c:when>
+
+            <c:otherwise>
+                <div class="container p-5">
+                    <div class="card-deck">
+
+                        <c:forEach var="concreteTour" items="${sessionScope.alltours}">
+
+                            <form name="closeTourForm" method="post" action="controller">
+                                <input type="hidden" name="command" value="close_tour"/>
+                                <input type="hidden" name="idtour" value="${concreteTour.id}">
+
+                                <div class="card text-center" style="width: 20rem">
+                                    <img src="${pageContext.request.contextPath}/pics/tours/${concreteTour.imagePath}"
+                                         alt="tour photo" class="card-img-top">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><fmt:message key="label.${concreteTour.country}"/></h4>
+                                        <h4 class="card-title"><fmt:message key="label.price"/> ${concreteTour.price}
+                                            <fmt:message key="icon.currency"/><br/>
+                                            <fmt:message key="label.discount"/> ${concreteTour.discount}<fmt:message
+                                                key="icon.percent"/></h4>
+                                        <p class="card-text"><fmt:message key="label.hotel"/> ${concreteTour.hotelName}
+                                                ${concreteTour.hotelType.category}
+                                            <fmt:message key="icon.star"/>
+                                        </p>
+                                        <p class="card-text">
+                                            <fmt:message key="label.tourstart"/> ${concreteTour.startDate}<br/>
+                                            <fmt:message key="label.duration"/> ${concreteTour.days} <fmt:message
+                                                key="label.days"/>
+                                            <fmt:message key="label.quantityleft"/> ${concreteTour.availableQuantity}
+                                            <fmt:message key="label.tours"/><br/>
+                                            <fmt:message key="label.travelby"/> <fmt:message
+                                                key="label.${concreteTour.transport.value}"/><br/>
+                                            <fmt:message key="label.tourtype"/> <fmt:message
+                                                key="label.${concreteTour.tourType.value}"/>
+                                        </p>
+                                            <%----%> <p class="card-text">${concreteTour.description}</p>
+                                        <button type="submit" class="btn btn-primary"><fmt:message
+                                                key="button.closetour"/></button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </c:forEach>
+
+                    </div>
+                </div>
+            </c:otherwise>
+
+        </c:choose>
+
+    </div>
+</section>
+
+<%@include file="../floatlogout.jsp" %>
+
+<%@include file="../footer.jsp" %>
 
 </body>
 

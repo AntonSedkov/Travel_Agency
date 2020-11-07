@@ -168,7 +168,7 @@
                         <fmt:message key="label.allpassports"/>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <a class="dropdown-item" href="controller?command=add_passport">
+                        <a class="dropdown-item" href="controller?command=add_passport_page">
                             <fmt:message key="label.addpassport"/></a>
                         <a class="dropdown-item" href="controller?command=all_passports">
                             <fmt:message key="label.allpassports"/></a>

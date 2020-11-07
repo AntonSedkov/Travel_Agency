@@ -14,6 +14,7 @@
             Status code: ${pageContext.errorData.statusCode} <br/>
             Exception: ${pageContext.errorData.throwable} <br/>
             Exception Message: ${pageContext.exception.message} <br/>
+            ${requestScope.errorinfo}
         </p>
 
     </body>

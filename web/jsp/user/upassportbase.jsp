@@ -17,79 +17,82 @@
 
 <body style="background: lightsteelblue">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../search.jsp" %>
+<%@include file="../search.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="see_all_passports">
+<section class="see_all_passports">
 
-        <p style="text-align: center; font-weight: bold; font-size: 20pt">
-            <c:if test="${empty sessionScope.passports}"><fmt:message key="passports.nothing"/></c:if>
-        </p>
+    <p style="text-align: center; font-weight: bold; font-size: 20pt">
+        <c:if test="${empty sessionScope.passports}"><fmt:message key="passports.nothing"/></c:if>
+    </p>
 
-        <c:if test="${not empty sessionScope.passports}">
+    <c:if test="${not empty sessionScope.passports}">
 
-            <div class="container-fluid p-3 text-center" style="max-width: 65%; background: lightseagreen">
-                <div class="form-row pb-2">
-                    <div class="col" style="max-width: 4%; text-align: left"><fmt:message key="icon.number"/></div>
-                    <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.surname"/></div>
-                    <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.name"/></div>
-                    <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.birthdate"/></div>
-                    <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.passportno"/></div>
-                    <div class="col" style="max-width: 24%; text-align: center"><fmt:message
-                            key="label.passportimage"/></div>
-                    <div class="col" style="max-width: 16%; text-align: center"></div>
-                </div>
-
-                <c:forEach items="${sessionScope.passports}" varStatus="counter">
-                    <div class="form-row">
-                        <div class="col" style="max-width: 4%; text-align: left">
-                                ${counter.count}</div>
-                        <div class="col" style="max-width: 14%; text-align: center">
-                                ${counter.current.surname}</div>
-                        <div class="col" style="max-width: 14%; text-align: center">
-                                ${counter.current.name}</div>
-                        <div class="col" style="max-width: 14%; text-align: center">
-                                ${counter.current.birthDate}</div>
-                        <div class="col" style="max-width: 14%; text-align: center">
-                                ${counter.current.passportNumber}</div>
-                        <div class="col" style="max-width: 24%; text-align: center">
-                                ${counter.current.passportImage}</div>
-                        <div class="col" style="max-width: 16%; text-align: center">
-                            <form name="deletePassportForm" method="post" action="controller">
-                                <input type="hidden" name="idpassport" value="${counter.current.id}"/>
-                                <input type="hidden" name="command" value="delete_passport"/>
-                                <button type="submit" class="btn btn-primary float-center">
-                                    <fmt:message key="label.deletepassport"/>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </c:forEach>
-<%--
-                <c:if test="${requestScope.deletepassport}">
-                    <p class="card-text" style="color: darkgreen; font-weight: bold">
-                        <fmt:message key="statement.deletepassport"/>
-                    </p>
-                </c:if>
-
-                <c:if test="${requestScope.deletepassport eq false}">
-                    <p class="card-text" style="color: darkred; font-weight: bold">
-                        <fmt:message key="statement.nodeletepassport"/>
-                    </p>
-                </c:if>
-                --%>
+        <div class="container-fluid p-3 text-center" style="max-width: 65%; background: lightseagreen">
+            <div class="form-row pb-2">
+                <div class="col" style="max-width: 4%; text-align: left"><fmt:message key="icon.number"/></div>
+                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.surname"/></div>
+                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.name"/></div>
+                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.birthdate"/></div>
+                <div class="col" style="max-width: 14%; text-align: center"><fmt:message key="label.passportno"/></div>
+                <div class="col" style="max-width: 24%; text-align: center"><fmt:message
+                        key="label.passportimage"/></div>
+                <div class="col" style="max-width: 16%; text-align: center"></div>
             </div>
-        </c:if>
-    </section>
 
-    <%@include file="../hottours.jsp" %>
+            <c:forEach items="${sessionScope.passports}" varStatus="counter">
+                <div class="form-row">
+                    <div class="col" style="max-width: 4%; text-align: left">
+                            ${counter.count}</div>
+                    <div class="col" style="max-width: 14%; text-align: center">
+                            ${counter.current.surname}</div>
+                    <div class="col" style="max-width: 14%; text-align: center">
+                            ${counter.current.name}</div>
+                    <div class="col" style="max-width: 14%; text-align: center">
+                            ${counter.current.birthDate}</div>
+                    <div class="col" style="max-width: 14%; text-align: center">
+                            ${counter.current.passportNumber}</div>
+                    <div class="col" style="max-width: 24%; text-align: center">
+                        <a href="${pageContext.request.contextPath}/pics/persdoc/${counter.current.passportImage}">
+                                ${counter.current.passportImage}
+                        </a>
+                    </div>
+                    <div class="col" style="max-width: 16%; text-align: center">
+                        <form name="deletePassportForm" method="post" action="controller">
+                            <input type="hidden" name="idpassport" value="${counter.current.id}"/>
+                            <input type="hidden" name="command" value="delete_passport"/>
+                            <button type="submit" class="btn btn-primary float-center">
+                                <fmt:message key="label.deletepassport"/>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </c:forEach>
+                <%--
+                                <c:if test="${requestScope.deletepassport}">
+                                    <p class="card-text" style="color: darkgreen; font-weight: bold">
+                                        <fmt:message key="statement.deletepassport"/>
+                                    </p>
+                                </c:if>
 
-    <%@include file="../floatlogout.jsp" %>
+                                <c:if test="${requestScope.deletepassport eq false}">
+                                    <p class="card-text" style="color: darkred; font-weight: bold">
+                                        <fmt:message key="statement.nodeletepassport"/>
+                                    </p>
+                                </c:if>
+                                --%>
+        </div>
+    </c:if>
+</section>
 
-    <%@include file="../footer.jsp" %>
+<%@include file="../hottours.jsp" %>
+
+<%@include file="../floatlogout.jsp" %>
+
+<%@include file="../footer.jsp" %>
 
 </body>
 

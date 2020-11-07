@@ -55,7 +55,7 @@
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
                                                 <option selected><fmt:message key="label.choosecountry"/></option>
-                                                <c:forEach var="currentCountry" items="${countries}">
+                                                <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
                                                 </c:forEach>
@@ -94,7 +94,7 @@
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
                                                 <option selected><fmt:message key="label.choosecountry"/></option>
-                                                <c:forEach var="currentCountry" items="${countries}">
+                                                <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
                                                 </c:forEach>
@@ -129,7 +129,7 @@
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
                                                 <option selected><fmt:message key="label.choosecountry"/></option>
-                                                <c:forEach var="currentCountry" items="${countries}">
+                                                <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
                                                 </c:forEach>
@@ -166,10 +166,10 @@
     <div class="container-fluid mt-5" style="background-color:lightseagreen">
 
         <p style="text-align: center; font-weight: bold; font-size: 24pt">
-            <c:if test="${(not empty searchnothing) and (searchnothing)}"><fmt:message key="search.nothing"/></c:if>
+            <c:if test="${(not empty requestScope.searchnothing) and (requestScope.searchnothing)}"><fmt:message key="search.nothing"/></c:if>
         </p>
 
-        <c:if test="${not empty searchtours}">
+        <c:if test="${not empty requestScope.searchtours}">
 
             <div class="section_tittle text-center">
                 <h2><fmt:message key="title.findtours"/></h2>
@@ -178,7 +178,7 @@
             <div class="container p-5">
                 <div class="card-deck">
 
-                    <c:forEach var="findTour" items="${searchtours}">
+                    <c:forEach var="findTour" items="${requestScope.searchtours}">
 
                         <form name="hotTourForm" method="post" action="controller">
                             <c:choose>
@@ -198,8 +198,9 @@
                                 <div class="card-body">
                                     <h4 class="card-title"><fmt:message key="label.${findTour.country}"/></h4>
                                     <h4 class="card-title"><fmt:message key="label.price"/> ${findTour.price}
-                                        <fmt:message
-                                                key="icon.currency"/></h4>
+                                        <fmt:message key="icon.currency"/><br/>
+                                        <fmt:message key="label.discount"/> ${findTour.discount}<fmt:message
+                                            key="icon.percent"/></h4>
                                     <p class="card-text"><fmt:message key="label.hotel"/> ${findTour.hotelName}
                                             ${findTour.hotelType.category}
                                         <fmt:message key="icon.star"/>

@@ -75,7 +75,9 @@
                                                 <div class="card-body">
                                                     <h4 class="card-title"><fmt:message key="label.${currentTypeTour.country}"/></h4>
                                                     <h4 class="card-title"><fmt:message key="label.price"/> ${currentTypeTour.price}
-                                                        <fmt:message key="icon.currency"/>
+                                                        <fmt:message key="icon.currency"/><br/>
+                                                        <fmt:message key="label.discount"/> ${currentTypeTour.discount}<fmt:message
+                                                            key="icon.percent"/>
                                                     </h4>
                                                     <p class="card-text"><fmt:message key="label.hotel"/> ${currentTypeTour.hotelName}
                                                             ${currentTypeTour.hotelType.category}<fmt:message key="icon.star"/>

@@ -9,7 +9,7 @@
     <uri>customtags</uri>
     <tag>
         <name>userdata</name>
-        <tag-class>by.epam.travel_agency.util.tag.UserDataTag</tag-class>
+        <tag-class>by.epam.tagency.tag.UserDataTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>
