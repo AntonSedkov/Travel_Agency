@@ -5,8 +5,10 @@ import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.model.dao.OrderDao;
 import by.epam.tagency.model.dao.impl.OrderDaoImpl;
 import by.epam.tagency.model.entity.ClientOrder;
+import by.epam.tagency.model.entity.OrderState;
 import by.epam.tagency.model.service.OrderService;
 import by.epam.tagency.util.DateTimeUtil;
+import by.epam.tagency.util.XssSafeUtil;
 import by.epam.tagency.validator.GeneralValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -120,8 +122,110 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws ServiceException {
-        return null;
+    public Map<ClientOrder, String> findOrdersAndUsersToEditOrders() throws ServiceException {
+        Map<ClientOrder, String> usersAndOrders;
+        try {
+            OrderDao dao = OrderDaoImpl.getInstance();
+            usersAndOrders = dao.findOrdersAndUsersToEditOrders();
+            logger.info("Orders and users to edit orders has been found.");
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return usersAndOrders;
+    }
+
+    @Override
+    public boolean confirmOrder(String idOrder) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(idOrder)) {
+            try {
+                int idOrderInt = Integer.parseInt(idOrder);
+                OrderDao dao = OrderDaoImpl.getInstance();
+                result = dao.confirmOrder(idOrderInt);
+                logger.info("Confirm the order " + idOrderInt);
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean declineOrder(String idOrder, String comment) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(idOrder)) {
+            try {
+                int idOrderInt = Integer.parseInt(idOrder);
+                String safeComment = XssSafeUtil.xssSafeString(comment);
+                OrderDao dao = OrderDaoImpl.getInstance();
+                result = dao.declineOrder(idOrderInt, safeComment);
+                logger.info("Decline the order " + idOrderInt);
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }
+
+  /*  @Override
+    public boolean addDocsOrderState(String idOrder) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(idOrder)) {
+            try {
+                int idOrderInt = Integer.parseInt(idOrder);
+                OrderDao dao = OrderDaoImpl.getInstance();
+                result = dao.addDocsOrderState(idOrderInt);
+                logger.info("Confirm the order " + idOrderInt);
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
+    }*/
+
+    @Override
+    public boolean changeState(String idOrder, OrderState target, String... additionalParam) throws ServiceException {
+        boolean result = false;
+        if (GeneralValidator.isDigitValue(idOrder)) {
+            try {
+                int idOrderInt = Integer.parseInt(idOrder);
+                OrderDao dao = OrderDaoImpl.getInstance();
+                switch (target) {
+                    case CONFIRMED -> {
+                        result = dao.confirmOrder(idOrderInt);
+                        logger.info("Confirm the order " + idOrderInt);
+                    }
+                    case PAID -> {
+                        System.out.println(true);
+                    }
+                    case ADDED_DOCS -> {
+                        result = dao.addDocsOrderState(idOrderInt);
+                        logger.info("Confirm the order " + idOrderInt);
+                    }
+                    case FINISHED -> {
+                    }
+                    case DECLINED -> {
+                        if (additionalParam.length == 1) {
+                            String comment = additionalParam[0];
+                            String safeComment = XssSafeUtil.xssSafeString(comment);
+                            result = dao.declineOrder(idOrderInt, safeComment);
+                            logger.info("Decline the order " + idOrderInt);
+                        }
+                    }
+                }
+            } catch (NumberFormatException e) {
+                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+        return result;
     }
 
 }

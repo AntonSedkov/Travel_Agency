@@ -126,6 +126,7 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClientOrder order = createOrderFromResultSet(resultSet);
+                order.setComment(resultSet.getString(ColumnName.COMMENT));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -143,6 +144,7 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClientOrder order = createOrderFromResultSet(resultSet);
+                order.setComment(resultSet.getString(ColumnName.COMMENT));
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -158,7 +160,7 @@ public class OrderDaoImpl implements OrderDao {
              PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.FIND_ORDER_BY_ID_ORDER)) {
             preparedStatement.setInt(1, idOrder);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 order = new ClientOrder();
                 order.setId(idOrder);
                 TravelDocs docs = new TravelDocs();
@@ -174,11 +176,6 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException {
-        return null;
-    }
-
-    @Override
     public Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws DaoException {
         Map<ClientOrder, String> usersAndOrders = new HashMap<>();
         try (Connection connection = pool.getConnection();
@@ -186,8 +183,9 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ClientOrder order = createOrderFromResultSet(resultSet);
-                TravelDocs docs = createTravelDocsForOrderFromResultSet(resultSet);
-                order.setTravelDocs(docs);
+                order.getTravelDocs().setVoucher(resultSet.getString(ColumnName.VOUCHER));
+                order.getTravelDocs().setInsurance(resultSet.getString(ColumnName.INSURANCE));
+                order.getTravelDocs().setTicket(resultSet.getString(ColumnName.TICKET));
                 String username = resultSet.getString(ColumnName.LOGIN);
                 usersAndOrders.put(order, username);
             }
@@ -195,6 +193,67 @@ public class OrderDaoImpl implements OrderDao {
             throw new DaoException(e);
         }
         return usersAndOrders;
+    }
+
+    @Override
+    public Map<ClientOrder, String> findOrdersAndUsersToEditOrders() throws DaoException {
+        Map<ClientOrder, String> usersAndOrders = new HashMap<>();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.FIND_ORDERS_WITH_USERS_TO_EDIT_ORDERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ClientOrder order = createOrderFromResultSet(resultSet);
+                LocalDate birth = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.BIRTH_DATE));
+                order.getPassport().setBirthDate(birth);
+                order.getPassport().setPassportNumber(resultSet.getString(ColumnName.PASSPORT_NUMBER));
+                order.getPassport().setPassportImage(resultSet.getString(ColumnName.PASSPORT_IMAGE));
+                String username = resultSet.getString(ColumnName.LOGIN);
+                usersAndOrders.put(order, username);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return usersAndOrders;
+    }
+
+    @Override
+    public boolean confirmOrder(int idOrder) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SET_ORDER_CONFIRMED)) {
+            preparedStatement.setInt(1, idOrder);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean declineOrder(int idOrder, String comment) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SET_ORDER_DECLINED)) {
+            preparedStatement.setString(1, comment);
+            preparedStatement.setInt(2, idOrder);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean addDocsOrderState(int idOrder) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SET_ORDER_ADDED_DOCS)) {
+            preparedStatement.setInt(1, idOrder);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return result;
     }
 
     private ClientOrder createOrderFromResultSet(ResultSet resultSet) throws SQLException {
@@ -224,15 +283,6 @@ public class OrderDaoImpl implements OrderDao {
         tour.setPrice(resultSet.getInt(ColumnName.PRICE));
         tour.setDays(resultSet.getInt(ColumnName.QUANTITY_OF_DAYS));
         return tour;
-    }
-
-    private TravelDocs createTravelDocsForOrderFromResultSet(ResultSet resultSet) throws SQLException {
-        TravelDocs docs = new TravelDocs();
-        docs.setId(resultSet.getInt(ColumnName.ID_TRAVEL_DOCS));
-        docs.setVoucher(resultSet.getString(ColumnName.VOUCHER));
-        docs.setInsurance(resultSet.getString(ColumnName.INSURANCE));
-        docs.setTicket(resultSet.getString(ColumnName.TICKET));
-        return docs;
     }
 
 }

@@ -2,10 +2,11 @@ package by.epam.tagency.model.entity;
 
 public enum OrderState {
     NEW("new"),
-    CONFIRM("confirm"),
+    CONFIRMED("confirmed"),
     PAID("paid"),
-    ADD_DOCS("add_docs"),
-    FINISHED("finished");
+    ADDED_DOCS("added_docs"),
+    FINISHED("finished"),
+    DECLINED("declined");
 
     private final String value;
 

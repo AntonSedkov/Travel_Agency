@@ -22,11 +22,14 @@ public enum CommandType {
     MODERATOR_IN(new ModeratorHomeCommand()),
     ADD_TOUR_PAGE(new AddTourPageCommand()),
     EDIT_TOURS(new EditToursCommand()),
-    EDIT_ORDERS_PAGE(new EditOrdersPageCommand()),             // TODO: 02.11.2020
+    EDIT_ORDERS_PAGE(new EditOrdersPageCommand()),
     ADD_ORDER_DOCS_PAGE(new AddOrderDocsPageCommand()),
     ADD_ORDER_DOC(new AddOrderDocCommand()),
     ADD_TOUR(new AddTourCommand()),
     CLOSE_TOUR(new CloseTourCommand()),
+    CONFIRM_ORDER(new ConfirmOrderStateCommand()),
+    DECLINE_ORDER(new DeclineOrderStateCommand()),
+    ADD_DOCS_ORDER_STATE(new AddDocsOrderStateCommand()),
 
     USER_IN(new UserHomeCommand()),
     SEE_OPERATIONS(new SeeOperationsCommand()),

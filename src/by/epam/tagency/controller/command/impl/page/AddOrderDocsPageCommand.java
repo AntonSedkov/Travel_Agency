@@ -25,7 +25,7 @@ public class AddOrderDocsPageCommand implements Command {
             ordersAndUsers = service.findOrdersAndUsersToAddDocs();
             request.getSession().setAttribute(AttributeName.ORDERS_AND_USERS, ordersAndUsers);
             page = PathManager.getProperty(PathManager.PAGE_MODERATOR_ADD_ORDER_DOCS);
-            logger.info("This is AddOrderDocsCommand");
+            logger.info("AddOrderDocs page created.");
         } catch (ServiceException e) {
             logger.error(e);
             request.setAttribute(AttributeName.ERROR_INFO, e);

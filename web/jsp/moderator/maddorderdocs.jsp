@@ -42,6 +42,18 @@
             </p>
         </c:if>
 
+        <c:if test="${requestScope.adddocsorder}">
+            <p class="card-text" style="color: darkgreen; font-weight: bold; text-align: center">
+                <fmt:message key="statement.adddocsordersuccess"/>
+            </p>
+        </c:if>
+
+        <c:if test="${requestScope.adddocsorder eq false}">
+            <p class="card-text" style="color: darkred; font-weight: bold; text-align: center">
+                <fmt:message key="statement.adddocsorderfail"/>
+            </p>
+        </c:if>
+
         <div class="container-fluid p-3 text-center" style="background: lemonchiffon">
             <c:forEach items="${sessionScope.ordersandusers}" var="current">
 
@@ -160,8 +172,9 @@
                 </div>
                 <div class="form-row pb-2">
                     <div class="col text-center">
-                        <form method="post" action="upload" enctype="multipart/form-data">
-                            <input type="hidden" name="command" value="add_docs_state"/>
+                        <form name="addedDocsForm" method="post" action="controller">
+                            <input type="hidden" name="command" value="add_docs_order_state"/>
+                            <input type="hidden" name="targetstate" value="added_docs"/>
                             <input type="hidden" name="idorder" value="${current.key.id}"/>
                             <button type="submit" class="btn btn-primary">
                                 <fmt:message key="button.stateadddocs"/>

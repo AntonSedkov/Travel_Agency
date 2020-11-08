@@ -103,6 +103,13 @@ public class AttributeName {
     public static final String DOC_TYPE = "doctype";
     public static final String ADD_DOC = "adddoc";
 
+    public static final String CONFIRM_ORDER = "confirmorder";
+    public static final String COMMENT = "comment";
+    public static final String DECLINE_ORDER = "declineorder";
+    public static final String ADD_DOCS_ORDER = "adddocsorder";
+
+    public static final String TARGET_STATE = "targetstate";
+
 
     public static final String DISCOUNT = "discount";
     public static final String HOT_TOUR_GOOD = "hottourgood";

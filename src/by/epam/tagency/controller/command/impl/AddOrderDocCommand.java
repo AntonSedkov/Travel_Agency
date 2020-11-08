@@ -43,7 +43,6 @@ public class AddOrderDocCommand implements Command {
                 OrderService orderService = OrderServiceImpl.getInstance();
                 ordersAndUsers = orderService.findOrdersAndUsersToAddDocs();
                 session.setAttribute(AttributeName.ORDERS_AND_USERS, ordersAndUsers);
-                page = PathManager.getProperty(PathManager.PAGE_MODERATOR_ADD_ORDER_DOCS);
                 logger.info("Add doc: " + doctype + " to docs " + idDocs);
             } else {
                 request.setAttribute(AttributeName.ADD_DOC, false);

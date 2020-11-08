@@ -151,6 +151,10 @@ INSERT INTO travel_docs (voucher, insurance, ticket)
 VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
 INSERT INTO travel_docs (voucher, insurance, ticket)
 VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
+INSERT INTO travel_docs (voucher, insurance, ticket)
+VALUES ('default_voucher.pdf', 'default_insurance.pdf', 'default_ticket.pdf');
 
 /*one user - one customers_sheet*/
 create table sheet
@@ -198,7 +202,7 @@ create table orders
     id_passport_fk    INT UNSIGNED                                        NOT NULL,
     id_travel_docs_fk INT UNSIGNED UNIQUE                                 NOT NULL,
     date_order        LONG                                                NOT NULL,
-    state             ENUM ('new','confirm','paid','add_docs','finished') NOT NULL DEFAULT 'new',
+    state             ENUM ('new','confirmed','paid','added_docs','finished', 'declined') NOT NULL DEFAULT 'new',
     comment           VARCHAR(128),
     FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour),
     FOREIGN KEY (id_passport_fk) REFERENCES passport (id_passport),
@@ -208,15 +212,19 @@ create table orders
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
 VALUES (6, 6, 1, 1627648000, 'new');
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
-VALUES (5, 6, 2, 1627648000, 'confirm');
+VALUES (5, 6, 2, 1627648000, 'confirmed');
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
 VALUES (4, 6, 3, 1627648000, 'paid');
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
-VALUES (3, 6, 4, 1627648000, 'add_docs');
+VALUES (3, 6, 4, 1627648000, 'added_docs');
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
 VALUES (2, 6, 5, 1627648000, 'finished');
 INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
 VALUES (1, 6, 6, 1627648000, 'paid');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (1, 6, 7, 2027648000, 'declined');
+INSERT INTO orders(id_tour_fk, id_passport_fk, id_travel_docs_fk, date_order, state)
+VALUES (1, 6, 8, 1927648000, 'new');
 
 create table paycards
 (
@@ -234,7 +242,6 @@ INSERT INTO paycards(card_number, card_sum, card_quantity)
 VALUES (7777777, 100000, 10);
 INSERT INTO paycards(card_number, card_sum, card_quantity)
 VALUES (3339333, 300000, 5);
-
 
 
 

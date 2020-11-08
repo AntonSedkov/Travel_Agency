@@ -5,13 +5,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"*.jsp"},
+@WebFilter(urlPatterns = {"*.jsp", "/controller"},
         initParams = {@WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})
 public class EncodingFilter implements Filter {
     public static final String PARAM_ENCODING = "encoding";
     private String code;
 
-    public void init(FilterConfig fConfig) throws ServletException {
+    public void init(FilterConfig fConfig) {
         code = fConfig.getInitParameter(PARAM_ENCODING);
     }
 

@@ -18,8 +18,19 @@ public interface OrderDao {
 
     ClientOrder findConcreteOrderWithValues(int idOrder) throws DaoException;
 
-    List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException;
-
     Map<ClientOrder, String> findOrdersAndUsersToAddDocs() throws DaoException;
 
+    Map<ClientOrder, String> findOrdersAndUsersToEditOrders() throws DaoException;
+
+    boolean confirmOrder(int idOrder) throws DaoException;
+
+    boolean declineOrder(int idOrder, String comment) throws DaoException;
+
+    boolean addDocsOrderState(int idOrder) throws DaoException;
+
+    //  boolean confirmOrder (int idOrder) throws DaoException;
+
+    //  boolean confirmOrder (int idOrder) throws DaoException;
+
+    //  List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException;
 }

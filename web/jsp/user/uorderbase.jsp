@@ -81,12 +81,12 @@
             </div>
         </div>
 
-        <div class="user_confirm_state">
+        <div class="user_confirmed_state">
             <div class="container p-5">
                 <div class="card-deck">
 
                     <c:forEach items="${sessionScope.orders}" var="order">
-                        <c:if test="${order.orderState.value.equals('confirm')}">
+                        <c:if test="${order.orderState.value.equals('confirmed')}">
 
                             <div class="card text-center" style="width: 20rem; background: lightseagreen">
                                 <div class="card-body">
@@ -101,7 +101,7 @@
                                             ${order.passport.surname}
                                             ${order.passport.name}
                                     </p>
-                                    <form name="cancelOrderConfirmForm" method="post" action="controller">
+                                    <form name="cancelOrderConfirmedForm" method="post" action="controller">
                                         <input type="hidden" name="command" value="cancel_order">
                                         <input type="hidden" name="idorder" value="${order.id}">
                                         <button type="submit" class="btn btn-primary">
@@ -156,12 +156,12 @@
             </div>
         </div>
 
-        <div class="user_add_docs_state">
+        <div class="user_added_docs_state">
             <div class="container p-5">
                 <div class="card-deck">
 
                     <c:forEach items="${sessionScope.orders}" var="order">
-                        <c:if test="${order.orderState.value.equals('add_docs')}">
+                        <c:if test="${order.orderState.value.equals('added_docs')}">
 
                             <div class="card text-center" style="width: 20rem; background: lightskyblue">
                                 <div class="card-body">
@@ -234,6 +234,38 @@
                                     <p class="card-text">
                                             ${order.passport.surname}
                                             ${order.passport.name}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </c:if>
+                    </c:forEach>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="user_declined_state">
+            <div class="container p-5">
+                <div class="card-deck">
+
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('declined')}">
+
+                            <div class="card text-center" style="width: 20rem;background: lightyellow">
+                                <div class="card-body">
+                                    <h4><fmt:message key="label.declined"/></h4>
+                                    <p class="card-text">
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/>
+                                    </p>
+                                    <p class="card-text">
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
+                                    </p>
+                                    <p style="color: darkred">
+                                            ${order.comment}
                                     </p>
                                 </div>
                             </div>
