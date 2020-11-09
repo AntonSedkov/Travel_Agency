@@ -77,7 +77,7 @@ public class OrderDaoImpl implements OrderDao {
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Connection exception in transaction of creating order in database", e);
         }
         return result;
     }
@@ -112,7 +112,7 @@ public class OrderDaoImpl implements OrderDao {
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Connection exception in transaction of deleting order in database", e);
         }
         return result;
     }
@@ -130,7 +130,7 @@ public class OrderDaoImpl implements OrderDao {
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of finding all orders with values in database", e);
         }
         return orders;
     }
@@ -148,7 +148,7 @@ public class OrderDaoImpl implements OrderDao {
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of finding actual orders with values in database", e);
         }
         return orders;
     }
@@ -170,7 +170,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setTour(tour);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of finding concrete order in database", e);
         }
         return order;
     }
@@ -190,7 +190,7 @@ public class OrderDaoImpl implements OrderDao {
                 usersAndOrders.put(order, username);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of finding orders and users to add docs in database", e);
         }
         return usersAndOrders;
     }
@@ -211,7 +211,7 @@ public class OrderDaoImpl implements OrderDao {
                 usersAndOrders.put(order, username);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of finding orders and users to edit orders in database", e);
         }
         return usersAndOrders;
     }
@@ -224,7 +224,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(1, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of confirming order in database", e);
         }
         return result;
     }
@@ -238,7 +238,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(2, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Exception of declining order in database", e);
         }
         return result;
     }
@@ -250,6 +250,64 @@ public class OrderDaoImpl implements OrderDao {
              PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SET_ORDER_ADDED_DOCS)) {
             preparedStatement.setInt(1, idOrder);
             result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Exception of changing order state to added docs in database", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean finishOrder(int idOrder, String comment) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.SET_ORDER_FINISHED)) {
+            preparedStatement.setString(1, comment);
+            preparedStatement.setInt(2, idOrder);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Exception of finishing order in database", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean payForOrder(int idOrder, int idUser, int sumToPay) throws DaoException {
+        boolean result = false;
+        try (Connection connection = pool.getConnection()) {
+            try (PreparedStatement psSheet = connection.prepareStatement(QuerySql.FIND_SHEET_BY_ID_USER, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+                 PreparedStatement psOperation = connection.prepareStatement(QuerySql.CREATE_OPERATION);
+                 PreparedStatement psOrder = connection.prepareStatement(QuerySql.SET_ORDER_PAID)) {
+                connection.setAutoCommit(false);
+                psSheet.setInt(1, idUser);
+                ResultSet rsSheet = psSheet.executeQuery();
+                boolean isPaidSheet = false;
+                if (rsSheet.next()) {
+                    int sheetSum = rsSheet.getInt(ColumnName.SHEET_SUM);
+                    int resultSum = sheetSum - sumToPay;
+                    if (resultSum > 0) {
+                        int idSheet = rsSheet.getInt(ColumnName.ID_SHEET);
+                        rsSheet.updateInt(ColumnName.SHEET_SUM, resultSum);
+                        rsSheet.updateRow();
+                        logger.info("Debit the sheet of user " + idUser);
+                        psOperation.setInt(1, idSheet);
+                        psOperation.setInt(2, resultSum);
+                        psOperation.setString(3, OperationPurpose.PAY);
+                        isPaidSheet = psOperation.executeUpdate() > 0;
+                    }
+                }
+                if (isPaidSheet) {
+                    psOrder.setInt(1, idOrder);
+                    result = psOrder.executeUpdate() > 0;
+                }
+                if (result) {
+                    connection.commit();
+                }
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Exception of paying order in database", e);
+            } finally {
+                connection.setAutoCommit(true);
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -281,6 +339,7 @@ public class OrderDaoImpl implements OrderDao {
         LocalDate date = DateTimeUtil.convertLocalDateFromLong(resultSet.getLong(ColumnName.DATE_START));
         tour.setStartDate(date);
         tour.setPrice(resultSet.getInt(ColumnName.PRICE));
+        tour.setDiscount(resultSet.getInt(ColumnName.DISCOUNT));
         tour.setDays(resultSet.getInt(ColumnName.QUANTITY_OF_DAYS));
         return tour;
     }

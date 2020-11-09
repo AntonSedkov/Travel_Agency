@@ -4,11 +4,14 @@ import by.epam.tagency.controller.AttributeName;
 import by.epam.tagency.controller.command.Command;
 import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.model.entity.ClientSheet;
+import by.epam.tagency.model.entity.Tour;
 import by.epam.tagency.model.entity.UserType;
 import by.epam.tagency.model.service.SheetService;
+import by.epam.tagency.model.service.TourService;
 import by.epam.tagency.model.service.UserService;
 import by.epam.tagency.model.service.impl.GeneralServiceImpl;
 import by.epam.tagency.model.service.impl.SheetServiceImpl;
+import by.epam.tagency.model.service.impl.TourServiceImpl;
 import by.epam.tagency.model.service.impl.UserServiceImpl;
 import by.epam.tagency.util.PathManager;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +20,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class LoginCommand implements Command {
     private static Logger logger = LogManager.getLogger(LoginCommand.class);
@@ -41,16 +46,20 @@ public class LoginCommand implements Command {
                         SheetService sheetService = SheetServiceImpl.getInstance();
                         ClientSheet sheet = sheetService.findSheetByIdUser(idUser);
                         session.setAttribute(AttributeName.SHEET, sheet);
-                        page = PathManager.getProperty(PathManager.PAGE_USER_HOME);  // TODO: 29.09.2020
+                        TourService tourService = TourServiceImpl.getInstance();
+                        List<Tour> hotTours = tourService.findAllHotTours();
+                        if (hotTours.size() > 0) {
+                            session.setAttribute(AttributeName.HOT_TOURS, hotTours);
+                        } else {
+                            session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+                        }
+                        Set<String> countries = tourService.findAvailableCountries();
+                        session.setAttribute(AttributeName.COUNTRIES, countries);
+                        page = PathManager.getProperty(PathManager.PAGE_USER_HOME);
                         logger.info("Client log in successfully.");
                     }
                     case MODERATOR -> {
-                        /*TourService tourService = TourServiceImpl.getInstance();
-                        Set<String> tourTypes = tourService.formTourTypes();
-                        session.setAttribute(AttributeName.TOUR_TYPES, tourTypes);
-                        List<Tour> tours = tourService.findAllTours();
-                        session.setAttribute(AttributeName.TOURS, tours);*/
-                        page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);  // TODO: 29.09.2020
+                        page = PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME);
                         logger.info("Moderator log in successfully.");
                     }
                     case ADMIN -> {

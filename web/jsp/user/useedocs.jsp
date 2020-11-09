@@ -73,6 +73,15 @@
     </c:if>
 </section>
 
+<div class="col text-center">
+    <button type="submit" class="btn btn-primary m-2">
+        <a href="controller?command=actual_orders" style="color: white"><fmt:message key="label.actualorders"/></a>
+    </button>
+    <button type="submit" class="btn btn-primary m-2">
+        <a href="controller?command=all_orders" style="color: white"><fmt:message key="label.allorders"/></a>
+    </button>
+</div>
+
 <%@include file="../floatlogout.jsp" %>
 
 <%@include file="../footer.jsp" %>

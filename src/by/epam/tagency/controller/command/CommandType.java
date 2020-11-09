@@ -2,6 +2,7 @@ package by.epam.tagency.controller.command;
 
 import by.epam.tagency.controller.command.impl.*;
 import by.epam.tagency.controller.command.impl.page.*;
+import by.epam.tagency.util.PathManager;
 
 public enum CommandType {
 
@@ -11,7 +12,7 @@ public enum CommandType {
     COUNTRY_TOURS(new ToursByCountryCommand()),
     HOT_TOURS(new ToursHotCommand()),
     CHANGE_PAGE(new StaticPageCommand()),
-    LOGIN_PAGE(new LoginPageCommand()),
+    LOGIN_PAGE(request -> PathManager.getProperty(PathManager.PAGE_GUEST_AUTH)),
 
     ADMIN_IN(new AdminHomeCommand()),
     EDIT_USERS(new EditUsersCommand()),
@@ -19,7 +20,7 @@ public enum CommandType {
     DEACTIVATE_USER(new DeactivateUserCommand()),
     ADD_STAFF(new AddStaffCommand()),
 
-    MODERATOR_IN(new ModeratorHomeCommand()),
+    MODERATOR_IN(request -> PathManager.getProperty(PathManager.PAGE_MODERATOR_HOME)),
     ADD_TOUR_PAGE(new AddTourPageCommand()),
     EDIT_TOURS(new EditToursCommand()),
     EDIT_ORDERS_PAGE(new EditOrdersPageCommand()),
@@ -27,9 +28,7 @@ public enum CommandType {
     ADD_ORDER_DOC(new AddOrderDocCommand()),
     ADD_TOUR(new AddTourCommand()),
     CLOSE_TOUR(new CloseTourCommand()),
-    CONFIRM_ORDER(new ConfirmOrderStateCommand()),
-    DECLINE_ORDER(new DeclineOrderStateCommand()),
-    ADD_DOCS_ORDER_STATE(new AddDocsOrderStateCommand()),
+    CHANGE_STATE(new ChangeOrderStateCommand()),
 
     USER_IN(new UserHomeCommand()),
     SEE_OPERATIONS(new SeeOperationsCommand()),
@@ -50,11 +49,7 @@ public enum CommandType {
     ADD_PASSPORT(new AddPassportCommand()),
     SEE_TRAVEL_DOCS(new SeeTravelDocsCommand()),
 
-    finish_order(new ToDo()),
-    pay_order(new ToDo()),
-
     SET_HOT_TOUR(new SetHotTourCommand()),
-
 
     CHANGE_LANG(new ChangeLanguageCommand()),
     LOGIN(new LoginCommand()),

@@ -76,7 +76,7 @@
                                                 <fmt:message key="label.tourtype"/> <fmt:message
                                                     key="label.${concreteTour.tourType.value}"/>
                                             </p>
-                                                <%----%> <p class="card-text">${concreteTour.description}</p>
+                                            <p class="card-text"><fmt:message key="description.${concreteTour.description}"/></p>
                                             <button type="submit" class="btn btn-primary"><fmt:message
                                                     key="button.order"/></button>
                                         </div>

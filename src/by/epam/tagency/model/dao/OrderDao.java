@@ -28,9 +28,9 @@ public interface OrderDao {
 
     boolean addDocsOrderState(int idOrder) throws DaoException;
 
-    //  boolean confirmOrder (int idOrder) throws DaoException;
+    boolean finishOrder(int idOrder, String comment) throws DaoException;
 
-    //  boolean confirmOrder (int idOrder) throws DaoException;
+    boolean payForOrder(int idOrder, int idUser, int sumToPay) throws DaoException;
 
     //  List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException;
 }

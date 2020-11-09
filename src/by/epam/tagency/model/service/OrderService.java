@@ -23,16 +23,9 @@ public interface OrderService {
 
     Map<ClientOrder, String> findOrdersAndUsersToEditOrders() throws ServiceException;
 
-    boolean confirmOrder(String idOrder) throws ServiceException;
+    boolean changeState(String idOrder, OrderState target, String... additionalParams) throws ServiceException;
 
-    boolean declineOrder(String idOrder, String comment) throws ServiceException;
-
-   // boolean addDocsOrderState(String idOrder) throws ServiceException;
-
-    boolean changeState(String idOrder, OrderState target, String... additionalParam) throws ServiceException;
-
-    //  boolean confirmOrder(String idOrder)  throws ServiceException;
-
+    Map<ClientOrder, Integer> createOrdersWithSumToPay(int idUser, List<ClientOrder> orders, int sheetDiscount);
 
     // List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws ServiceException;
 }

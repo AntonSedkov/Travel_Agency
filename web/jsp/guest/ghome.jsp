@@ -44,7 +44,6 @@
 
     <%@include file="../gallery.jsp" %>
 
-    <%--
     <div class="contaner p-5">
         <div class="row">
 
@@ -71,7 +70,6 @@
 
         </div>
     </div>
-    --%>
 
     <%@include file="../footer.jsp" %>
 

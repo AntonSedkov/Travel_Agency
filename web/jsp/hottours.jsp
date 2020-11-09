@@ -3,7 +3,7 @@
 <body>
 
 <section class="hot_tour">
-    <div class="container-fluid mt-5" style="background-color:lightseagreen">
+    <div class="container-fluid mt-3" style="background-color:lightseagreen">
 
         <div class="section_tittle text-center">
             <h2><fmt:message key="title.offers"/></h2>
@@ -32,30 +32,29 @@
 
                         <div class="card text-center" style="width: 20rem;">
                             <img src="${pageContext.request.contextPath}/pics/tours/${concreteTour.imagePath}"
-                                 alt="tour photo"
-                                 class="card-img-top">
+                                 alt="tour photo" class="card-img-top">
                             <div class="card-body">
                                 <h4 class="card-title"><fmt:message key="label.${concreteTour.country}"/></h4>
                                 <h4 class="card-title"><fmt:message key="label.price"/> ${concreteTour.price}
                                     <fmt:message key="icon.currency"/><br/>
-                                    <fmt:message key="label.discount"/> ${concreteTour.discount}<fmt:message
-                                        key="icon.percent"/></h4>
+                                    <fmt:message key="label.discount"/> ${concreteTour.discount}
+                                    <fmt:message key="icon.percent"/></h4>
                                 <p class="card-text"><fmt:message key="label.hotel"/> ${concreteTour.hotelName}
                                         ${concreteTour.hotelType.category}
                                     <fmt:message key="icon.star"/>
                                 </p>
                                 <p class="card-text">
                                     <fmt:message key="label.tourstart"/> ${concreteTour.startDate}<br/>
-                                    <fmt:message key="label.duration"/> ${concreteTour.days} <fmt:message
-                                        key="label.days"/>
+                                    <fmt:message key="label.duration"/> ${concreteTour.days}
+                                    <fmt:message key="label.days"/>
                                     <fmt:message key="label.quantityleft"/> ${concreteTour.availableQuantity}
                                     <fmt:message key="label.tours"/><br/>
-                                    <fmt:message key="label.travelby"/> <fmt:message
-                                        key="label.${concreteTour.transport.value}"/><br/>
-                                    <fmt:message key="label.tourtype"/> <fmt:message
-                                        key="label.${concreteTour.tourType.value}"/>
+                                    <fmt:message key="label.travelby"/>
+                                    <fmt:message key="label.${concreteTour.transport.value}"/><br/>
+                                    <fmt:message key="label.tourtype"/>
+                                    <fmt:message key="label.${concreteTour.tourType.value}"/>
                                 </p>
-                                    <%----%> <p class="card-text">${concreteTour.description}</p>
+                                <p class="card-text"><fmt:message key="description.${concreteTour.description}"/></p>
                                 <button type="submit" class="btn btn-primary"><fmt:message key="button.order"/></button>
                             </div>
                         </div>

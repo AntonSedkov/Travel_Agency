@@ -95,6 +95,7 @@ public class AttributeName {
     public static final String CONCRETE_TOUR = "concretetour";
 
     public static final String ORDERS = "orders";
+    public static final String ORDERS_WITH_SUM_TO_PAY = "orderstopaywithsumtopay";
     public static final String ORDER = "order";
     public static final String ID_ORDER = "idorder";
     public static final String ID_DOCS = "iddocs";
@@ -110,9 +111,15 @@ public class AttributeName {
 
     public static final String TARGET_STATE = "targetstate";
 
+    public static final String FINISH_ORDER = "finishorder";
 
     public static final String DISCOUNT = "discount";
     public static final String HOT_TOUR_GOOD = "hottourgood";
+
+    public static final String SUM_TO_PAY = "sumtopay";
+    public static final String SHORT_OF_MONEY = "shortofmoney";
+    public static final String PAY_ORDER = "payorder";
+
 
 
 }

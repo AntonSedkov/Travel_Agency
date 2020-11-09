@@ -87,7 +87,7 @@
 
                         <div class="tab-pane fade" id="excursion" role="tabpanel" aria-labelledby="excursion-tab">
                             <div class="booking_form">
-                                <form name="searchForm" method="get" action="controller">
+                                <form name="searchForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="search_tour">
                                     <input type="hidden" name="tourpurpose" value="excursion">
                                     <div class="form-row">
@@ -122,7 +122,7 @@
 
                         <div class="tab-pane fade" id="shopping" role="tabpanel" aria-labelledby="shopping-tab">
                             <div class="booking_form">
-                                <form name="searchForm" method="get" action="controller">
+                                <form name="searchForm" method="post" action="controller">
                                     <input type="hidden" name="command" value="search_tour">
                                     <input type="hidden" name="tourpurpose" value="shopping">
                                     <div class="form-row">
@@ -166,7 +166,8 @@
     <div class="container-fluid mt-5" style="background-color:lightseagreen">
 
         <p style="text-align: center; font-weight: bold; font-size: 24pt">
-            <c:if test="${(not empty requestScope.searchnothing) and (requestScope.searchnothing)}"><fmt:message key="search.nothing"/></c:if>
+            <c:if test="${(not empty requestScope.searchnothing) and (requestScope.searchnothing)}">
+                <fmt:message key="search.nothing"/></c:if>
         </p>
 
         <c:if test="${not empty requestScope.searchtours}">
@@ -180,7 +181,7 @@
 
                     <c:forEach var="findTour" items="${requestScope.searchtours}">
 
-                        <form name="hotTourForm" method="post" action="controller">
+                        <form name="foundTourForm" method="post" action="controller">
                             <c:choose>
                                 <c:when test="${isuser}">
                                     <input type="hidden" name="command" value="make_order_page"/>
@@ -193,8 +194,7 @@
 
                             <div class="card text-center" style="width: 20rem;">
                                 <img src="${pageContext.request.contextPath}/pics/tours/${findTour.imagePath}"
-                                     alt="tour photo"
-                                     class="card-img-top">
+                                     alt="tour photo" class="card-img-top">
                                 <div class="card-body">
                                     <h4 class="card-title"><fmt:message key="label.${findTour.country}"/></h4>
                                     <h4 class="card-title"><fmt:message key="label.price"/> ${findTour.price}
@@ -217,9 +217,9 @@
                                         <fmt:message key="label.tourtype"/> <fmt:message
                                             key="label.${findTour.tourType.value}"/>
                                     </p>
-                      <%----%>      <p class="card-text">${findTour.description}</p>
-                                    <button type="submit" class="btn btn-primary"><fmt:message
-                                            key="button.order"/></button>
+                                    <p class="card-text"><fmt:message key="description.${findTour.description}"/></p>
+                                    <button type="submit" class="btn btn-primary">
+                                        <fmt:message key="button.order"/></button>
                                 </div>
                             </div>
                         </form>

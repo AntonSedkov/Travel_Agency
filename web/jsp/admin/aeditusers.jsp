@@ -17,68 +17,86 @@
 
 <body style="background: lightgrey">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="admin_edit_users">
+<section class="admin_edit_users">
 
-        <div class="section_tittle text-center mt-2 mb-2">
-            <h2><fmt:message key="label.editusers"/></h2>
+    <div class="section_tittle text-center mt-2 mb-2">
+        <h2><fmt:message key="label.editusers"/></h2>
+    </div>
+
+    <div class="text-uppercase text-center" style="color: darkred">
+        <p><c:if test="${requestScope.activateusererror}"><fmt:message key="admin.activateusererror"/></c:if></p>
+        <p><c:if test="${requestScope.deactivateusererror}"><fmt:message key="admin.deactivateusererror"/></c:if></p>
+    </div>
+
+    <div class="contaner pb-3">
+
+        <div class="row m-3">
+            <div class="col text-center"><fmt:message key="label.id"/></div>
+            <div class="col text-left"><fmt:message key="authpage.username"/></div>
+            <div class="col text-left"><fmt:message key="label.email"/></div>
+            <div class="col text-left"><fmt:message key="label.role"/></div>
+            <div class="col text-left"><fmt:message key="label.status"/></div>
+            <div class="col text-left"><fmt:message key="label.emailapproved"/></div>
+            <div class="col text-center"><fmt:message key="label.activation"/></div>
+            <div class="col text-center"><fmt:message key="label.deactivation"/></div>
         </div>
 
-        <div class="contaner">
-
-            <div class="row m-3">
-                <div class="col text-center"><fmt:message key="label.id"/></div>
-                <div class="col text-left"><fmt:message key="authpage.username"/></div>
-                <div class="col text-left"><fmt:message key="label.email"/></div>
-                <div class="col text-left"><fmt:message key="label.role"/></div>
-                <div class="col text-left"><fmt:message key="label.status"/></div>
-                <div class="col text-left"><fmt:message key="label.emailapproved"/></div>
-                <div class="col text-center"><fmt:message key="label.activation"/></div>
-                <div class="col text-center"><fmt:message key="label.deactivation"/></div>
-            </div>
-
-            <c:forEach var="user" items="${sessionScope.users}">
-                <div class="row">
-                    <div class="col text-center"><c:out value="${user.id}"/></div>
-                    <div class="col text-left"><c:out value="${user.login}"/></div>
-                    <div class="col text-left"><c:out value="${user.email}"/></div>
-                    <div class="col text-left"><c:out value="${user.role}"/></div>
-                    <div class="col text-left"><c:out value="${user.status}"/></div>
-                    <div class="col text-left"><c:out value="${user.approvedEmail}"/></div>
-                    <div class="col text-center">
-                        <form name="activateUser" method="post" action="controller">
-                            <input type="hidden" name="idusermoderate" value="${user.id}"/>
-                            <input type="hidden" name="command" value="activate_user"/>
-                            <button type="submit" class="btn btn-primary float-center">
-                                <fmt:message key="admin.activate"/></button>
-                        </form>
-                    </div>
-                    <div class="col text-center">
-                        <form name="deactivateUser" method="post" action="controller">
-                            <input type="hidden" name="idusermoderate" value="${user.id}"/>
-                            <input type="hidden" name="command" value="deactivate_user"/>
-                            <button type="submit" class="btn btn-primary float-center">
-                                <fmt:message key="admin.deactivate"/></button>
-                        </form>
-                    </div>
+        <c:forEach var="user" items="${sessionScope.users}">
+            <div class="row">
+                <div class="col text-center"><c:out value="${user.id}"/></div>
+                <div class="col text-left"><c:out value="${user.login}"/></div>
+                <div class="col text-left"><c:out value="${user.email}"/></div>
+                <div class="col text-left"><c:out value="${user.role}"/></div>
+                <div class="col text-left">
+                    <c:choose>
+                        <c:when test="${user.status}">
+                            <fmt:message key="label.activeuser"/>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:message key="label.deactiveuser"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-            </c:forEach>
-
-            <div class="text-uppercase" style="color: red">
-                <c:if test="${requestScope.activateusererror}"> <fmt:message key="admin.activateusererror"/></c:if> <br/>
-                <c:if test="${requestScope.deactivateusererror}"> <fmt:message key="admin.deactivateusererror"/></c:if> <br/>
+                <div class="col text-left">
+                    <c:choose>
+                        <c:when test="${user.approvedEmail}">
+                            <fmt:message key="label.yes"/>
+                        </c:when>
+                        <c:otherwise>
+                            <fmt:message key="label.no"/>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="col text-center">
+                    <form name="activateUser" method="post" action="controller">
+                        <input type="hidden" name="idusermoderate" value="${user.id}"/>
+                        <input type="hidden" name="command" value="activate_user"/>
+                        <button type="submit" class="btn btn-primary float-center">
+                            <fmt:message key="button.activateuser"/></button>
+                    </form>
+                </div>
+                <div class="col text-center">
+                    <form name="deactivateUser" method="post" action="controller">
+                        <input type="hidden" name="idusermoderate" value="${user.id}"/>
+                        <input type="hidden" name="command" value="deactivate_user"/>
+                        <button type="submit" class="btn btn-primary float-center">
+                            <fmt:message key="button.deactivateuser"/></button>
+                    </form>
+                </div>
             </div>
+        </c:forEach>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
-    <%@include file="../floatlogout.jsp" %>
+<%@include file="../floatlogout.jsp" %>
 
-    <%@include file="../footer.jsp" %>
+<%@include file="../footer.jsp" %>
 
 </body>
 

@@ -11,7 +11,7 @@ public class QuerySql {
     public static final String DEACTIVATE_USER = "UPDATE users SET status = false WHERE id_user = (?)";
     public static final String ACTIVATE_USER = "UPDATE users SET status = true WHERE id_user = (?)";
     public static final String ACTIVATE_USER_EMAIL = "UPDATE users SET email_approved = true WHERE login = (?)";
-    public static final String FIND_ALL_USERS_WITHOUT_CURRENT = "SELECT id_user, login, email, role, status, email_approved FROM users WHERE login != (?)";
+    public static final String FIND_ALL_USERS_WITHOUT_CURRENT = "SELECT id_user, login, email, role, status, email_approved FROM users WHERE login != (?) ORDER BY id_user";
     public static final String COUNT_USERS_BY_ROLE = "SELECT COUNT(*) FROM users WHERE role = (?)";
     public static final String FIND_ID_USER_BY_LOGIN = "SELECT id_user FROM users WHERE login = (?)";
     public static final String CHANGE_LOGIN = "UPDATE users SET login = (?) WHERE login = (?)";
@@ -68,10 +68,12 @@ public class QuerySql {
     public static final String SET_ORDER_CONFIRMED = "UPDATE orders SET state = 'confirmed' WHERE id_order = (?)";
     public static final String SET_ORDER_ADDED_DOCS = "UPDATE orders SET state = 'added_docs' WHERE id_order = (?)";
     public static final String SET_ORDER_DECLINED = "UPDATE orders SET state = 'declined', comment = (?) WHERE id_order = (?)";
+    public static final String SET_ORDER_FINISHED = "UPDATE orders SET state = 'finished', comment = (?) WHERE id_order = (?)";
+    public static final String SET_ORDER_PAID = "UPDATE orders SET state = 'paid' WHERE id_order = (?)";
 
 
     public static final String SELECT_ORDERS_INFO_BY_ID_USER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
                     "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
                     "o.id_order, o.date_order, o.state, o.comment " +
                     "from orders AS o " +
@@ -81,7 +83,7 @@ public class QuerySql {
                     "WHERE p.id_user_fk = (?) ORDER BY o.date_order DESC";
 
     public static final String SELECT_ACTUAL_ORDERS_BY_ID_USER =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
                     "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
                     "o.id_order, o.date_order, o.state, o.comment " +
                     "from orders AS o " +
@@ -91,24 +93,14 @@ public class QuerySql {
                     "WHERE p.id_user_fk = (?) AND o.state != 'finished' ORDER BY o.date_order DESC";
 
     public static final String FIND_ORDER_BY_ID_ORDER =
-            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
                     "td.id_travel_docs from orders AS o " +
                     "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
                     "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
                     "WHERE o.id_order = (?)";
 
-    public static final String SELECT_ORDERS_BY_ID_USER_AND_STATE =
-            "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
-                    "p.id_passport, p.surname, p.name, td.id_travel_docs, " +
-                    "o.id_order, o.date_order, o.state " +
-                    "from orders AS o " +
-                    "INNER JOIN tours AS t ON o.id_tour_fk = t.id_tour " +
-                    "INNER JOIN passport AS p ON o.id_passport_fk = p.id_passport " +
-                    "INNER JOIN travel_docs AS td ON o.id_travel_docs_fk = td.id_travel_docs " +
-                    "WHERE p.id_user_fk = (?) AND o.state = (?) ORDER BY o.date_order DESC";
-
     public static final String FIND_ORDERS_WITH_USERS_TO_ADD_DOCS =
-            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
                     "p.surname, p.name, " +
                     "td.id_travel_docs, td.voucher, td.insurance, td.ticket, " +
                     "o.id_order, o.date_order, o.state, u.login " +
@@ -120,7 +112,7 @@ public class QuerySql {
                     "WHERE o.state = 'paid' ORDER BY o.date_order DESC";
 
     public static final String FIND_ORDERS_WITH_USERS_TO_EDIT_ORDERS =
-            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, " +
+            "SELECT t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
                     "p.surname, p.name, p.birth_date, p.passport_number, p.passport_image, " +
                     "td.id_travel_docs, " +
                     "o.id_order, o.date_order, o.state, u.login " +

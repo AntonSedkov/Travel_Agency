@@ -36,7 +36,6 @@
                 <fmt:message key="statement.confirmordersuccess"/>
             </p>
         </c:if>
-
         <c:if test="${requestScope.confirmorder eq false}">
             <p class="card-text" style="color: darkred; font-weight: bold">
                 <fmt:message key="statement.confirmorderfail"/>
@@ -48,7 +47,6 @@
                 <fmt:message key="statement.declineordersuccess"/>
             </p>
         </c:if>
-
         <c:if test="${requestScope.declineorder eq false}">
             <p class="card-text" style="color: darkred; font-weight: bold">
                 <fmt:message key="statement.declineorderfail"/>
@@ -91,7 +89,8 @@
 
                     <div class="col" style="text-align: right; max-width: 40%">
                         <form name="confirmForm" method="post" action="controller">
-                            <input type="hidden" name="command" value="confirm_order"/>
+                            <input type="hidden" name="command" value="change_state"/>
+                            <input type="hidden" name="targetstate" value="confirmed"/>
                             <input type="hidden" name="idorder" value="${current.key.id}"/>
                             <button type="submit" class="btn btn-primary">
                                 <fmt:message key="button.confirm"/></button>
@@ -100,7 +99,8 @@
 
                     <div class="col" style="max-width: 60%">
                         <form name="declineForm" method="post" action="controller">
-                            <input type="hidden" name="command" value="decline_order"/>
+                            <input type="hidden" name="command" value="change_state"/>
+                            <input type="hidden" name="targetstate" value="declined"/>
                             <input type="hidden" name="idorder" value="${current.key.id}"/>
                             <p><fmt:message key="label.entercomment"/></p>
                             <p><label>

@@ -5,12 +5,12 @@
 <div class="container-fluid navbar-expand-lg navbar-dark" style="background-color: cornflowerblue">
     <div class="form-row">
 
-        <div class="col m-2" id="contact">
+        <div class="col m-2">
             <h3><fmt:message key="startpage.contact"/></h3>
             <p><fmt:message key="startpage.address"/></p>
         </div>
 
-        <div class="col m-2" id="social">
+        <div class="col m-2">
             <h3><fmt:message key="startpage.social"/></h3>
             <a href="http://facebook.com" target="_blank" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/pics/fb.png" alt="facebook account"/>

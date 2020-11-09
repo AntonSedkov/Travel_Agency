@@ -27,7 +27,19 @@
             <h2><fmt:message key="label.addtour"/></h2>
         </div>
 
-        <div class="container-fluid text-center" style="width:50%; background: lemonchiffon">
+        <div class="container-fluid text-center pb-2" style="width:50%; background: lemonchiffon">
+
+            <c:choose>
+                <c:when test="${requestScope.uploadresult and (requestScope.createtour)}">
+                    <p style="color: green"><fmt:message key="statement.imagetourdone"/></p>
+                </c:when>
+                <c:when test="${requestScope.uploadresult and not requestScope.createtour}">
+                    <p style="color: orange"><fmt:message key="statement.imagedonetourfail"/></p>
+                </c:when>
+                <c:when test="${requestScope.uploadresult eq false}">
+                    <p style="color: red"><fmt:message key="statement.imagetourfail"/></p>
+                </c:when>
+            </c:choose>
 
             <form method="post" action="upload" enctype="multipart/form-data">
                 <input type="hidden" name="command" value="add_tour">
@@ -35,23 +47,21 @@
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.tourtype"/></h4>
-                    <div aria-required="true">
                         <c:forEach var="currentType" items="${sessionScope.tourtypes}">
                             <input type="radio" name="tourtype" id="${currentType}" value="${currentType}"
                                    class="form-control" required checked>
                             <label for="${currentType}"><fmt:message key="label.${currentType}"/></label>
                         </c:forEach>
-                    </div>
                 </div>
 
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.country"/></h4>
                     <label>
                         <input type="text" name="country" class="form-control"
-                           id="country" placeholder="<fmt:message key='label.country'/>" required
+                           placeholder="<fmt:message key='label.country'/>" required
                            pattern="[A-Za-z]{1,20}"/>
                     </label>
-                    <small id="countryHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.stringhelp"/>
                     </small>
                 </div>
@@ -63,7 +73,7 @@
                            placeholder="<fmt:message key="label.hotelname"/>" required
                            pattern="[A-Za-z]{1,20}"/>
                     </label>
-                    <small id="hotelHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.stringhelp"/>
                     </small>
                 </div>
@@ -106,7 +116,7 @@
                            placeholder="<fmt:message key="label.tourdays"/>"
                            required pattern="\d{1,3}"/>
                     </label>
-                    <small id="daysHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
                 </div>
@@ -118,7 +128,7 @@
                            placeholder="<fmt:message key="label.price"/> <fmt:message key="icon.currency"/>"
                            required pattern="\d{1,7}"/>
                     </label>
-                    <small id="priceHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.pricehelp"/>
                     </small>
                 </div>
@@ -130,7 +140,7 @@
                            placeholder="<fmt:message key="label.quantitytours"/>"
                            required pattern="\d{1,3}"/>
                     </label>
-                    <small id="quantityHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
                 </div>
@@ -139,10 +149,10 @@
                     <h4 style="font-weight: bold"><fmt:message key="label.description"/></h4>
                     <label>
                     <input type="text" name="description" class="form-control"
-                           id="description" placeholder="<fmt:message key="label.description"/>"
+                           placeholder="<fmt:message key="label.description"/>"
                            required pattern="[A-Za-z]{1,20}"/>
                     </label>
-                    <small id="descriptionHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="label.threedigitshelp"/>
                     </small>
                 </div>
@@ -150,7 +160,7 @@
                 <div>
                     <h4 style="font-weight: bold"><fmt:message key="label.image"/></h4>
                     <input type="file" name="imagecontent" accept="image/jpeg" required>
-                    <small id="imageHelp" class="form-text text-muted">
+                    <small class="form-text text-muted">
                         <fmt:message key="statement.imagehelp"/>
                     </small
                 </div>
@@ -161,18 +171,6 @@
                        value="<fmt:message key="button.submit"/>">
 
             </form>
-
-            <c:choose>
-                <c:when test="${requestScope.uploadresult and (requestScope.createtour)}">
-                    <p style="color: green"><fmt:message key="statement.imagetourdone"/></p>
-                </c:when>
-                <c:when test="${requestScope.uploadresult and not requestScope.createtour}">
-                    <p style="color: orange"><fmt:message key="statement.imagedonetourfail"/></p>
-                </c:when>
-                <c:when test="${requestScope.uploadresult eq false}">
-                    <p style="color: red"><fmt:message key="statement.imagetourfail"/></p>
-                </c:when>
-            </c:choose>
 
         </div>
     </section>

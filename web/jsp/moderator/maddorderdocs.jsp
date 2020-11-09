@@ -35,7 +35,6 @@
                 <fmt:message key="statement.adddocsuccess"/>
             </p>
         </c:if>
-
         <c:if test="${requestScope.uploadresult eq false and requestScope.adddoc eq false}">
             <p class="card-text" style="color: darkred; font-weight: bold; text-align: center">
                 <fmt:message key="statement.adddocfail"/>
@@ -47,7 +46,6 @@
                 <fmt:message key="statement.adddocsordersuccess"/>
             </p>
         </c:if>
-
         <c:if test="${requestScope.adddocsorder eq false}">
             <p class="card-text" style="color: darkred; font-weight: bold; text-align: center">
                 <fmt:message key="statement.adddocsorderfail"/>
@@ -83,7 +81,7 @@
 
                 <div class="form-row pb-2">
 
-                    <div class="col" style="text-align: center; max-width: 33%">
+                    <div class="col" style="text-align: center; max-width: 33%; border: 4px double black;">
                         <form method="post" action="upload" enctype="multipart/form-data">
                             <input type="hidden" name="command" value="add_order_doc"/>
                             <input type="hidden" name="uploadtarget" value="newtourdoc"/>
@@ -93,24 +91,22 @@
                             <p><fmt:message key="label.voucher"/></p>
                             <c:choose>
                                 <c:when test="${not empty current.key.travelDocs.voucher}">
-                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.voucher}">
+                                    <p><a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.voucher}"
+                                       target="_blank">
                                             ${current.key.travelDocs.voucher}
-                                    </a>
+                                    </a></p>
                                 </c:when>
                                 <c:otherwise>
                                     <p><fmt:message key="label.nodoc"/></p>
                                 </c:otherwise>
                             </c:choose>
-                            <br/>
-                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
-                            <br/>
+                            <p><input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/></p>
                             <button type="submit" class="btn btn-primary">
                                 <fmt:message key="button.adddoc"/></button>
-
                         </form>
                     </div>
 
-                    <div class="col" style="text-align: center; max-width: 33%">
+                    <div class="col" style="text-align: center; max-width: 33%; border: 4px double black;">
                         <form method="post" action="upload" enctype="multipart/form-data">
                             <input type="hidden" name="command" value="add_order_doc"/>
                             <input type="hidden" name="uploadtarget" value="newtourdoc"/>
@@ -120,24 +116,22 @@
                             <p><fmt:message key="label.insurance"/></p>
                             <c:choose>
                                 <c:when test="${not empty current.key.travelDocs.insurance}">
-                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.insurance}">
+                                    <p><a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.insurance}"
+                                       target="_blank">
                                             ${current.key.travelDocs.insurance}
-                                    </a>
+                                    </a></p>
                                 </c:when>
                                 <c:otherwise>
                                     <p><fmt:message key="label.nodoc"/></p>
                                 </c:otherwise>
                             </c:choose>
-                            <br/>
-                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
-                            <br/>
+                            <p><input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/></p>
                             <button type="submit" class="btn btn-primary">
                                 <fmt:message key="button.adddoc"/></button>
-
                         </form>
                     </div>
 
-                    <div class="col" style="text-align: center; max-width: 33%">
+                    <div class="col" style="text-align: center; max-width: 33%; border: 4px double black;">
                         <form method="post" action="upload" enctype="multipart/form-data">
                             <input type="hidden" name="command" value="add_order_doc"/>
                             <input type="hidden" name="uploadtarget" value="newtourdoc"/>
@@ -147,17 +141,16 @@
                             <p><fmt:message key="label.tickets"/></p>
                             <c:choose>
                                 <c:when test="${not empty current.key.travelDocs.ticket}">
-                                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.ticket}">
+                                    <p><a href="${pageContext.request.contextPath}/pics/tourdoc/${current.key.travelDocs.ticket}"
+                                       target="_blank">
                                             ${current.key.travelDocs.ticket}
-                                    </a>
+                                    </a></p>
                                 </c:when>
                                 <c:otherwise>
                                     <p><fmt:message key="label.nodoc"/></p>
                                 </c:otherwise>
                             </c:choose>
-                            <br/>
-                            <input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/>
-                            <br/>
+                            <p><input class="p-2" type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required/></p>
                             <button type="submit" class="btn btn-primary">
                                 <fmt:message key="button.adddoc"/></button>
                         </form>
@@ -173,7 +166,7 @@
                 <div class="form-row pb-2">
                     <div class="col text-center">
                         <form name="addedDocsForm" method="post" action="controller">
-                            <input type="hidden" name="command" value="add_docs_order_state"/>
+                            <input type="hidden" name="command" value="change_state"/>
                             <input type="hidden" name="targetstate" value="added_docs"/>
                             <input type="hidden" name="idorder" value="${current.key.id}"/>
                             <button type="submit" class="btn btn-primary">
@@ -182,7 +175,6 @@
                         </form>
                     </div>
                 </div>
-                <br/>
 
             </c:forEach>
         </div>

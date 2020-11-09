@@ -90,7 +90,7 @@
                                                         <fmt:message key="label.tours"/><br/>
                                                         <fmt:message key="label.travelby"/> <fmt:message key="label.${currentTypeTour.transport.value}"/>
                                                     </p>
-                                 <%----%>           <p class="card-text">${currentTypeTour.description}</p>
+                                                    <p class="card-text"><fmt:message key="description.${currentTypeTour.description}"/></p>
                                                     <button type="submit" class="btn btn-primary"><fmt:message key="button.order"/></button>
                                                 </div>
                                             </div>

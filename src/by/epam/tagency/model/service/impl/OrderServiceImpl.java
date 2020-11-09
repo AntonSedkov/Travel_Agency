@@ -14,12 +14,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderServiceImpl implements OrderService {
     private static final OrderServiceImpl INSTANCE = new OrderServiceImpl();
     private static Logger logger = LogManager.getLogger(OrderServiceImpl.class);
+    private static final float DIVISOR_FOR_PERCENT = 100.0f;
 
     private OrderServiceImpl() {
     }
@@ -135,87 +138,33 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean confirmOrder(String idOrder) throws ServiceException {
-        boolean result = false;
-        if (GeneralValidator.isDigitValue(idOrder)) {
-            try {
-                int idOrderInt = Integer.parseInt(idOrder);
-                OrderDao dao = OrderDaoImpl.getInstance();
-                result = dao.confirmOrder(idOrderInt);
-                logger.info("Confirm the order " + idOrderInt);
-            } catch (NumberFormatException e) {
-                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public boolean declineOrder(String idOrder, String comment) throws ServiceException {
-        boolean result = false;
-        if (GeneralValidator.isDigitValue(idOrder)) {
-            try {
-                int idOrderInt = Integer.parseInt(idOrder);
-                String safeComment = XssSafeUtil.xssSafeString(comment);
-                OrderDao dao = OrderDaoImpl.getInstance();
-                result = dao.declineOrder(idOrderInt, safeComment);
-                logger.info("Decline the order " + idOrderInt);
-            } catch (NumberFormatException e) {
-                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        }
-        return result;
-    }
-
-  /*  @Override
-    public boolean addDocsOrderState(String idOrder) throws ServiceException {
-        boolean result = false;
-        if (GeneralValidator.isDigitValue(idOrder)) {
-            try {
-                int idOrderInt = Integer.parseInt(idOrder);
-                OrderDao dao = OrderDaoImpl.getInstance();
-                result = dao.addDocsOrderState(idOrderInt);
-                logger.info("Confirm the order " + idOrderInt);
-            } catch (NumberFormatException e) {
-                throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        }
-        return result;
-    }*/
-
-    @Override
-    public boolean changeState(String idOrder, OrderState target, String... additionalParam) throws ServiceException {
+    public boolean changeState(String idOrder, OrderState target, String... additionalParams) throws ServiceException {
         boolean result = false;
         if (GeneralValidator.isDigitValue(idOrder)) {
             try {
                 int idOrderInt = Integer.parseInt(idOrder);
                 OrderDao dao = OrderDaoImpl.getInstance();
                 switch (target) {
-                    case CONFIRMED -> {
-                        result = dao.confirmOrder(idOrderInt);
-                        logger.info("Confirm the order " + idOrderInt);
-                    }
+                    case CONFIRMED -> result = dao.confirmOrder(idOrderInt);
                     case PAID -> {
-                        System.out.println(true);
+                        if (additionalParams != null && additionalParams.length == 2) {
+                            int idUserInt = Integer.parseInt(additionalParams[0]);
+                            int sumToPay = Integer.parseInt(additionalParams[1]);
+                            result = dao.payForOrder(idOrderInt, idUserInt, sumToPay);
+                        }
                     }
-                    case ADDED_DOCS -> {
-                        result = dao.addDocsOrderState(idOrderInt);
-                        logger.info("Confirm the order " + idOrderInt);
-                    }
+                    case ADDED_DOCS -> result = dao.addDocsOrderState(idOrderInt);
+
                     case FINISHED -> {
+                        if (additionalParams != null && additionalParams.length == 1) {
+                            String safeComment = XssSafeUtil.xssSafeString(additionalParams[0]);
+                            result = dao.finishOrder(idOrderInt, safeComment);
+                        }
                     }
                     case DECLINED -> {
-                        if (additionalParam.length == 1) {
-                            String comment = additionalParam[0];
-                            String safeComment = XssSafeUtil.xssSafeString(comment);
+                        if (additionalParams != null && additionalParams.length == 1) {
+                            String safeComment = XssSafeUtil.xssSafeString(additionalParams[0]);
                             result = dao.declineOrder(idOrderInt, safeComment);
-                            logger.info("Decline the order " + idOrderInt);
                         }
                     }
                 }
@@ -228,4 +177,21 @@ public class OrderServiceImpl implements OrderService {
         return result;
     }
 
+    @Override
+    public Map<ClientOrder, Integer> createOrdersWithSumToPay(int idUser, List<ClientOrder> orders, int sheetDiscount) {
+        Map<ClientOrder, Integer> ordersWithSum = new HashMap<>();
+        if (orders != null) {
+            List<ClientOrder> ordersToPay = orders.stream()
+                    .filter(o -> o.getOrderState().equals(OrderState.CONFIRMED))
+                    .collect(Collectors.toList());
+            for (ClientOrder order : ordersToPay) {
+                int orderSum = order.getTour().getPrice();
+                int discountSheetSum = Math.round(orderSum * sheetDiscount / DIVISOR_FOR_PERCENT);
+                int discountTourSum = Math.round(orderSum * order.getTour().getDiscount() / DIVISOR_FOR_PERCENT);
+                int sumToPay = orderSum - discountSheetSum - discountTourSum;
+                ordersWithSum.put(order, sumToPay);
+            }
+        }
+        return ordersWithSum;
+    }
 }

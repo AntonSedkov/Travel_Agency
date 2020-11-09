@@ -17,87 +17,87 @@
 
 <body style="background: lightgrey">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="admin_add_staff">
+<section class="admin_add_staff">
 
-        <div class="section_tittle text-center mt-2 mb-2">
-            <h2><fmt:message key="label.addstaff"/></h2>
-        </div>
+    <div class="section_tittle text-center mt-2 mb-2">
+        <h2><fmt:message key="label.addstaff"/></h2>
+    </div>
 
-        <div class="container text-center" style="max-width: 25%">
+    <div class="text-uppercase text-center" style="color: darkred">
+        <p><c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if></p>
+        <p><c:if test="${requestScope.registersuccess}"> <fmt:message key="regpage.registersuccess"/></c:if></p>
+    </div>
 
-            <form name="loginForm" method="post" action="controller">
-                <input type="hidden" name="command" value="register"/>
+    <div class="container text-center pb-3" style="max-width: 25%">
 
-                <div class="form-row">
-                    <div class="col form-froup">
-                        <label for="usernameLabel">${username}</label>
-                        <input type="text" name="user" class="form-control" id="usernameLabel"
-                               placeholder="${username}" required
-                               pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                        <small id="loginHelpReg" class="form-text text-muted">
-                            ${loginhelp}
-                        </small>
-                    </div>
+        <form name="loginForm" method="post" action="controller">
+            <input type="hidden" name="command" value="register"/>
+
+            <div class="form-row">
+                <div class="col form-froup">
+                    <label for="usernameLabel">${username}</label>
+                    <input type="text" name="user" class="form-control" id="usernameLabel"
+                           placeholder="${username}" required
+                           pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                    <small id="loginHelpReg" class="form-text text-muted">
+                        ${loginhelp}
+                    </small>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="col form-froup">
-                        <label for="passwordLabel">${pass}</label>
-                        <input type="password" name="password" class="form-control"
-                               id="passwordLabel" placeholder="${pass}" required
-                               pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
-                        <small id="passHelpReg" class="form-text text-muted">
-                            ${passhelp}
-                        </small>
-                    </div>
+            <div class="form-row">
+                <div class="col form-froup">
+                    <label for="passwordLabel">${pass}</label>
+                    <input type="password" name="password" class="form-control"
+                           id="passwordLabel" placeholder="${pass}" required
+                           pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
+                    <small id="passHelpReg" class="form-text text-muted">
+                        ${passhelp}
+                    </small>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="col form-froup">
-                        <label for="emailLabel">${emailVal}</label>
-                        <input type="email" name="email" class="form-control" id="emailLabel"
-                               placeholder="${emailVal}" required
-                               pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
-                        <small id="emailHelp" class="form-text text-muted">
-                            <fmt:message key="regpage.emailhelp"/>
-                        </small>
-                    </div>
+            <div class="form-row">
+                <div class="col form-froup">
+                    <label for="emailLabel">${emailVal}</label>
+                    <input type="email" name="email" class="form-control" id="emailLabel"
+                           placeholder="${emailVal}" required
+                           pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
+                    <small id="emailHelp" class="form-text text-muted">
+                        <fmt:message key="regpage.emailhelp"/>
+                    </small>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="col form-froup">
-                        <label><fmt:message key="admin.role"/></label><br/>
-                        <label>
-                            <input type="radio" name="role" value="moderator" class="form-control" checked>
-                            <fmt:message key="label.moderator"/><br/>
-                        </label>
-                        <label>
-                            <input type="radio" name="role" value="admin" class="form-control">
-                            <fmt:message key="label.admin"/><br/>
-                        </label>
-                        <small id="roleHelp" class="form-text text-muted"><fmt:message key="admin.rolehelp"/></small>
-                    </div>
+            <div class="form-row">
+                <div class="col form-froup">
+                    <label><fmt:message key="admin.role"/></label><br/>
+                    <label>
+                        <input type="radio" name="role" value="moderator" class="form-control" checked>
+                        <fmt:message key="label.moderator"/><br/>
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="admin" class="form-control">
+                        <fmt:message key="label.admin"/><br/>
+                    </label>
+                    <small id="roleHelp" class="form-text text-muted"><fmt:message key="admin.rolehelp"/></small>
                 </div>
+            </div>
 
-                <input type="submit" class="btn btn-primary float-center" value="<fmt:message key="button.register"/>"/>
+            <input type="submit" class="btn btn-primary float-center" value="<fmt:message key="button.register"/>"/>
 
-                <div class="text-uppercase">
-                    <c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if> <br/><br/>
-                    <c:if test="${requestScope.registersuccess}"> <fmt:message key="regpage.registersuccess"/></c:if> <br/><br/>
-                </div>
+        </form>
+    </div>
 
-            </form>
-        </div>
+</section>
 
-    </section>
+<%@include file="../floatlogout.jsp" %>
 
-    <%@include file="../floatlogout.jsp" %>
-
-    <%@include file="../footer.jsp" %>
+<%@include file="../footer.jsp" %>
 
 </body>
 

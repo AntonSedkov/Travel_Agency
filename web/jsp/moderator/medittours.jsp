@@ -28,27 +28,23 @@
             <h2><fmt:message key="label.edittours"/></h2>
         </div>
 
-        <c:if test="${not empty requestScope.closetour}">
             <div class="text-center">
                 <c:if test="${requestScope.closetour}">
                     <h4 style="color: darkgreen"><fmt:message key="statement.closetoursuccess"/></h4>
                 </c:if>
-                <c:if test="${not requestScope.closetour}">
+                <c:if test="${not requestScope.closetour eq false}">
                     <h4 style="color: red"><fmt:message key="statement.closetourerror"/></h4>
                 </c:if>
             </div>
-        </c:if>
 
-        <c:if test="${not empty requestScope.hottourgood}">
             <div class="text-center">
                 <c:if test="${requestScope.hottourgood}">
                     <h4 style="color: darkgreen"><fmt:message key="statement.hottoursuccess"/></h4>
                 </c:if>
-                <c:if test="${not requestScope.hottourgood}">
+                <c:if test="${requestScope.hottourgood eq false}">
                     <h4 style="color: red"><fmt:message key="statement.hottourerror"/></h4>
                 </c:if>
             </div>
-        </c:if>
 
     </div>
 </section>
@@ -57,7 +53,7 @@
     <div class="container-fluid mt-5" style="background-color:lightseagreen">
 
         <div class="section_tittle text-center mt-2 mb-2">
-            <h4><fmt:message key="button.setdiscount"/></h4>
+            <h4 style="font-weight: bold"><fmt:message key="button.setdiscount"/></h4>
         </div>
 
         <c:choose>
@@ -100,7 +96,7 @@
                                             <fmt:message key="label.tourtype"/> <fmt:message
                                                 key="label.${concreteTour.tourType.value}"/>
                                         </p>
-                                            <%----%> <p class="card-text">${concreteTour.description}</p>
+                                        <p class="card-text"><fmt:message key="description.${concreteTour.description}"/></p>
                                         <p><label>
                                             <input type="text" name="discount"
                                                    placeholder="<fmt:message key="label.moderdiscount"/>"
@@ -126,7 +122,7 @@
     <div class="container-fluid mt-5" style="background-color:lightseagreen">
 
         <div class="section_tittle text-center mt-2 mb-2">
-            <h4><fmt:message key="button.closetour"/></h4>
+            <h4 style="font-weight: bold"><fmt:message key="button.closetour"/></h4>
         </div>
 
         <c:choose>
@@ -169,7 +165,7 @@
                                             <fmt:message key="label.tourtype"/> <fmt:message
                                                 key="label.${concreteTour.tourType.value}"/>
                                         </p>
-                                            <%----%> <p class="card-text">${concreteTour.description}</p>
+                                        <p class="card-text"><fmt:message key="description.${concreteTour.description}"/></p>
                                         <button type="submit" class="btn btn-primary"><fmt:message
                                                 key="button.closetour"/></button>
                                     </div>

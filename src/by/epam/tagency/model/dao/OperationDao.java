@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface OperationDao {
 
+    /**
+     *
+     * @param idSheet
+     * @return
+     * @throws DaoException
+     */
     List<SheetOperation> findOperationsByIdSheet(int idSheet) throws DaoException;
 
 }

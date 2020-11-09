@@ -29,6 +29,10 @@
         <c:if test="${empty sessionScope.orders}"><fmt:message key="orders.nothing"/></c:if>
     </p>
 
+    <p style="text-align: center; font-weight: bold; font-size: 20pt; color: darkred">
+        <c:if test="${requestScope.shortofmoney}"><fmt:message key="statement.nomoney"/></c:if>
+    </p>
+
     <c:if test="${requestScope.cancelorder}">
         <p style="color: darkgreen; font-weight: bold; text-align: center">
             <fmt:message key="statement.cancelordersuccess"/>
@@ -41,8 +45,81 @@
         </p>
     </c:if>
 
+    <c:if test="${requestScope.finishorder}">
+        <p style="color: darkgreen; font-weight: bold; text-align: center">
+            <fmt:message key="statement.finishordersuccess"/>
+        </p>
+    </c:if>
+
+    <c:if test="${requestScope.finishorder eq false}">
+        <p style="color: darkred; font-weight: bold; text-align: center">
+            <fmt:message key="statement.finishorderfail"/>
+        </p>
+    </c:if>
+
+    <c:if test="${requestScope.payorder}">
+        <p style="color: darkgreen; font-weight: bold; text-align: center">
+            <fmt:message key="statement.payordersuccess"/>
+        </p>
+    </c:if>
+
+    <c:if test="${requestScope.payorder eq false}">
+        <p style="color: darkred; font-weight: bold; text-align: center">
+            <fmt:message key="statement.payorderfail"/>
+        </p>
+    </c:if>
 
     <c:if test="${not empty sessionScope.orders}">
+
+        <div class="user_added_docs_state">
+            <div class="container p-5">
+                <div class="card-deck">
+
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('added_docs')}">
+
+                            <div class="card text-center" style="width: 20rem; background: lightskyblue">
+                                <div class="card-body">
+                                    <h4><fmt:message key="label.enjoytour"/></h4>
+                                    <form name="seDocsForm" method="post" action="controller">
+                                        <input type="hidden" name="command" value="see_travel_docs">
+                                        <input type="hidden" name="idorder" value="${order.id}">
+                                        <input type="hidden" name="iddocs" value="${order.travelDocs.id}">
+                                        <button type="submit" class="btn btn-primary">
+                                            <fmt:message key="label.seedocs"/>
+                                        </button>
+                                    </form>
+                                    <p class="card-text">
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
+                                            ${order.tour.price}
+                                        <fmt:message key="icon.currency"/>
+                                    </p>
+                                    <p class="card-text">
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
+                                    </p>
+                                    <form name="finishOrderForm" method="post" action="controller">
+                                        <input type="hidden" name="command" value="finish_order">
+                                        <input type="hidden" name="idorder" value="${order.id}">
+                                        <p><fmt:message key="label.entercomment"/></p>
+                                        <p><label>
+                                            <textarea rows="10" cols="30" name="comment"></textarea>
+                                        </label></p>
+                                        <button type="submit" class="btn btn-primary">
+                                            <fmt:message key="label.finishorder"/>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </c:if>
+                    </c:forEach>
+
+                </div>
+            </div>
+        </div>
 
         <div class="user_declined_state">
             <div class="container p-5">
@@ -65,6 +142,84 @@
                                     </p>
                                     <p style="color: darkred">
                                             ${order.comment}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </c:if>
+                    </c:forEach>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="user_confirmed_state">
+            <div class="container p-5">
+                <div class="card-deck">
+                    <c:if test="${not empty sessionScope.orderstopaywithsumtopay}">
+                        <c:forEach items="${sessionScope.orderstopaywithsumtopay}" var="current">
+
+                            <div class="card text-center" style="width: 20rem; background: lightseagreen">
+                                <div class="card-body">
+                                    <h4><fmt:message key="label.wpayment"/></h4>
+                                    <h4><fmt:message key="label.price"/> ${current.key.tour.price}
+                                        <fmt:message key="icon.currency"/></h4>
+                                    <h4><fmt:message key="label.sumtopay"/> ${current.value}
+                                        <fmt:message key="icon.currency"/></h4>
+                                    <p class="card-text">
+                                            ${current.key.tour.country}, ${current.key.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${current.key.tour.startDate},
+                                            ${current.key.tour.days} <fmt:message key="label.days"/>
+                                    </p>
+                                    <p class="card-text">
+                                            ${current.key.passport.surname}
+                                            ${current.key.passport.name}
+                                    </p>
+                                    <form name="cancelOrderConfirmedForm" method="post" action="controller">
+                                        <input type="hidden" name="command" value="cancel_order">
+                                        <input type="hidden" name="idorder" value="${current.key.id}">
+                                        <button type="submit" class="btn btn-primary">
+                                            <fmt:message key="label.cancelorder"/>
+                                        </button>
+                                    </form>
+                                    <form name="payOrderForm" method="post" action="controller">
+                                        <input type="hidden" name="command" value="change_state"/>
+                                        <input type="hidden" name="targetstate" value="paid"/>
+                                        <input type="hidden" name="idorder" value="${current.key.id}">
+                                        <input type="hidden" name="sumtopay" value="${current.value}">
+                                        <button type="submit" class="btn btn-primary">
+                                            <fmt:message key="label.payorder"/>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+
+        <div class="user_paid_state">
+            <div class="container p-5">
+                <div class="card-deck">
+
+                    <c:forEach items="${sessionScope.orders}" var="order">
+                        <c:if test="${order.orderState.value.equals('paid')}">
+
+                            <div class="card text-center" style="width: 20rem;background: lightcyan">
+                                <div class="card-body">
+                                    <h4><fmt:message key="label.wdocs"/></h4>
+                                    <p class="card-text">
+                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
+                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
+                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
+                                            ${order.tour.price}
+                                        <fmt:message key="icon.currency"/>
+                                    </p>
+                                    <p class="card-text">
+                                            ${order.passport.surname}
+                                            ${order.passport.name}
                                     </p>
                                 </div>
                             </div>
@@ -101,131 +256,6 @@
                                         <input type="hidden" name="idorder" value="${order.id}">
                                         <button type="submit" class="btn btn-primary">
                                             <fmt:message key="label.cancelorder"/>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </c:if>
-                    </c:forEach>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="user_confirmed_state">
-            <div class="container p-5">
-                <div class="card-deck">
-
-                    <c:forEach items="${sessionScope.orders}" var="order">
-                        <c:if test="${order.orderState.value.equals('confirmed')}">
-
-                            <div class="card text-center" style="width: 20rem; background: lightseagreen">
-                                <div class="card-body">
-                                    <h4><fmt:message key="label.wpayment"/></h4>
-                                    <h4>${order.tour.price}<fmt:message key="icon.currency"/></h4>
-                                    <p class="card-text">
-                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
-                                            ${order.tour.days} <fmt:message key="label.days"/>
-                                    </p>
-                                    <p class="card-text">
-                                            ${order.passport.surname}
-                                            ${order.passport.name}
-                                    </p>
-                                    <form name="cancelOrderConfirmedForm" method="post" action="controller">
-                                        <input type="hidden" name="command" value="cancel_order">
-                                        <input type="hidden" name="idorder" value="${order.id}">
-                                        <button type="submit" class="btn btn-primary">
-                                            <fmt:message key="label.cancelorder"/>
-                                        </button>
-                                    </form>
-                                    <form name="payOrderForm" method="post" action="controller">
-                                        <input type="hidden" name="command" value="pay_order">
-                                        <input type="hidden" name="idorder" value="${order.id}">
-                                        <button type="submit" class="btn btn-primary">
-                                            <fmt:message key="label.payorder"/>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </c:if>
-                    </c:forEach>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="user_paid_state">
-            <div class="container p-5">
-                <div class="card-deck">
-
-                    <c:forEach items="${sessionScope.orders}" var="order">
-                        <c:if test="${order.orderState.value.equals('paid')}">
-
-                            <div class="card text-center" style="width: 20rem;background: lightcyan">
-                                <div class="card-body">
-                                    <h4><fmt:message key="label.wdocs"/></h4>
-                                    <p class="card-text">
-                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
-                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
-                                            ${order.tour.price}
-                                        <fmt:message key="icon.currency"/>
-                                    </p>
-                                    <p class="card-text">
-                                            ${order.passport.surname}
-                                            ${order.passport.name}
-                                    </p>
-                                </div>
-                            </div>
-
-                        </c:if>
-                    </c:forEach>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="user_added_docs_state">
-            <div class="container p-5">
-                <div class="card-deck">
-
-                    <c:forEach items="${sessionScope.orders}" var="order">
-                        <c:if test="${order.orderState.value.equals('added_docs')}">
-
-                            <div class="card text-center" style="width: 20rem; background: lightskyblue">
-                                <div class="card-body">
-                                    <h4><fmt:message key="label.enjoytour"/></h4>
-                                    <form name="seDocsForm" method="post" action="controller">
-                                        <input type="hidden" name="command" value="see_travel_docs">
-                                        <input type="hidden" name="idorder" value="${order.id}">
-                                        <input type="hidden" name="iddocs" value="${order.travelDocs.id}">
-                                        <button type="submit" class="btn btn-primary">
-                                            <fmt:message key="label.seedocs"/>
-                                        </button>
-                                    </form>
-                                    <p class="card-text">
-                                            ${order.tour.country}, ${order.tour.tourType.value}<br/>
-                                        <fmt:message key="label.startdate"/> ${order.tour.startDate},
-                                            ${order.tour.days} <fmt:message key="label.days"/><br/>
-                                            ${order.tour.price}
-                                        <fmt:message key="icon.currency"/>
-                                    </p>
-                                    <p class="card-text">
-                                            ${order.passport.surname}
-                                            ${order.passport.name}
-                                    </p>
-                                    <form name="finishOrderForm" method="post" action="controller">
-                                        <input type="hidden" name="command" value="finish_order">
-                                        <input type="hidden" name="idorder" value="${order.id}">
-                                        <p><fmt:message key="label.entercomment"/></p>
-                                        <p><label>
-                                            <textarea rows="10" cols="45" name="comment"></textarea>
-                                        </label></p>
-                                        <button type="submit" class="btn btn-primary">
-                                            <fmt:message key="label.finishorder"/>
                                         </button>
                                     </form>
                                 </div>

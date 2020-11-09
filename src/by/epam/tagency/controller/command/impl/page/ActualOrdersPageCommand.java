@@ -4,6 +4,7 @@ import by.epam.tagency.controller.AttributeName;
 import by.epam.tagency.controller.command.Command;
 import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.model.entity.ClientOrder;
+import by.epam.tagency.model.entity.ClientSheet;
 import by.epam.tagency.model.service.OrderService;
 import by.epam.tagency.model.service.TourService;
 import by.epam.tagency.model.service.impl.OrderServiceImpl;
@@ -25,11 +26,15 @@ public class ActualOrdersPageCommand implements Command {
         HttpSession session = request.getSession();
         int idUser = (int) session.getAttribute(AttributeName.ID_USER);
         String page;
-        TourService tourService = TourServiceImpl.getInstance();
-        OrderService orderService = OrderServiceImpl.getInstance();
         try {
+            OrderService orderService = OrderServiceImpl.getInstance();
             List<ClientOrder> orders = orderService.findActualOrdersWithValues(idUser);
             session.setAttribute(AttributeName.ORDERS, orders);
+            ClientSheet sheet = (ClientSheet) session.getAttribute(AttributeName.SHEET);
+            int sheetDiscount = sheet.getDiscount().getValue();
+            var ordersToPayWithSumToPay = orderService.createOrdersWithSumToPay(idUser, orders, sheetDiscount);
+            session.setAttribute(AttributeName.ORDERS_WITH_SUM_TO_PAY, ordersToPayWithSumToPay);
+            TourService tourService = TourServiceImpl.getInstance();
             Set<String> countries = tourService.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
             page = PathManager.getProperty(PathManager.PAGE_USER_ORDERS_ACTUAL);
