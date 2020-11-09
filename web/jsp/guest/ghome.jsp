@@ -34,7 +34,7 @@
                 <a href="controller?command=login_page" style="color: white">${authVal}</a>
             </button>
             <button type="submit" class="btn btn-primary m-2">
-                <a href="controller?command=change_page&targetpage=path.guest.reg" style="color: white">${regVal}</a>
+                <a href="controller?command=register_page" style="color: white">${regVal}</a>
             </button>
         </div>
 

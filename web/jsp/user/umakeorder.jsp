@@ -17,100 +17,98 @@
 
 <body style="background: lightsteelblue">
 
-    <%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %>
 
-    <%@include file="../search.jsp" %>
+<%@include file="../search.jsp" %>
 
-    <%@include file="../greeting.jsp" %>
+<%@include file="../greeting.jsp" %>
 
-    <section class="make_order ">
-        <div class="container text-center" style="max-width: 35%; background: lightseagreen">
+<section class="make_order ">
+    <div class="container text-center" style="max-width: 35%; background: lightseagreen">
 
-            <form name="makeOrderForm" method="post" action="controller">
-                <input type="hidden" name="command" value="make_order"/>
+        <form name="makeOrderForm" method="post" action="controller">
+            <input type="hidden" name="command" value="make_order"/>
 
-                <div class="form-row">
-                    <div class="col form-froup">
+            <div class="form-row">
+                <div class="col form-froup p-2">
 
-                        <h4 class="card-title"><fmt:message key="label.makeorder"/></h4>
-                        <br/>
-                        <h4 class="card-title"><fmt:message key="label.tour"/></h4>
+                    <h4 class="card-title"><fmt:message key="label.makeorder"/></h4>
 
-                        <c:choose>
-
-                            <c:when test="${not empty requestScope.concretetour}">
-                                <input type="hidden" name="idtour" value="${requestScope.concretetour.id}"/>
-                                <p>
-                                        ${requestScope.concretetour.country},
-                                        ${requestScope.concretetour.tourType.value},
-                                        ${requestScope.concretetour.price}<fmt:message key="icon.currency"/>,
-                                    <fmt:message key="label.startdate"/> ${requestScope.concretetour.startDate},
-                                        ${requestScope.concretetour.days} <fmt:message key="label.days"/>
-                                </p>
-                            </c:when>
-
-                            <c:otherwise>
-                                <p>
-                                    <label>
-                                        <select class="nc_select" name="idtour" required>
-                                            <option selected><fmt:message key="label.choosetour"/></option>
-                                            <c:forEach var="concreteTour" items="${sessionScope.alltours}">
-                                                <option value="${concreteTour.id}">
-                                                        ${concreteTour.country}, ${concreteTour.tourType.value},
-                                                        ${concreteTour.price}<fmt:message key="icon.currency"/>,
-                                                    <fmt:message key="label.startdate"/> ${concreteTour.startDate},
-                                                        ${concreteTour.days} <fmt:message key="label.days"/>
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </label>
-                                </p>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <h4 class="card-title"><fmt:message key="label.passport"/></h4>
-
-                        <p class="card-text">
-                            <label>
-                                <select class="nc_select" name="idpassport" required>
-                                    <option selected><fmt:message key="label.choosepassport"/></option>
-                                    <c:forEach var="concretePassport" items="${sessionScope.passports}">
-                                        <option value="${concretePassport.id}">
-                                                ${concretePassport.surname}, ${concretePassport.name},
-                                                ${concretePassport.passportNumber}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </label>
+                    <c:if test="${requestScope.createorder}">
+                        <p class="card-text" style="color: darkgreen; font-weight: bold">
+                            <fmt:message key="statement.createordersuccess"/>
                         </p>
+                    </c:if>
+                    <c:if test="${requestScope.createorder eq false}">
+                        <p class="card-text" style="color: darkred; font-weight: bold">
+                            <fmt:message key="statement.createorderfail"/>
+                        </p>
+                    </c:if>
 
-                        <button type="submit" class="btn btn-primary"><fmt:message key="button.order"/></button>
-                        <br/>
+                    <h4 class="card-title"><fmt:message key="label.tour"/></h4>
 
-                        <c:if test="${requestScope.createorder}">
-                            <p class="card-text" style="color: darkgreen; font-weight: bold">
-                                <fmt:message key="statement.createordersuccess"/>
+                    <c:choose>
+
+                        <c:when test="${not empty requestScope.concretetour}">
+                            <input type="hidden" name="idtour" value="${requestScope.concretetour.id}"/>
+                            <p>
+                                    ${requestScope.concretetour.country},
+                                    ${requestScope.concretetour.tourType.value},
+                                    ${requestScope.concretetour.price}<fmt:message key="icon.currency"/>,
+                                <fmt:message key="label.startdate"/> ${requestScope.concretetour.startDate},
+                                    ${requestScope.concretetour.days} <fmt:message key="label.days"/>
                             </p>
-                        </c:if>
+                        </c:when>
 
-                        <c:if test="${requestScope.createorder eq false}">
-                            <p class="card-text" style="color: darkred; font-weight: bold">
-                                <fmt:message key="statement.createorderfail"/>
+                        <c:otherwise>
+                            <p>
+                                <label>
+                                    <select class="nc_select" name="idtour" required>
+                                        <option selected><fmt:message key="label.choosetour"/></option>
+                                        <c:forEach var="concreteTour" items="${sessionScope.alltours}">
+                                            <option value="${concreteTour.id}">
+                                                    ${concreteTour.country}, ${concreteTour.tourType.value},
+                                                    ${concreteTour.price}<fmt:message key="icon.currency"/>,
+                                                <fmt:message key="label.startdate"/> ${concreteTour.startDate},
+                                                    ${concreteTour.days} <fmt:message key="label.days"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </label>
                             </p>
-                        </c:if>
+                        </c:otherwise>
+                    </c:choose>
 
-                    </div>
+                    <h4 class="card-title"><fmt:message key="label.passport"/></h4>
+
+                    <p class="card-text">
+                        <label>
+                            <select class="nc_select" name="idpassport" required>
+                                <option selected><fmt:message key="label.choosepassport"/></option>
+                                <c:forEach var="concretePassport" items="${sessionScope.passports}">
+                                    <option value="${concretePassport.id}">
+                                            ${concretePassport.surname}, ${concretePassport.name},
+                                            ${concretePassport.passportNumber}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                    </p>
+
+                    <button type="submit" class="btn btn-primary"><fmt:message key="button.order"/></button>
+
                 </div>
+            </div>
 
-            </form>
-        </div>
-    </section>
+        </form>
+    </div>
+</section>
 
-    <%@include file="../hottours.jsp" %>
+<%@include file="../hottours.jsp" %>
 
-    <%@include file="../floatlogout.jsp" %>
+<%@include file="../floatlogout.jsp" %>
 
-    <%@include file="../footer.jsp" %>
+<%@include file="../footer.jsp" %>
 
 </body>
 

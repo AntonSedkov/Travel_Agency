@@ -31,6 +31,10 @@
 
     <c:if test="${not empty sessionScope.passports}">
 
+        <h4 class="text-center" style="font-weight: bold">
+            <fmt:message key="label.allpassports"/>
+        </h4>
+
         <div class="container-fluid p-3 text-center" style="max-width: 65%; background: lightseagreen">
             <div class="form-row pb-2">
                 <div class="col" style="max-width: 4%; text-align: left"><fmt:message key="icon.number"/></div>
@@ -56,34 +60,15 @@
                     <div class="col" style="max-width: 14%; text-align: center">
                             ${counter.current.passportNumber}</div>
                     <div class="col" style="max-width: 24%; text-align: center">
-                        <a href="${pageContext.request.contextPath}/pics/persdoc/${counter.current.passportImage}">
+                        <a href="${pageContext.request.contextPath}/pics/persdoc/${counter.current.passportImage}"
+                           target="_blank">
                                 ${counter.current.passportImage}
                         </a>
                     </div>
                     <div class="col" style="max-width: 16%; text-align: center">
-                        <form name="deletePassportForm" method="post" action="controller">
-                            <input type="hidden" name="idpassport" value="${counter.current.id}"/>
-                            <input type="hidden" name="command" value="delete_passport"/>
-                            <button type="submit" class="btn btn-primary float-center">
-                                <fmt:message key="label.deletepassport"/>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </c:forEach>
-                <%--
-                                <c:if test="${requestScope.deletepassport}">
-                                    <p class="card-text" style="color: darkgreen; font-weight: bold">
-                                        <fmt:message key="statement.deletepassport"/>
-                                    </p>
-                                </c:if>
-
-                                <c:if test="${requestScope.deletepassport eq false}">
-                                    <p class="card-text" style="color: darkred; font-weight: bold">
-                                        <fmt:message key="statement.nodeletepassport"/>
-                                    </p>
-                                </c:if>
-                                --%>
         </div>
     </c:if>
 </section>

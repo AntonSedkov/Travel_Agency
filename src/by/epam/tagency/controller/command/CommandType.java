@@ -6,12 +6,16 @@ import by.epam.tagency.util.PathManager;
 
 public enum CommandType {
 
+    ABOUT_PAGE(request -> PathManager.getProperty(PathManager.PAGE_GUEST_ABOUT)),
+    SHEET_PAGE(request -> PathManager.getProperty(PathManager.PAGE_USER_SHEET)),
+    REGISTER_PAGE(request -> PathManager.getProperty(PathManager.PAGE_GUEST_REG)),
+
     GUEST_IN(new GuestHomeCommand()),
     ALL_TOURS(new AllToursCommand()),
     TYPE_TOURS(new ToursByTypeCommand()),
     COUNTRY_TOURS(new ToursByCountryCommand()),
     HOT_TOURS(new ToursHotCommand()),
-    CHANGE_PAGE(new StaticPageCommand()),
+
     LOGIN_PAGE(request -> PathManager.getProperty(PathManager.PAGE_GUEST_AUTH)),
 
     ADMIN_IN(new AdminHomeCommand()),
@@ -43,7 +47,6 @@ public enum CommandType {
     CHANGE_PASSWORD(new ChangePasswordCommand()),
     CHANGE_EMAIL(new ChangeEmailCommand()),
     ADD_SHEET_SUM(new AddSheetSumCommand()),
-    PAY_ORDER(new PayOrderCommand()),
     MAKE_ORDER(new MakeOrderCommand()),
     CANCEL_ORDER(new CancelOrderCommand()),
     ADD_PASSPORT(new AddPassportCommand()),

@@ -81,7 +81,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="controller?command=change_page&targetpage=path.guest.about" class="nav-link">
+                    <a href="controller?command=about_page" class="nav-link">
                         <fmt:message key="startpage.aboutusbutton"/></a>
                 </li>
 
@@ -178,12 +178,12 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="controller?command=change_page&targetpage=path.user.sheet"
+                    <a class="nav-link dropdown-toggle" href="controller?command=sheet_page"
                        id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <fmt:message key="label.sheet"/>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                        <a class="dropdown-item" href="controller?command=change_page&targetpage=path.user.sheet">
+                        <a class="dropdown-item" href="controller?command=sheet_page">
                             <fmt:message key="label.sheet"/></a>
                         <a class="dropdown-item" href="controller?command=see_operations">
                             <fmt:message key="label.seeoperations"/></a>
@@ -208,7 +208,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="controller?command=change_page&targetpage=path.guest.about" class="nav-link">
+                    <a href="controller?command=about_page" class="nav-link">
                         <fmt:message key="startpage.aboutusbutton"/></a>
                 </li>
 

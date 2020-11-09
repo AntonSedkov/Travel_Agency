@@ -24,8 +24,9 @@
     <%@include file="../greeting.jsp" %>
 
     <section class="base_info">
-        <div class="container text-center p-5" style="width: 30rem">
+        <div class="container text-center p-5">
             <div class="card-deck">
+
                 <div class="card text-center" style="width: 20rem;">
                     <div class="card-body" style="background-color: lemonchiffon">
                         <h4 class="card-title pb-2 pt-1" style="text-align: left; font-weight: bold">
@@ -46,13 +47,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="sheet_operations">
-        <div class="container text-center p-5">
-            <div class="card-deck">
 
                 <form name="addSumForm" method="post" action="controller">
                     <input type="hidden" name="command" value="add_sheet_sum"/>
@@ -80,41 +74,6 @@
                             </c:if>
 
                             <button type="submit" class="btn btn-primary"><fmt:message key="button.replenish"/></button>
-                        </div>
-                    </div>
-                </form>
-
-                <form name="payOrderForm" method="post" action="controller">
-                    <input type="hidden" name="command" value="pay_order"/>
-
-                    <div class="card text-center" style="width: 30rem;">
-                        <div class="card-body">
-                            <h4 class="card-title"><fmt:message key="label.payfortours"/></h4>
-
-                            <p class="card-text">
-                                <label>
-                                    <input type="text" name="minussum" class="form-control"
-                                           placeholder="Minus Sum" required
-                                           pattern="[\d]{1,6}"/>
-                                </label>
-                            </p>
-
-                            <p class="card-text">
-                                HERE MUST BE OPTION AND FOREACH WITH CURRENT UNPAID ORDERS
-                            </p>
-
-                            <c:if test="${requestScope.payorderresult}">
-                                <p class="card-text" style="color: darkgreen; font-weight: bold">
-                                    <fmt:message key="statement.payordersuccess"/>
-                                </p>
-                            </c:if>
-                            <c:if test="${requestScope.payorderresult eq false}">
-                                <p class="card-text" style="color: darkred; font-weight: bold">
-                                    <fmt:message key="statement.payorderfail"/>
-                                </p>
-                            </c:if>
-
-                            <button type="submit" class="btn btn-primary"><fmt:message key="button.payfororder"/></button>
                         </div>
                     </div>
                 </form>

@@ -24,13 +24,11 @@
 <section class="add_passport">
     <div class="container text-center" style="max-width: 35%; background: lightseagreen">
 
-
         <c:if test="${requestScope.addpassport}">
             <p class="card-text" style="color: darkgreen; font-weight: bold">
                 <fmt:message key="statement.addpassportsuccess"/>
             </p>
         </c:if>
-
         <c:if test="${requestScope.addpassport eq false}">
             <p class="card-text" style="color: darkred; font-weight: bold">
                 <fmt:message key="statement.addpassportfail"/>
@@ -53,7 +51,7 @@
                                    placeholder="<fmt:message key='label.surname'/>" required
                                    pattern="[A-Za-z]{1,30}"/>
                         </label>
-                        <small id="surnameHelp" class="form-text text-muted">
+                        <small class="form-text text-muted">
                             <fmt:message key="statement.passstringhelp"/>
                         </small>
                     </p>
@@ -65,7 +63,7 @@
                                    placeholder="<fmt:message key='label.name'/>" required
                                    pattern="[A-Za-z]{1,30}"/>
                         </label>
-                        <small id="nameHelp" class="form-text text-muted">
+                        <small class="form-text text-muted">
                             <fmt:message key="statement.passstringhelp"/>
                         </small>
                     </p>
@@ -86,7 +84,7 @@
                                    placeholder="<fmt:message key='label.passportno'/>" required
                                    pattern="^[A-Za-z]{2}[\d]{7}$"/>
                         </label>
-                        <small id="passnumberHelp" class="form-text text-muted">
+                        <small class="form-text text-muted">
                             <fmt:message key="statement.passnumberhelp"/>
                         </small>
                     </p>
@@ -94,7 +92,7 @@
                     <p>
                         <fmt:message key="field.passportimage"/><br/>
                         <input type="file" name="imagecontent" accept=".jpg, .jpeg, .pdf" required>
-                        <small id="imageHelp" class="form-text text-muted">
+                        <small class="form-text text-muted">
                             <fmt:message key="statement.imagehelp"/>
                         </small
                     </p>

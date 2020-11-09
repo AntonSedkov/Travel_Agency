@@ -47,7 +47,8 @@
             <div class="form-row pb-2">
                 <div class="col" style="text-align: center">
                     <fmt:message key="label.voucher"/>
-                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.voucher}">
+                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.voucher}"
+                       target="_blank" style="font-weight: bold">
                             ${sessionScope.tourdocs.voucher}
                     </a>
                 </div>
@@ -55,7 +56,8 @@
             <div class="form-row pb-2">
                 <div class="col" style="text-align: center">
                     <fmt:message key="label.insurance"/>
-                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.insurance}">
+                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.insurance}"
+                       target="_blank" style="font-weight: bold">
                             ${sessionScope.tourdocs.insurance}
                     </a>
                 </div>
@@ -63,7 +65,8 @@
             <div class="form-row pb-2">
                 <div class="col" style="text-align: center">
                     <fmt:message key="label.tickets"/>
-                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.ticket}">
+                    <a href="${pageContext.request.contextPath}/pics/tourdoc/${sessionScope.tourdocs.ticket}"
+                       target="_blank" style="font-weight: bold">
                             ${sessionScope.tourdocs.ticket}
                     </a>
                 </div>
