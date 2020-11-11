@@ -31,7 +31,7 @@
             <c:choose>
 
                 <c:when test="${empty sessionScope.alltours}">
-                    <fmt:message key="label.nocurrenttours"/>
+                    <fmt:message key="currenttours.nothing"/>
                 </c:when>
 
                 <c:otherwise>

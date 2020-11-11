@@ -32,7 +32,7 @@
 
             <c:when test="${empty sessionScope.toursbytypes}">
                 <div class="section_tittle text-center">
-                    <h2 class="p-3"><fmt:message key="label.nocurrenttours"/></h2>
+                    <h2 class="p-3"><fmt:message key="currenttours.nothing"/></h2>
                 </div>
             </c:when>
 
@@ -47,7 +47,7 @@
                     <c:choose>
                         <c:when test="${empty typeMapEntry.value}">
                             <div class="section_tittle text-center">
-                                <h2 class="p-3"><fmt:message key="label.typetoursempty"/></h2>
+                                <h2 class="p-3"><fmt:message key="typetours.nothing"/></h2>
                             </div>
                         </c:when>
 

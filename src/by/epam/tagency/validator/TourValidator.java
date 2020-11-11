@@ -26,26 +26,17 @@ public class TourValidator {
     }
 
     public static boolean isDigitParamValue(String value) {
-        boolean result = false;
-        if (value != null && !value.isBlank()) {
-            result = value.strip().matches(DIGITS_VALUE_PARAM);
-        }
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_PARAM));
         return result;
     }
 
     public static boolean isDaysValue(String value) {
-        boolean result = false;
-        if (value != null && !value.isBlank()) {
-            result = value.strip().matches(DIGITS_VALUE_DAYS);
-        }
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_DAYS));
         return result;
     }
 
     public static boolean isDiscountValue(String value) {
-        boolean result = false;
-        if (value != null && !value.isBlank()) {
-            result = value.strip().matches(DIGITS_VALUE_DISCOUNT);
-        }
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_DISCOUNT));
         return result;
     }
 
@@ -68,6 +59,7 @@ public class TourValidator {
             for (TransportType type : TransportType.values()) {
                 if (transportType.strip().toUpperCase().equals(type.name())) {
                     result = true;
+                    break;
                 }
             }
         }

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class PassportServiceImpl implements PassportService {
@@ -43,16 +44,18 @@ public class PassportServiceImpl implements PassportService {
         boolean result = false;
         if (PassportValidator.isPersonalString(surname) && PassportValidator.isPersonalString(name) && GeneralValidator.isDateFormat(birthDate)
                 && PassportValidator.isPassportNumber(passportNo) && GeneralValidator.isImageName(imageName)) {
-            ClientPassport passport = new ClientPassport();
-            passport.setSurname(surname.strip());
-            passport.setName(name.strip());
-            LocalDate birthLocalDate = LocalDate.parse(birthDate);
-            passport.setBirthDate(birthLocalDate);
-            passport.setPassportNumber(passportNo.strip());
-            passport.setPassportImage(imageName.strip());
-            PassportDao dao = PassportDaoImpl.getInstance();
             try {
+                ClientPassport passport = new ClientPassport();
+                passport.setSurname(surname.strip());
+                passport.setName(name.strip());
+                LocalDate birthLocalDate = LocalDate.parse(birthDate);
+                passport.setBirthDate(birthLocalDate);
+                passport.setPassportNumber(passportNo.strip());
+                passport.setPassportImage(imageName.strip());
+                PassportDao dao = PassportDaoImpl.getInstance();
                 result = dao.createPassport(idUser, passport);
+            } catch (DateTimeParseException e) {
+                throw new ServiceException("Incoming date of birth is wrong format - not date", e);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

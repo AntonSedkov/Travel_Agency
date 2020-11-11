@@ -37,7 +37,7 @@
             </div>
             <div class="form-row pb-2">
                 <div class="col">
-                    <fmt:message key="label.tour"/><fmt:message key="label.colon"/>
+                    <fmt:message key="label.tour"/><fmt:message key="icon.colon"/>
                     <fmt:message key="label.${sessionScope.order.tour.country}"/>,
                     <fmt:message key="label.${sessionScope.order.tour.tourType.value}"/>,
                     <fmt:message key="label.startdate"/> ${sessionScope.order.tour.startDate},

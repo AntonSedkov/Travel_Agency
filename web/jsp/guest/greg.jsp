@@ -10,7 +10,7 @@
 <html lang="${sessionScope.language}">
 
 <head>
-    <title><fmt:message key="regpage.title"/></title>
+    <title><fmt:message key="label.regpage"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -72,7 +72,7 @@
                                placeholder="${emailVal}" required
                                pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
                         <small id="emailHelp" class="form-text text-muted">
-                            <fmt:message key="regpage.emailhelp"/>
+                            <fmt:message key="statement.emailhelp"/>
                         </small>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
             <input type="submit" class="btn btn-primary float-center" value="${register}">
 
             <div class="text-uppercase" style="color: red">
-                <c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if><br/>
-                <c:if test="${requestScope.activateemailerror}"> <fmt:message key="regpage.activateemailerror"/></c:if>
-                <c:if test="${requestScope.activateemailsuccess}"> <fmt:message key="regpage.activateemailsuccess"/></c:if>
+                <c:if test="${requestScope.registererror}"> <fmt:message key="statement.registererror"/></c:if><br/>
+                <c:if test="${requestScope.activateemailerror}"> <fmt:message key="statement.activateemailerror"/></c:if>
+                <c:if test="${requestScope.activateemailsuccess}"> <fmt:message key="statement.activateemailsuccess"/></c:if>
             </div>
 
         </form>

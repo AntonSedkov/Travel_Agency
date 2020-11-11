@@ -33,7 +33,7 @@
     <div class="col text-left">
         <h4><fmt:message key="label.totalusers"/> ${sessionScope.quantityusers} <fmt:message key="label.men"/></h4>
         <c:forEach var="quantityUsersByRole" items="${sessionScope.usersbyroles}">
-            <h5><fmt:message key="label.${quantityUsersByRole.key}"/> <fmt:message key="label.colon"/>
+            <h5><fmt:message key="label.${quantityUsersByRole.key}"/> <fmt:message key="icon.colon"/>
                     ${quantityUsersByRole.value} <fmt:message key="label.men"/></h5>
         </c:forEach>
     </div>

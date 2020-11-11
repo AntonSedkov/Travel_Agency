@@ -11,7 +11,7 @@
                 <div class="banner_text text-center">
                     <div class="banner_text_iner">
                         <h1><fmt:message key="label.company"/></h1>
-                        <p><fmt:message key="label.slogan"/></p>
+                        <p><fmt:message key="statement.slogan"/></p>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                                     <div class="form-row">
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
-                                                <option selected><fmt:message key="label.choosecountry"/></option>
+                                                <option selected><fmt:message key="field.choosecountry"/></option>
                                                 <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
@@ -62,17 +62,17 @@
                                             </select>
                                         </div>
                                         <div class="form_colum">
-                                            <fmt:message key="label.startdate" var="startDate"/>
-                                            <input type="date" class="gj-datepicker" placeholder="${startDate}"
+                                            <input type="date" class="gj-datepicker"
+                                                   placeholder="<fmt:message key="label.startdate"/><fmt:message key="icon.star"/>"
                                                    id="startdate1" min="1000-10-10" name="startdate" required>
                                         </div>
                                         <div class="form_colum">
-                                            <fmt:message key="label.tourdays" var="tourDays"/>
+                                            <fmt:message key="field.tourdays" var="tourDays"/>
                                             <input type="text" placeholder="${tourDays}" name="tourdays"
                                                    pattern="\d{1,3}" required>
                                         </div>
                                         <div class="form_colum">
-                                            <fmt:message key="label.maxprice" var="maxPrice"/>
+                                            <fmt:message key="field.maxprice" var="maxPrice"/>
                                             <input type="text" placeholder="${maxPrice}" name="maxprice"
                                                    pattern="\d{1,7}" required>
                                         </div>
@@ -93,7 +93,7 @@
                                     <div class="form-row">
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
-                                                <option selected><fmt:message key="label.choosecountry"/></option>
+                                                <option selected><fmt:message key="field.choosecountry"/></option>
                                                 <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
@@ -101,7 +101,8 @@
                                             </select>
                                         </div>
                                         <div class="form_colum">
-                                            <input type="date" class="gj-datepicker" placeholder="${startDate}"
+                                            <input type="date" class="gj-datepicker"
+                                                   placeholder="<fmt:message key="label.startdate"/><fmt:message key="icon.star"/>"
                                                    id="startdate2" min="1000-10-10" name="startdate" required>
                                         </div>
                                         <div class="form_colum">
@@ -128,7 +129,7 @@
                                     <div class="form-row">
                                         <div class="form_colum">
                                             <select class="nc_select" name="country" required>
-                                                <option selected><fmt:message key="label.choosecountry"/></option>
+                                                <option selected><fmt:message key="field.choosecountry"/></option>
                                                 <c:forEach var="currentCountry" items="${sessionScope.countries}">
                                                     <option value="${currentCountry}"><fmt:message
                                                             key="label.${currentCountry}"/></option>
@@ -136,7 +137,8 @@
                                             </select>
                                         </div>
                                         <div class="form_colum">
-                                            <input type="date" class="gj-datepicker" placeholder="${startDate}"
+                                            <input type="date" class="gj-datepicker"
+                                                   placeholder="<fmt:message key="label.startdate"/><fmt:message key="icon.star"/>"
                                                    id="startdate3" min="1000-10-10" name="startdate" required>
                                         </div>
                                         <div class="form_colum">
@@ -173,7 +175,7 @@
         <c:if test="${not empty requestScope.searchtours}">
 
             <div class="section_tittle text-center">
-                <h2><fmt:message key="title.findtours"/></h2>
+                <h2><fmt:message key="label.findtours"/></h2>
             </div>
 
             <div class="container p-5">

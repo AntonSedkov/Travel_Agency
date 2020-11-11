@@ -28,15 +28,15 @@
     </div>
 
     <div class="text-uppercase text-center" style="color: darkred">
-        <p><c:if test="${requestScope.activateusererror}"><fmt:message key="admin.activateusererror"/></c:if></p>
-        <p><c:if test="${requestScope.deactivateusererror}"><fmt:message key="admin.deactivateusererror"/></c:if></p>
+        <p><c:if test="${requestScope.activateusererror}"><fmt:message key="statement.activateusererror"/></c:if></p>
+        <p><c:if test="${requestScope.deactivateusererror}"><fmt:message key="statement.deactivateusererror"/></c:if></p>
     </div>
 
     <div class="contaner pb-3">
 
         <div class="row m-3">
             <div class="col text-center"><fmt:message key="label.id"/></div>
-            <div class="col text-left"><fmt:message key="authpage.username"/></div>
+            <div class="col text-left"><fmt:message key="label.username"/></div>
             <div class="col text-left"><fmt:message key="label.email"/></div>
             <div class="col text-left"><fmt:message key="label.role"/></div>
             <div class="col text-left"><fmt:message key="label.status"/></div>

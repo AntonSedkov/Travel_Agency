@@ -6,12 +6,12 @@
     <div class="form-row">
 
         <div class="col m-2">
-            <h3><fmt:message key="startpage.contact"/></h3>
-            <p><fmt:message key="startpage.address"/></p>
+            <h3><fmt:message key="footer.contact"/></h3>
+            <p><fmt:message key="footer.address"/></p>
         </div>
 
         <div class="col m-2">
-            <h3><fmt:message key="startpage.social"/></h3>
+            <h3><fmt:message key="footer.social"/></h3>
             <a href="http://facebook.com" target="_blank" class="navbar-brand">
                 <img src="${pageContext.request.contextPath}/pics/fb.png" alt="facebook account"/>
             </a>
@@ -24,13 +24,13 @@
         </div>
 
         <div class="col m-2">
-            <fmt:message key="startpage.phone"/><br/>
-            <fmt:message key="startpage.skype"/><br/>
-            <fmt:message key="startpage.emailaddress" var="emailaddress"/>
+            <fmt:message key="footer.phone"/><br/>
+            <fmt:message key="footer.skype"/><br/>
+            <fmt:message key="footer.emailaddress" var="emailaddress"/>
             <a href="mailto:${emailaddress}">${emailaddress}</a><br/>
             <p>
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-            <fmt:message key="startpage.aftercopyright"/><p>
+            <fmt:message key="footer.aftercopyright"/><p>
         </div>
 
     </div>

@@ -10,7 +10,7 @@
 <html lang="${sessionScope.language}">
 
 <head>
-    <title><fmt:message key="startpage.title"/></title>
+    <title><fmt:message key="label.guesthome"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -25,7 +25,7 @@
 
         <div class="container">
             <div class="row text-center justify-content-center m-3 p-1">
-                <h3><fmt:message key="startpage.maincontext"/></h3>
+                <h3><fmt:message key="statement.startmaincontext"/></h3>
             </div>
         </div>
 

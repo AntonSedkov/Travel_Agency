@@ -8,18 +8,12 @@ public class PassportValidator {
     }
 
     public static boolean isPersonalString(String value) {
-        boolean result = false;
-        if (value != null && !value.isBlank()) {
-            result = value.strip().matches(PASSPORT_LITERALS_VALUE);
-        }
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(PASSPORT_LITERALS_VALUE));
         return result;
     }
 
     public static boolean isPassportNumber(String value) {
-        boolean result = false;
-        if (value != null && !value.isBlank()) {
-            result = value.strip().matches(PASSPORT_NUMBER_FORMAT);
-        }
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(PASSPORT_NUMBER_FORMAT));
         return result;
     }
 

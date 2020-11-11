@@ -58,14 +58,14 @@
 
                 <div class="form-row pb-2">
                     <div class="col" style="font-weight: bold">
-                        <fmt:message key="label.user"/><fmt:message key="label.colon"/>
+                        <fmt:message key="label.user"/><fmt:message key="icon.colon"/>
                             ${current.value}
                     </div>
                 </div>
 
                 <div class="form-row pb-2">
                     <div class="col" style="font-weight: bold">
-                        <fmt:message key="label.tour"/><fmt:message key="label.colon"/>
+                        <fmt:message key="label.tour"/><fmt:message key="icon.colon"/>
                         <fmt:message key="label.${current.key.tour.country}"/>,
                         <fmt:message key="label.${current.key.tour.tourType.value}"/>,
                         <fmt:message key="label.startdate"/> ${current.key.tour.startDate},
@@ -102,7 +102,7 @@
                             <input type="hidden" name="command" value="change_state"/>
                             <input type="hidden" name="targetstate" value="declined"/>
                             <input type="hidden" name="idorder" value="${current.key.id}"/>
-                            <p><fmt:message key="label.entercomment"/></p>
+                            <p><fmt:message key="field.entercomment"/></p>
                             <p><label>
                                 <textarea rows="5" cols="45" name="comment"></textarea>
                             </label></p>

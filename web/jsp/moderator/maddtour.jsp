@@ -31,7 +31,7 @@
 
             <c:choose>
                 <c:when test="${requestScope.uploadresult and (requestScope.createtour)}">
-                    <p style="color: green"><fmt:message key="statement.imagetourdone"/></p>
+                    <p style="color: green"><fmt:message key="statement.imagetoursuccess"/></p>
                 </c:when>
                 <c:when test="${requestScope.uploadresult and not requestScope.createtour}">
                     <p style="color: orange"><fmt:message key="statement.imagedonetourfail"/></p>
@@ -46,7 +46,8 @@
                 <input type="hidden" name="uploadtarget" value="newtourinfo">
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.tourtype"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="label.tourtype"/>
+                        <fmt:message key="icon.star"/></h4>
                         <c:forEach var="currentType" items="${sessionScope.tourtypes}">
                             <input type="radio" name="tourtype" id="${currentType}" value="${currentType}"
                                    class="form-control" required checked>
@@ -55,31 +56,31 @@
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.country"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.country"/></h4>
                     <label>
                         <input type="text" name="country" class="form-control"
-                           placeholder="<fmt:message key='label.country'/>" required
-                           pattern="[A-Za-z]{1,20}"/>
+                               placeholder="<fmt:message key='field.country'/>" required
+                               pattern="[A-Za-z]{1,20}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.stringhelp"/>
+                        <fmt:message key="statement.stringhelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.hotelname"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.hotelname"/></h4>
                     <label>
                         <input type="text" name="hotelname" class="form-control"
-                           placeholder="<fmt:message key="label.hotelname"/>" required
-                           pattern="[A-Za-z]{1,20}"/>
+                               placeholder="<fmt:message key="field.hotelname"/>" required
+                               pattern="[A-Za-z]{1,20}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.stringhelp"/>
+                        <fmt:message key="statement.stringhelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.hotelstars"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.hotelstars"/></h4>
                     <div aria-required="true">
                         <input type="radio" id="zero" name="hotelstars" value="hostel" class="form-control">
                         <label for="zero"><fmt:message key="label.hostel"/></label>
@@ -93,7 +94,7 @@
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.transport"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.transport"/></h4>
                     <input type="radio" id="air" name="transport" value="airplane" class="form-control" checked>
                     <label for="air"><fmt:message key="label.Airplane"/></label>
                     <input type="radio" id="bus" name="transport" value="bus" class="form-control">
@@ -101,64 +102,66 @@
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.startdate"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="label.startdate"/>
+                        <fmt:message key="icon.star"/></h4>
                     <label>
                     <input type="date" name="startdate" class="form-control"
-                           id="startdate" placeholder="<fmt:message key="label.startdate"/>"
+                           id="startdate" placeholder="<fmt:message key="label.startdate"/><fmt:message key="icon.star"/>"
                            min="1000-01-01" required/>
                     </label>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.tourdays"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.tourdays"/></h4>
                     <label>
                     <input type="text" name="tourdays" class="form-control"
-                           placeholder="<fmt:message key="label.tourdays"/>"
+                           placeholder="<fmt:message key="field.tourdays"/>"
                            required pattern="\d{1,3}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.threedigitshelp"/>
+                        <fmt:message key="statement.threedigitshelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.price"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="label.price"/>
+                        <fmt:message key="icon.star"/></h4>
                     <label>
                     <input type="text" name="tourprice" class="form-control"
                            placeholder="<fmt:message key="label.price"/> <fmt:message key="icon.currency"/>"
                            required pattern="\d{1,7}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.pricehelp"/>
+                        <fmt:message key="statement.pricehelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.quantitytours"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.quantitytours"/></h4>
                     <label>
                     <input type="text" name="quantitytours" class="form-control"
-                           placeholder="<fmt:message key="label.quantitytours"/>"
+                           placeholder="<fmt:message key="field.quantitytours"/>"
                            required pattern="\d{1,3}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.threedigitshelp"/>
+                        <fmt:message key="statement.threedigitshelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.description"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.description"/></h4>
                     <label>
                     <input type="text" name="description" class="form-control"
-                           placeholder="<fmt:message key="label.description"/>"
+                           placeholder="<fmt:message key="field.description"/>"
                            required pattern="[A-Za-z]{1,20}"/>
                     </label>
                     <small class="form-text text-muted">
-                        <fmt:message key="label.threedigitshelp"/>
+                        <fmt:message key="statement.stringhelp"/>
                     </small>
                 </div>
 
                 <div>
-                    <h4 style="font-weight: bold"><fmt:message key="label.image"/></h4>
+                    <h4 style="font-weight: bold"><fmt:message key="field.image"/></h4>
                     <input type="file" name="imagecontent" accept="image/jpeg" required>
                     <small class="form-text text-muted">
                         <fmt:message key="statement.imagehelp"/>

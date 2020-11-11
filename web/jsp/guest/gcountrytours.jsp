@@ -32,7 +32,7 @@
 
                 <c:when test="${empty sessionScope.toursbycountries}">
                     <div class="section_tittle text-center">
-                        <h2 class="p-3"><fmt:message key="label.nocurrenttours"/></h2>
+                        <h2 class="p-3"><fmt:message key="currenttours.nothing"/></h2>
                     </div>
                 </c:when>
 
@@ -47,7 +47,7 @@
                         <c:choose>
                             <c:when test="${empty countryMapEntry.value}">
                                 <div class="section_tittle text-center">
-                                    <h2 class="p-3"><fmt:message key="label.countrytoursempty"/></h2>
+                                    <h2 class="p-3"><fmt:message key="countrytours.nothing"/></h2>
                                 </div>
                             </c:when>
 

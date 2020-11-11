@@ -3,7 +3,7 @@
 <body>
 
     <div class="container">
-        <h3 class="text-center"><fmt:message key="text.greetings"/> ${sessionScope.user}<fmt:message key="text.smileend"/></h3>
+        <h3 class="text-center"><fmt:message key="statement.greetings"/> ${sessionScope.user}<fmt:message key="icon.smileend"/></h3>
     </div>
 
 </body>

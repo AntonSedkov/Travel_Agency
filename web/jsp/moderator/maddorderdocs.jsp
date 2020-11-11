@@ -57,14 +57,14 @@
 
                 <div class="form-row pb-2">
                     <div class="col" style="font-weight: bold">
-                        <fmt:message key="label.user"/><fmt:message key="label.colon"/>
+                        <fmt:message key="label.user"/><fmt:message key="icon.colon"/>
                             ${current.value}
                     </div>
                 </div>
 
                 <div class="form-row pb-2">
                     <div class="col" style="font-weight: bold">
-                        <fmt:message key="label.tour"/><fmt:message key="label.colon"/>
+                        <fmt:message key="label.tour"/><fmt:message key="icon.colon"/>
                         <fmt:message key="label.${current.key.tour.country}"/>,
                         <fmt:message key="label.${current.key.tour.tourType.value}"/>,
                         <fmt:message key="label.startdate"/> ${current.key.tour.startDate},

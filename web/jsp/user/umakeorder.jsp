@@ -64,7 +64,7 @@
                             <p>
                                 <label>
                                     <select class="nc_select" name="idtour" required>
-                                        <option selected><fmt:message key="label.choosetour"/></option>
+                                        <option selected><fmt:message key="field.choosetour"/></option>
                                         <c:forEach var="concreteTour" items="${sessionScope.alltours}">
                                             <option value="${concreteTour.id}">
                                                     ${concreteTour.country}, ${concreteTour.tourType.value},
@@ -84,7 +84,7 @@
                     <p class="card-text">
                         <label>
                             <select class="nc_select" name="idpassport" required>
-                                <option selected><fmt:message key="label.choosepassport"/></option>
+                                <option selected><fmt:message key="field.choosepassport"/></option>
                                 <c:forEach var="concretePassport" items="${sessionScope.passports}">
                                     <option value="${concretePassport.id}">
                                             ${concretePassport.surname}, ${concretePassport.name},

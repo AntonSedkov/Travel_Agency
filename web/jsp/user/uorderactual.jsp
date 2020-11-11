@@ -124,7 +124,7 @@
                                                 ${order.passport.surname}
                                                 ${order.passport.name}
                                         </p>
-                                        <p><fmt:message key="label.entercomment"/></p>
+                                        <p><fmt:message key="field.entercomment"/></p>
                                         <p><label>
                                             <textarea rows="5" cols="55" name="comment"></textarea>
                                         </label></p>

@@ -50,17 +50,17 @@
 
                 <li class="nav-item active">
                     <a href="controller?command=guest_in" class="nav-link">
-                        <fmt:message key="startpage.homebutton"/></a>
+                        <fmt:message key="button.home"/></a>
                 </li>
 
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#authModal">
-                        <fmt:message key="startpage.authbutton" var="authVal"/> ${authVal}</a>
+                        <fmt:message key="button.auth" var="authVal"/> ${authVal}</a>
                 </li>
 
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#regModal">
-                        <fmt:message key="startpage.registerbutton" var="regVal"/> ${regVal}</a>
+                        <fmt:message key="button.reg" var="regVal"/> ${regVal}</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -82,7 +82,7 @@
 
                 <li class="nav-item">
                     <a href="controller?command=about_page" class="nav-link">
-                        <fmt:message key="startpage.aboutusbutton"/></a>
+                        <fmt:message key="label.aboutus"/></a>
                 </li>
 
             </c:if>
@@ -92,7 +92,7 @@
 
                 <li class="nav-item active">
                     <a href="controller?command=admin_in" class="nav-link">
-                        <fmt:message key="startpage.homebutton"/></a>
+                        <fmt:message key="button.home"/></a>
                 </li>
 
                 <li class="nav-item">
@@ -110,7 +110,7 @@
 
                 <li class="nav-item active">
                     <a href="controller?command=moderator_in" class="nav-link">
-                        <fmt:message key="startpage.homebutton"/></a>
+                        <fmt:message key="button.home"/></a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -146,7 +146,7 @@
 
                 <li class="nav-item active">
                     <a href="controller?command=user_in" class="nav-link">
-                        <fmt:message key="startpage.homebutton"/></a>
+                        <fmt:message key="button.home"/></a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -209,7 +209,7 @@
 
                 <li class="nav-item">
                     <a href="controller?command=about_page" class="nav-link">
-                        <fmt:message key="startpage.aboutusbutton"/></a>
+                        <fmt:message key="label.aboutus"/></a>
                 </li>
 
             </c:if>
@@ -271,21 +271,21 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputAuthModal">
-                                        <fmt:message key="authpage.username" var="username"/>
+                                        <fmt:message key="field.username" var="username"/>
                                         ${username}
                                     </label>
                                     <input type="text" name="user" class="form-control" id="inputAuthModal"
                                            placeholder="${username}" required
                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                     <small id="loginHelp" class="form-text text-muted">
-                                        <fmt:message key="authpage.loginhelp" var="loginhelp"/>
+                                        <fmt:message key="statement.loginhelp" var="loginhelp"/>
                                     </small>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputPassModal">
-                                        <fmt:message key="authpage.password" var="pass"/>
+                                        <fmt:message key="field.password" var="pass"/>
                                         ${pass}
                                     </label>
                                     <input type="password" name="password"
@@ -293,7 +293,7 @@
                                            placeholder="${pass}" required
                                            pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                     <small id="passHelp" class="form-text text-muted">
-                                        <fmt:message key="authpage.passhelp" var="passhelp"/>
+                                        <fmt:message key="statement.passhelp" var="passhelp"/>
                                     </small>
                                 </div>
                             </div>
@@ -359,14 +359,14 @@
                             <div class="col">
                                 <div class="form-froup">
                                     <label for="inputEmailModal">
-                                        <fmt:message key="regpage.email" var="emailVal"/>
+                                        <fmt:message key="field.email" var="emailVal"/>
                                         ${emailVal}
                                     </label>
                                     <input type="email" name="email" class="form-control" id="inputEmailModal"
                                            placeholder="${emailVal}" required
                                            pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
                                     <small id="emailHelp" class="form-text text-muted">
-                                        <fmt:message key="regpage.emailhelp"/>
+                                        <fmt:message key="statement.emailhelp"/>
                                     </small>
                                 </div>
                             </div>

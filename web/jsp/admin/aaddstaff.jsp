@@ -28,8 +28,8 @@
     </div>
 
     <div class="text-uppercase text-center" style="color: darkred">
-        <p><c:if test="${requestScope.registererror}"> <fmt:message key="regpage.registererror"/></c:if></p>
-        <p><c:if test="${requestScope.registersuccess}"> <fmt:message key="regpage.registersuccess"/></c:if></p>
+        <p><c:if test="${requestScope.registererror}"> <fmt:message key="statement.registererror"/></c:if></p>
+        <p><c:if test="${requestScope.registersuccess}"> <fmt:message key="statement.registersuccess"/></c:if></p>
     </div>
 
     <div class="container text-center pb-3" style="max-width: 25%">
@@ -68,14 +68,14 @@
                            placeholder="${emailVal}" required
                            pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
                     <small id="emailHelp" class="form-text text-muted">
-                        <fmt:message key="regpage.emailhelp"/>
+                        <fmt:message key="statement.emailhelp"/>
                     </small>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="col form-froup">
-                    <label><fmt:message key="admin.role"/></label><br/>
+                    <label><fmt:message key="field.staffrole"/></label><br/>
                     <label>
                         <input type="radio" name="role" value="moderator" class="form-control" checked>
                         <fmt:message key="label.moderator"/><br/>
@@ -84,7 +84,7 @@
                         <input type="radio" name="role" value="admin" class="form-control">
                         <fmt:message key="label.admin"/><br/>
                     </label>
-                    <small id="roleHelp" class="form-text text-muted"><fmt:message key="admin.rolehelp"/></small>
+                    <small id="roleHelp" class="form-text text-muted"><fmt:message key="statement.rolehelp"/></small>
                 </div>
             </div>
 

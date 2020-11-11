@@ -6,7 +6,7 @@
     <div class="container-fluid mt-3" style="background-color:lightseagreen">
 
         <div class="section_tittle text-center">
-            <h2><fmt:message key="title.offers"/></h2>
+            <h2><fmt:message key="label.offers"/></h2>
         </div>
 
         <p style="text-align: center; font-weight: bold; font-size: 24pt">

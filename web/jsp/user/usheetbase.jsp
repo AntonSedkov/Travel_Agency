@@ -57,7 +57,7 @@
                             <p class="card-text">
                                 <label>
                                     <input type="text" name="paycard" class="form-control"
-                                           placeholder="<fmt:message key="label.paycardnumber"/>" required
+                                           placeholder="<fmt:message key="field.paycardnumber"/>" required
                                            pattern="[\d]{7}"/>
                                 </label>
                             </p>

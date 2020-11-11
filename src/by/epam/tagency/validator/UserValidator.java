@@ -17,17 +17,17 @@ public class UserValidator {
     }
 
     public static boolean isValidLogin(String login) {
-        boolean result = login != null && !login.isBlank() && login.strip().matches(LOGIN_REGEXP);
+        boolean result = (login != null && !login.isBlank() && login.strip().matches(LOGIN_REGEXP));
         return result;
     }
 
     public static boolean isValidPassword(String password) {
-        boolean result = password != null && !password.isBlank() && password.strip().matches(PASSWORD_REGEXP);
+        boolean result = (password != null && !password.isBlank() && password.strip().matches(PASSWORD_REGEXP));
         return result;
     }
 
     public static boolean isValidEmail(String email) {
-        boolean result = email != null && !email.isBlank() && email.strip().matches(EMAIL_REGEXP);
+        boolean result = (email != null && !email.isBlank() && email.strip().matches(EMAIL_REGEXP));
         return result;
     }
 

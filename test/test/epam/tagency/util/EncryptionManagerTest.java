@@ -1,4 +1,4 @@
-package test.epam.travel_agency.util;
+package test.epam.tagency.util;
 
 import by.epam.tagency.exception.ServiceException;
 import by.epam.tagency.util.EncryptionManager;

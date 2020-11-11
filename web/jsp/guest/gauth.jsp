@@ -10,7 +10,7 @@
 <html lang="${sessionScope.language}">
 
 <head>
-    <title><fmt:message key="authpage.title"/></title>
+    <title><fmt:message key="label.authpage"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -60,7 +60,7 @@
             <input type="submit" class="btn btn-primary float-center" value="${enter}">
 
             <div class="text-uppercase" style="color: red">
-                <c:if test="${requestScope.loginerror}"><fmt:message key="authpage.loginerror"/></c:if>
+                <c:if test="${requestScope.loginerror}"><fmt:message key="statement.loginerror"/></c:if>
             </div>
 
         </form>

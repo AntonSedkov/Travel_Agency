@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -68,14 +69,16 @@ public class TourServiceImpl implements TourService {
         if (TourValidator.isValidTourType(restType) && GeneralValidator.isLatinLiterals(country)
                 && GeneralValidator.isDateFormat(startDate) && TourValidator.isDaysValue(minDays)
                 && TourValidator.isDigitParamValue(maxPrice)) {
-            TourDao dao = TourDaoImpl.getInstance();
-            LocalDate date = LocalDate.parse(startDate.strip());
-            long dateSec = DateTimeUtil.convertLongFromLocalDate(date);
-            int days = Integer.parseInt(minDays.strip());
-            int price = Integer.parseInt(maxPrice.strip());
             try {
+                TourDao dao = TourDaoImpl.getInstance();
+                LocalDate date = LocalDate.parse(startDate.strip());
+                long dateSec = DateTimeUtil.convertLongFromLocalDate(date);
+                int days = Integer.parseInt(minDays.strip());
+                int price = Integer.parseInt(maxPrice.strip());
                 tours = dao.findToursByParameters(restType.strip(), country.strip(), dateSec, days, price);
                 logger.info("Find tours with parameters.");
+            } catch (DateTimeParseException e) {
+                throw new ServiceException("Incoming date of birth is wrong format - not date", e);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }
@@ -135,23 +138,25 @@ public class TourServiceImpl implements TourService {
                 && TourValidator.isValidHotelType(stars) && TourValidator.isValidTransportType(transport)
                 && GeneralValidator.isDateFormat(date) && TourValidator.isDaysValue(days) && TourValidator.isDigitParamValue(price)
                 && TourValidator.isDigitParamValue(quantity) && GeneralValidator.isLatinLiterals(description) && GeneralValidator.isImageName(image)) {
-            Tour tour = new Tour();
-            tour.setTourType(TourType.valueOf(type.strip().toUpperCase()));
-            tour.setCountry(country.strip());
-            tour.setHotelName(hotelName.strip());
-            tour.setHotelType(HotelType.valueOf(stars.strip().toUpperCase()));
-            tour.setTransport(TransportType.valueOf(transport.strip().toUpperCase()));
-            LocalDate localDate = LocalDate.parse(date.strip());
-            tour.setStartDate(localDate);
-            tour.setDays(Integer.parseInt(days.strip()));
-            tour.setPrice(Integer.parseInt(price.strip()));
-            tour.setAvailableQuantity(Integer.parseInt(quantity.strip()));
-            tour.setDescription(description.strip());
-            tour.setImagePath(image.strip());
-            TourDao dao = TourDaoImpl.getInstance();
             try {
+                Tour tour = new Tour();
+                tour.setTourType(TourType.valueOf(type.strip().toUpperCase()));
+                tour.setCountry(country.strip());
+                tour.setHotelName(hotelName.strip());
+                tour.setHotelType(HotelType.valueOf(stars.strip().toUpperCase()));
+                tour.setTransport(TransportType.valueOf(transport.strip().toUpperCase()));
+                LocalDate localDate = LocalDate.parse(date.strip());
+                tour.setStartDate(localDate);
+                tour.setDays(Integer.parseInt(days.strip()));
+                tour.setPrice(Integer.parseInt(price.strip()));
+                tour.setAvailableQuantity(Integer.parseInt(quantity.strip()));
+                tour.setDescription(description.strip());
+                tour.setImagePath(image.strip());
+                TourDao dao = TourDaoImpl.getInstance();
                 result = dao.createTour(tour);
                 logger.info("Created new tour.");
+            } catch (DateTimeParseException e) {
+                throw new ServiceException("Incoming date of birth is wrong format - not date", e);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

@@ -33,7 +33,7 @@
                     <h4 style="color: darkgreen"><fmt:message key="statement.closetoursuccess"/></h4>
                 </c:if>
                 <c:if test="${not requestScope.closetour eq false}">
-                    <h4 style="color: red"><fmt:message key="statement.closetourerror"/></h4>
+                    <h4 style="color: red"><fmt:message key="statement.closetourfail"/></h4>
                 </c:if>
             </div>
 
@@ -42,7 +42,7 @@
                     <h4 style="color: darkgreen"><fmt:message key="statement.hottoursuccess"/></h4>
                 </c:if>
                 <c:if test="${requestScope.hottourgood eq false}">
-                    <h4 style="color: red"><fmt:message key="statement.hottourerror"/></h4>
+                    <h4 style="color: red"><fmt:message key="statement.hottourfail"/></h4>
                 </c:if>
             </div>
 
@@ -59,7 +59,7 @@
         <c:choose>
 
             <c:when test="${empty sessionScope.alltours}">
-                <fmt:message key="label.nocurrenttours"/>
+                <fmt:message key="currenttours.nothing"/>
             </c:when>
 
             <c:otherwise>
@@ -99,7 +99,7 @@
                                         <p class="card-text"><fmt:message key="description.${concreteTour.description}"/></p>
                                         <p><label>
                                             <input type="text" name="discount"
-                                                   placeholder="<fmt:message key="label.moderdiscount"/>"
+                                                   placeholder="<fmt:message key="field.moderdiscount"/>"
                                                    pattern="\d{1,2}" required/>
                                         </label></p>
                                         <button type="submit" class="btn btn-primary">
@@ -128,7 +128,7 @@
         <c:choose>
 
             <c:when test="${empty sessionScope.alltours}">
-                <fmt:message key="label.nocurrenttours"/>
+                <fmt:message key="currenttours.nothing"/>
             </c:when>
 
             <c:otherwise>

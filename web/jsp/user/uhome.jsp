@@ -56,7 +56,7 @@
                             <p class="card-text">
                                 <label>
                                     <input type="password" name="currentpassword" class="form-control"
-                                           placeholder=" <fmt:message key="label.currentpass"/>" required
+                                           placeholder=" <fmt:message key="field.currentpass"/>" required
                                            pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                 </label>
                             </p>
@@ -64,11 +64,11 @@
                             <p class="card-text">
                                 <label>
                                     <input type="password" name="newpassword" class="form-control"
-                                           placeholder="<fmt:message key="label.newpass"/>" required
+                                           placeholder="<fmt:message key="field.newpass"/>" required
                                            pattern="^(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                 </label>
                                 <small class="form-text text-muted">
-                                    "<fmt:message key="authpage.passhelp"/>"
+                                    <fmt:message key="statement.passhelp"/>
                                 </small>
                             </p>
 
@@ -101,11 +101,11 @@
                             <p class="card-text">
                                 <label>
                                     <input type="text" name="newusername" class="form-control"
-                                           placeholder="<fmt:message key="label.newusername"/>" required
+                                           placeholder="<fmt:message key="field.newusername"/>" required
                                            pattern="^(?=.*?[A-Z])(?=.*?[a-z])[\w]{6,16}$"/>
                                 </label>
                                 <small class="form-text text-muted">
-                                    <fmt:message key="authpage.loginhelp"/>
+                                    <fmt:message key="statement.loginhelp"/>
                                 </small>
                             </p>
 
@@ -138,11 +138,11 @@
                             <p class="card-text">
                                 <label>
                                     <input type="email" name="newemail" class="form-control"
-                                           placeholder="<fmt:message key="label.newemail"/>" required
+                                           placeholder="<fmt:message key="field.newemail"/>" required
                                            pattern="[\w-\.\+!#$%&’*+\/=?`{|}~^]+@[\w-]+\.[\w]{2,6}"/>
                                 </label>
                                 <small class="form-text text-muted">
-                                    <fmt:message key="regpage.emailhelp"/>
+                                    <fmt:message key="statement.emailhelp"/>
                                 </small>
                             </p>
 
