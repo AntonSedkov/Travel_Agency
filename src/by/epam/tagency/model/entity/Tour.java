@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class Tour extends Entity {
-
     private TourType tourType;
     private String country;
     private String hotelName;
@@ -19,21 +18,6 @@ public class Tour extends Entity {
     private int discount;
 
     public Tour() {
-    }
-
-    public Tour(TourType tourType, String country, String hotelName, HotelType hotelType, TransportType transport, LocalDate startDate, int days, int price, int availableQuantity, String description, String imagePath, int discount) {
-        this.tourType = tourType;
-        this.country = country;
-        this.hotelName = hotelName;
-        this.hotelType = hotelType;
-        this.transport = transport;
-        this.startDate = startDate;
-        this.days = days;
-        this.price = price;
-        this.availableQuantity = availableQuantity;
-        this.description = description;
-        this.imagePath = imagePath;
-        this.discount = discount;
     }
 
     public TourType getTourType() {
@@ -132,15 +116,12 @@ public class Tour extends Entity {
         this.discount = discount;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         Tour tour = (Tour) o;
-
         if (days != tour.days) return false;
         if (price != tour.price) return false;
         if (availableQuantity != tour.availableQuantity) return false;
@@ -176,6 +157,7 @@ public class Tour extends Entity {
     @Override
     public String toString() {
         return new StringJoiner(", ", Tour.class.getSimpleName() + "[", "]")
+                .add("id=" + getId())
                 .add("tourType=" + tourType)
                 .add("country='" + country + "'")
                 .add("hotelName='" + hotelName + "'")

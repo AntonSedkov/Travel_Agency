@@ -104,9 +104,8 @@ public class SheetDaoImpl implements SheetDao {
             } finally {
                 connection.setAutoCommit(true);
             }
-        } catch (
-                SQLException e) {
-            throw new DaoException(e);
+        } catch (SQLException e) {
+            throw new DaoException("Connection exception in transaction of adding sum to sheet in database", e);
         }
         return result;
     }

@@ -13,14 +13,6 @@ public class ClientPassport extends Entity {
     public ClientPassport() {
     }
 
-    public ClientPassport(String surname, String name, LocalDate birthDate, String passportNumber, String passportImage) {
-        this.surname = surname;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.passportNumber = passportNumber;
-        this.passportImage = passportImage;
-    }
-
     public String getSurname() {
         return surname;
     }
@@ -97,4 +89,5 @@ public class ClientPassport extends Entity {
                 .add("passportImage='" + passportImage + "'")
                 .toString();
     }
+
 }

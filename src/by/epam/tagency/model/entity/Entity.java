@@ -6,10 +6,6 @@ public class Entity {
     public Entity() {
     }
 
-    public Entity(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
@@ -17,7 +13,6 @@ public class Entity {
     public void setId(int id) {
         this.id = id;
     }
-
 
     @Override
     public boolean equals(Object o) {

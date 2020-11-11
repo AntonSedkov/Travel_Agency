@@ -118,7 +118,7 @@ public class UserDaoImpl implements UserDao {
                         result = psCreateSheet.executeUpdate() > 0;
                         logger.info("User sheet creation is " + result);
                     }
-                    if (result){
+                    if (result) {
                         connection.commit();
                     }
                 }
@@ -129,7 +129,7 @@ public class UserDaoImpl implements UserDao {
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Connection exception in transaction of creating new user in database", e);
         }
         return result;
     }

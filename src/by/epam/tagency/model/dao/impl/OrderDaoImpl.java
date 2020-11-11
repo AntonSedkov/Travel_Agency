@@ -309,7 +309,7 @@ public class OrderDaoImpl implements OrderDao {
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Connection exception in transaction of paying order in database", e);
         }
         return result;
     }

@@ -10,12 +10,6 @@ public class TravelDocs extends Entity {
     public TravelDocs() {
     }
 
-    public TravelDocs(String voucher, String insurance, String ticket) {
-        this.voucher = voucher;
-        this.insurance = insurance;
-        this.ticket = ticket;
-    }
-
     public String getVoucher() {
         return voucher;
     }

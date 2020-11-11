@@ -57,6 +57,7 @@ public class Paycard extends Entity {
     @Override
     public String toString() {
         return new StringJoiner(", ", Paycard.class.getSimpleName() + "[", "]")
+                .add("id=" + getId())
                 .add("cardNumber=" + cardNumber)
                 .add("cardSum=" + cardSum)
                 .add("cardQuantity=" + cardQuantity)

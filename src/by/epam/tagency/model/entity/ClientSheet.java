@@ -6,9 +6,6 @@ public class ClientSheet extends Entity {
     private int sheetSum;
     private DiscountType discount;
 
-    private static final int DEFAULT_SUM = 0;
-    private static final DiscountType DEFAULT_DISCOUNT = DiscountType.FIRST_LVL;
-
     public ClientSheet() {
     }
 
