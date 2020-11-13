@@ -43,8 +43,6 @@ public class QuerySql {
     public static final String FIND_SHEET_BY_ID_USER = "SELECT id_sheet, sheet_sum, customer_discount FROM sheet WHERE id_user_fk = (?)";
     public static final String FIND_PAYCARD_BY_NUMBER = "SELECT id_paycard, card_sum, card_quantity FROM paycards WHERE card_quantity>1 AND card_number = (?)";
     public static final String CREATE_OPERATION = "INSERT INTO sheet_operation (id_sheet_fk, operation_sum, operation_purpose) VALUES (?,?,?)";
-    public static final String CHANGE_SHEET_SUM = "UPDATE sheet SET sheet_sum = (?) WHERE id_user_fk = (?)";
-    public static final String CHANGE_SHEET_DISCOUNT = "UPDATE sheet SET customer_discount = (?) WHERE id_user_fk = (?)";
 
     //OperationDao
     public static final String FIND_OPERATIONS_BY_ID_SHEET = "SELECT id_operation, operation_sum, operation_purpose FROM sheet_operation WHERE id_sheet_fk = (?)";
@@ -70,7 +68,6 @@ public class QuerySql {
     public static final String SET_ORDER_DECLINED = "UPDATE orders SET state = 'declined', comment = (?) WHERE id_order = (?)";
     public static final String SET_ORDER_FINISHED = "UPDATE orders SET state = 'finished', comment = (?) WHERE id_order = (?)";
     public static final String SET_ORDER_PAID = "UPDATE orders SET state = 'paid' WHERE id_order = (?)";
-
 
     public static final String SELECT_ORDERS_INFO_BY_ID_USER =
             "SELECT t.id_tour,t.tour_purpose,t.country,t.date_start, t.quantity_of_days, t.price, t.discount, " +
@@ -125,4 +122,5 @@ public class QuerySql {
 
     private QuerySql() {
     }
+
 }

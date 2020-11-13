@@ -30,6 +30,7 @@ public class EditUsersCommand implements Command {
             logger.info("Admin edit users page forward.");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

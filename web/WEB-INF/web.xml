@@ -10,6 +10,25 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>DirectPathFilter</filter-name>
+        <filter-class>by.epam.tagency.controller.filter.DirectPathFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DirectPathFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>by.epam.tagency.controller.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error/error404.jsp</location>

@@ -76,6 +76,19 @@ public enum ConnectionPool {
         logger.info("Connection Pool was destroyed, drivers were deregistered");
     }
 
+    int getDefaultPoolSize() {
+        return DEFAULT_POOL_SIZE;
+    }
+
+    BlockingDeque<ProxyConnection> getFreeConnections() {
+        return freeConnections;
+    }
+
+    int countCurrentConnectionPoolSize() {
+        int currentSize = freeConnections.size() + givenConnections.size();
+        return currentSize;
+    }
+
     private void deregisterDriver() {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 public class AddPassportCommand implements Command {
     private static Logger logger = LogManager.getLogger(AddPassportCommand.class);
 
-
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

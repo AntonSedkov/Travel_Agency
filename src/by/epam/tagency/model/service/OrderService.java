@@ -27,5 +27,4 @@ public interface OrderService {
 
     Map<ClientOrder, Integer> createOrdersWithSumToPay(int idUser, List<ClientOrder> orders, int sheetDiscount);
 
-    // List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws ServiceException;
 }

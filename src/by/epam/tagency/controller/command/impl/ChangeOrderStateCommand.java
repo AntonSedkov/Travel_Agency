@@ -29,21 +29,11 @@ public class ChangeOrderStateCommand implements Command {
         String page = (String) request.getSession().getAttribute(AttributeName.CURRENT_PAGE);
         try {
             switch (OrderState.valueOf(targetState.toUpperCase())) {
-                case CONFIRMED -> {
-                    confirmedAction(request, idOrder);
-                }
-                case PAID -> {
-                    paidAction(request, idOrder);
-                }
-                case ADDED_DOCS -> {
-                    addedDocsAction(request, idOrder);
-                }
-                case FINISHED -> {
-                    finishedAction(request, idOrder);
-                }
-                case DECLINED -> {
-                    declinedAction(request, idOrder);
-                }
+                case CONFIRMED -> confirmedAction(request, idOrder);
+                case PAID -> paidAction(request, idOrder);
+                case ADDED_DOCS -> addedDocsAction(request, idOrder);
+                case FINISHED -> finishedAction(request, idOrder);
+                case DECLINED -> declinedAction(request, idOrder);
             }
         } catch (ServiceException | EnumConstantNotPresentException | NumberFormatException e) {
             logger.error(e);

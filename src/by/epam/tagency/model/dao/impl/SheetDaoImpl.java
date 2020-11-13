@@ -3,8 +3,8 @@ package by.epam.tagency.model.dao.impl;
 import by.epam.tagency.exception.DaoException;
 import by.epam.tagency.model.connection.ConnectionPool;
 import by.epam.tagency.model.dao.ColumnName;
-import by.epam.tagency.model.dao.SheetDao;
 import by.epam.tagency.model.dao.QuerySql;
+import by.epam.tagency.model.dao.SheetDao;
 import by.epam.tagency.model.entity.ClientSheet;
 import by.epam.tagency.model.entity.DiscountType;
 import by.epam.tagency.model.entity.OperationPurpose;
@@ -40,20 +40,6 @@ public class SheetDaoImpl implements SheetDao {
             }
         } catch (SQLException ex) {
             throw new DaoException("Exception of finding sheet by id user.", ex);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean changeSheetSum(int idUser, int newSum) throws DaoException {
-        boolean result;
-        try (Connection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(QuerySql.CHANGE_SHEET_SUM)) {
-            preparedStatement.setInt(1, newSum);
-            preparedStatement.setInt(2, idUser);
-            result = preparedStatement.executeUpdate() > 0;
-        } catch (SQLException ex) {
-            throw new DaoException("Exception of updating sheet sum by id user.", ex);
         }
         return result;
     }

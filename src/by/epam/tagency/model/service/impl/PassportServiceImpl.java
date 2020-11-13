@@ -54,6 +54,7 @@ public class PassportServiceImpl implements PassportService {
                 passport.setPassportImage(imageName.strip());
                 PassportDao dao = PassportDaoImpl.getInstance();
                 result = dao.createPassport(idUser, passport);
+                logger.info("Create passport for user " + idUser);
             } catch (DateTimeParseException e) {
                 throw new ServiceException("Incoming date of birth is wrong format - not date", e);
             } catch (DaoException e) {

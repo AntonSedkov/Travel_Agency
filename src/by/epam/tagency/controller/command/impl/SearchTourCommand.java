@@ -20,8 +20,6 @@ public class SearchTourCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(AttributeName.SEARCH_TOURS_NOTHING, false);
-        session.setAttribute(AttributeName.SEARCH_TOURS, null);
         String tourPurpose = request.getParameter(AttributeName.TOUR_PURPOSE);
         String country = request.getParameter(AttributeName.COUNTRY);
         String startDate = request.getParameter(AttributeName.START_DATE);
@@ -40,6 +38,7 @@ public class SearchTourCommand implements Command {
             logger.info("Search has been completed by parameters");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

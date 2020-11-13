@@ -49,11 +49,11 @@ public class TourServiceImpl implements TourService {
     public Tour findTourById(String idConcreteTour) throws ServiceException {
         Tour tour = new Tour();
         if (GeneralValidator.isDigitValue(idConcreteTour)) {
-            TourDao dao = TourDaoImpl.getInstance();
-            int idConcreteTourInt = Integer.parseInt(idConcreteTour);
             try {
+                int idConcreteTourInt = Integer.parseInt(idConcreteTour);
+                TourDao dao = TourDaoImpl.getInstance();
                 tour = dao.findTourById(idConcreteTourInt);
-                logger.info("Find concrete tour.");
+                logger.info("Find concrete tour " + idConcreteTourInt);
             } catch (NumberFormatException e) {
                 throw new ServiceException("Incoming ID is wrong format - not an integer", e);
             } catch (DaoException e) {
@@ -118,15 +118,15 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> findAllHotTours() throws ServiceException {
-        List<Tour> hottours;
-        TourDao dao = TourDaoImpl.getInstance();
+        List<Tour> hotTours;
         try {
-            hottours = dao.findAllHotTours();
+            TourDao dao = TourDaoImpl.getInstance();
+            hotTours = dao.findAllHotTours();
             logger.info("Find hot tours.");
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return hottours;
+        return hotTours;
     }
 
     @Override
@@ -202,9 +202,9 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Set<String> findAvailableCountries() throws ServiceException {
-        TourDao dao = TourDaoImpl.getInstance();
         Set<String> countries;
         try {
+            TourDao dao = TourDaoImpl.getInstance();
             countries = dao.findAvailableCountries();
         } catch (DaoException e) {
             throw new ServiceException(e);

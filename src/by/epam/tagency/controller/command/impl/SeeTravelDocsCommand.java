@@ -33,6 +33,7 @@ public class SeeTravelDocsCommand implements Command {
             TravelDocs docs = docsService.findTravelDocsById(idDocs);
             session.setAttribute(AttributeName.TOUR_DOCS, docs);
             page = PathManager.getProperty(PathManager.PAGE_USER_TOUR_DOCS);
+            logger.info("See Docs page for order " + idOrder);
         } catch (ServiceException e) {
             logger.error(e);
             request.setAttribute(AttributeName.ERROR_INFO, e);

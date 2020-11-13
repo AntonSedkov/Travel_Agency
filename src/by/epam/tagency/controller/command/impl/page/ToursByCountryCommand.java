@@ -37,6 +37,7 @@ public class ToursByCountryCommand implements Command {
             page = PathManager.getProperty(PathManager.PAGE_GUEST_COUNTRY_TOURS);
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

@@ -5,6 +5,7 @@ public class GeneralValidator {
     private static final String LITERALS_VALUE = "[A-Za-z]+";
     private static final String DATE_FORMAT = "\\b[\\d]{4}-[\\d]{2}-[\\d]{2}\\b";
     private static final String IMAGE_NAME_FORMAT = "\\b[A-Za-z\\d]+\\.[A-Za-z]{2,5}\\b";
+    private static final String DB_RESTRICTION_CHARACTERS_QUANTITY = ".{3,64}";
 
     private GeneralValidator() {
     }
@@ -15,7 +16,8 @@ public class GeneralValidator {
     }
 
     public static boolean isLatinLiterals(String value) {
-        boolean result = (value != null && !value.isBlank() && value.strip().matches(LITERALS_VALUE));
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(LITERALS_VALUE))
+                && value.strip().matches(DB_RESTRICTION_CHARACTERS_QUANTITY);
         return result;
     }
 
@@ -25,7 +27,8 @@ public class GeneralValidator {
     }
 
     public static boolean isImageName(String value) {
-        boolean result = (value != null && !value.isBlank() && value.strip().matches(IMAGE_NAME_FORMAT));
+        boolean result = (value != null && !value.isBlank() && value.strip().matches(IMAGE_NAME_FORMAT))
+                && value.strip().matches(DB_RESTRICTION_CHARACTERS_QUANTITY);
         return result;
     }
 

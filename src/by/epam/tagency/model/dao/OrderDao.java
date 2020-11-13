@@ -32,5 +32,4 @@ public interface OrderDao {
 
     boolean payForOrder(int idOrder, int idUser, int sumToPay) throws DaoException;
 
-    //  List<ClientOrder> findOrdersWithValuesByState(int idUser, String state) throws DaoException;
 }

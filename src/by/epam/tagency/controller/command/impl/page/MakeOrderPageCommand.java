@@ -26,7 +26,7 @@ public class MakeOrderPageCommand implements Command {
         HttpSession session = request.getSession();
         TourService tourService = TourServiceImpl.getInstance();
         PassportService passportService = PassportServiceImpl.getInstance();
-        String idConcreteTour = request.getParameter(AttributeName.ID_TOUR);    // TODO: 01.11.2020 How to transfer Object through requests
+        String idConcreteTour = request.getParameter(AttributeName.ID_TOUR);
         boolean isConcreteTour = idConcreteTour != null;
         int idUser = (int) session.getAttribute(AttributeName.ID_USER);
         String page;
@@ -45,6 +45,7 @@ public class MakeOrderPageCommand implements Command {
             page = PathManager.getProperty(PathManager.PAGE_USER_MAKE_ORDER);
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

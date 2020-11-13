@@ -38,6 +38,7 @@ public class ActualOrdersPageCommand implements Command {
             Set<String> countries = tourService.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
             page = PathManager.getProperty(PathManager.PAGE_USER_ORDERS_ACTUAL);
+            logger.info("Actual order page for user " + idUser);
         } catch (ServiceException e) {
             logger.error(e);
             request.setAttribute(AttributeName.ERROR_INFO, e);

@@ -31,6 +31,7 @@ public class AllToursCommand implements Command {
             page = PathManager.getProperty(PathManager.PAGE_GUEST_ALL_TOURS);
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

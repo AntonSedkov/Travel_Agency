@@ -28,7 +28,7 @@ public class UserHomeCommand implements Command {
             if (hotTours.size() > 0) {
                 session.setAttribute(AttributeName.HOT_TOURS, hotTours);
             } else {
-                session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+                request.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
             }
             Set<String> countries = tourService.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
@@ -36,6 +36,7 @@ public class UserHomeCommand implements Command {
             logger.info("User home page forward.");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

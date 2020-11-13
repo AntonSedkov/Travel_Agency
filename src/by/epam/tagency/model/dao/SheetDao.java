@@ -9,6 +9,4 @@ public interface SheetDao {
 
     boolean addSheetSum(int idUser, int numberPaycard) throws DaoException;
 
-    boolean changeSheetSum(int idUser, int newSum) throws DaoException;
-
 }

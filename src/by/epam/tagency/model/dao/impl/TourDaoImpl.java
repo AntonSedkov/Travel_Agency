@@ -59,7 +59,7 @@ public class TourDaoImpl implements TourDao {
                 tour = createTourFromResultSet(resultSet);
             }
         } catch (SQLException ex) {
-            throw new DaoException("Exception of finding tour by id.", ex);
+            throw new DaoException("Exception of finding tour by id: " + idConcreteTour, ex);
         }
         return tour;
     }
@@ -97,7 +97,7 @@ public class TourDaoImpl implements TourDao {
                 result.add(tour);
             }
         } catch (SQLException ex) {
-            throw new DaoException("Exception of finding tours by country.", ex);
+            throw new DaoException("Exception of finding tours by country: " + country, ex);
         }
         return result;
     }
@@ -114,7 +114,7 @@ public class TourDaoImpl implements TourDao {
                 result.add(tour);
             }
         } catch (SQLException ex) {
-            throw new DaoException("Exception of finding tours by type.", ex);
+            throw new DaoException("Exception of finding tours by type: " + restType, ex);
         }
         return result;
     }
@@ -183,7 +183,7 @@ public class TourDaoImpl implements TourDao {
             preparedStatement.setInt(1, idTour);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
-            throw new DaoException("Exception of closing tour (setting zero quantity).", ex);
+            throw new DaoException("Exception of closing tour (setting zero quantity) for tour " + idTour, ex);
         }
         return result;
     }
@@ -197,7 +197,7 @@ public class TourDaoImpl implements TourDao {
             preparedStatement.setInt(2, idTour);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException ex) {
-            throw new DaoException("Exception of discounting the tour (setting discount).", ex);
+            throw new DaoException("Exception of discounting the tour (setting discount) for tour " + idTour, ex);
         }
         return result;
     }

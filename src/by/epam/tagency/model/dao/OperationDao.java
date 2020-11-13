@@ -8,7 +8,6 @@ import java.util.List;
 public interface OperationDao {
 
     /**
-     *
      * @param idSheet
      * @return
      * @throws DaoException

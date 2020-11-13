@@ -28,13 +28,14 @@ public class GuestHomeCommand implements Command {
             if (hotTours.size() > 0) {
                 session.setAttribute(AttributeName.HOT_TOURS, hotTours);
             } else {
-                session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+                request.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
             }
             Set<String> countries = service.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
             page = PathManager.getProperty(PathManager.PAGE_GUEST_HOME);
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

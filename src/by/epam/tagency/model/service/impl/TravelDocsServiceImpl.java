@@ -29,7 +29,7 @@ public class TravelDocsServiceImpl implements TravelDocsService {
             TravelDocsDao dao = TravelDocsDaoImpl.getInstance();
             try {
                 travelDocs = dao.findTravelDocsById(idDocsInt);
-                logger.info("Find concrete tour docs.");
+                logger.info("Find concrete tour docs " + idDocsInt);
             } catch (NumberFormatException e) {
                 throw new ServiceException("Incoming ID is wrong format - not an integer", e);
             } catch (DaoException e) {

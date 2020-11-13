@@ -9,6 +9,4 @@ public interface SheetService {
 
     boolean addSheetSum(int idUser, String numberPaycard) throws ServiceException;
 
-    boolean payOrder(int idUser, String sum) throws ServiceException;
-
 }

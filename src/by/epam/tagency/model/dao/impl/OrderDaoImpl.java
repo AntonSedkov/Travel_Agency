@@ -107,7 +107,7 @@ public class OrderDaoImpl implements OrderDao {
                 }
             } catch (SQLException e) {
                 connection.rollback();
-                throw new DaoException("Exception of deleting order in database", e);
+                throw new DaoException("Exception of deleting order in database " + idOrder, e);
             } finally {
                 connection.setAutoCommit(true);
             }
@@ -130,7 +130,7 @@ public class OrderDaoImpl implements OrderDao {
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DaoException("Exception of finding all orders with values in database", e);
+            throw new DaoException("Exception of finding all orders with values in database for user " + idUser, e);
         }
         return orders;
     }
@@ -148,7 +148,7 @@ public class OrderDaoImpl implements OrderDao {
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DaoException("Exception of finding actual orders with values in database", e);
+            throw new DaoException("Exception of finding actual orders with values in database for user " + idUser, e);
         }
         return orders;
     }
@@ -170,7 +170,7 @@ public class OrderDaoImpl implements OrderDao {
                 order.setTour(tour);
             }
         } catch (SQLException e) {
-            throw new DaoException("Exception of finding concrete order in database", e);
+            throw new DaoException("Exception of finding concrete order in database " + idOrder, e);
         }
         return order;
     }
@@ -224,7 +224,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(1, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException("Exception of confirming order in database", e);
+            throw new DaoException("Exception of confirming order in database for user " + idOrder, e);
         }
         return result;
     }
@@ -238,7 +238,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(2, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException("Exception of declining order in database", e);
+            throw new DaoException("Exception of declining order in database for order " + idOrder, e);
         }
         return result;
     }
@@ -251,7 +251,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(1, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException("Exception of changing order state to added docs in database", e);
+            throw new DaoException("Exception of changing order state to added docs in database for order " + idOrder, e);
         }
         return result;
     }
@@ -265,7 +265,7 @@ public class OrderDaoImpl implements OrderDao {
             preparedStatement.setInt(2, idOrder);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoException("Exception of finishing order in database", e);
+            throw new DaoException("Exception of finishing order in database for order " + idOrder, e);
         }
         return result;
     }
@@ -304,7 +304,7 @@ public class OrderDaoImpl implements OrderDao {
                 }
             } catch (SQLException e) {
                 connection.rollback();
-                throw new DaoException("Exception of paying order in database", e);
+                throw new DaoException("Exception of paying order in database for order " + idOrder + ", for user " + idUser, e);
             } finally {
                 connection.setAutoCommit(true);
             }

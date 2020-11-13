@@ -9,7 +9,7 @@ CREATE TABLE users
     id_user        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     login          VARCHAR(16) UNIQUE                  NOT NULL,
     password       CHAR(89)                            NOT NULL,
-    email          VARCHAR(32)                         NOT NULL,
+    email          VARCHAR(64)                         NOT NULL,
     role           ENUM ('admin', 'moderator', 'user') NOT NULL DEFAULT 'user',
     status         boolean                             NOT NULL DEFAULT true,
     email_approved boolean                             NOT NULL DEFAULT false
@@ -54,8 +54,8 @@ create table tours
 (
     id_tour          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     tour_purpose     ENUM ('rest', 'excursion','shopping' )   NOT NULL,
-    country          VARCHAR(32)                              NOT NULL,
-    hotel_name       VARCHAR(32)                              NOT NULL,
+    country          VARCHAR(64)                              NOT NULL,
+    hotel_name       VARCHAR(64)                              NOT NULL,
     hotel_stars      ENUM ('hostel', 'three', 'four', 'five') NOT NULL,
     transport        ENUM ('bus','airplane')                  NOT NULL,
     date_start       LONG                                     NOT NULL,
@@ -109,11 +109,11 @@ create table passport
 (
     id_passport     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     id_user_fk      INT UNSIGNED NOT NULL,
-    surname         VARCHAR(32)  NOT NULL,
-    name            VARCHAR(32)  NOT NULL,
+    surname         VARCHAR(64)  NOT NULL,
+    name            VARCHAR(64)  NOT NULL,
     birth_date      LONG         NOT NULL,
-    passport_number VARCHAR(32)  NOT NULL,
-    passport_image  VARCHAR(32),
+    passport_number VARCHAR(64)  NOT NULL,
+    passport_image  VARCHAR(64),
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
 );
 
@@ -209,7 +209,7 @@ create table orders
     id_travel_docs_fk INT UNSIGNED UNIQUE                                                 NOT NULL,
     date_order        LONG                                                                NOT NULL,
     state             ENUM ('new','confirmed','paid','added_docs','finished', 'declined') NOT NULL DEFAULT 'new',
-    comment           VARCHAR(128),
+    comment           VARCHAR(64),
     FOREIGN KEY (id_tour_fk) REFERENCES tours (id_tour),
     FOREIGN KEY (id_passport_fk) REFERENCES passport (id_passport),
     FOREIGN KEY (id_travel_docs_fk) REFERENCES travel_docs (id_travel_docs)

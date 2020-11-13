@@ -6,7 +6,6 @@ import by.epam.tagency.model.dao.SheetDao;
 import by.epam.tagency.model.dao.impl.SheetDaoImpl;
 import by.epam.tagency.model.entity.ClientSheet;
 import by.epam.tagency.model.service.SheetService;
-import by.epam.tagency.validator.GeneralValidator;
 import by.epam.tagency.validator.PaycardValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,22 +43,6 @@ public class SheetServiceImpl implements SheetService {
                 int numberPaycardInt = Integer.parseInt(numberPaycard);
                 result = dao.addSheetSum(idUser, numberPaycardInt);
                 logger.info("Add sum for id user " + idUser);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public boolean payOrder(int idUser, String sum) throws ServiceException {
-        boolean result = false;
-        if (GeneralValidator.isDigitValue(sum)) {                   // TODO: 31.10.2020  order check
-            SheetDao dao = SheetDaoImpl.getInstance();
-            try {
-                int sumInt = Integer.parseInt(sum);
-                result = dao.changeSheetSum(idUser, sumInt);        // TODO: 31.10.2020 another method
-                logger.info("Pay order for id user " + idUser);
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

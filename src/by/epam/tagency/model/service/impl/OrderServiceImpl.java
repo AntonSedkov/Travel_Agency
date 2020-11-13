@@ -76,6 +76,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             OrderDao dao = OrderDaoImpl.getInstance();
             orders = dao.findAllOrdersWithValues(idUser);
+            logger.info("Find all orders with values for user " + idUser);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -88,6 +89,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             OrderDao dao = OrderDaoImpl.getInstance();
             orders = dao.findActualOrdersWithValues(idUser);
+            logger.info("Find actual orders with values for user " + idUser);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -102,6 +104,7 @@ public class OrderServiceImpl implements OrderService {
             OrderDao dao = OrderDaoImpl.getInstance();
             try {
                 order = dao.findConcreteOrderWithValues(idOrderInt);
+                logger.info("Find concrete order " + idOrder);
             } catch (NumberFormatException e) {
                 throw new ServiceException("Incoming ID Order is wrong format - not an integer", e);
             } catch (DaoException e) {
@@ -154,7 +157,6 @@ public class OrderServiceImpl implements OrderService {
                         }
                     }
                     case ADDED_DOCS -> result = dao.addDocsOrderState(idOrderInt);
-
                     case FINISHED -> {
                         if (additionalParams != null && additionalParams.length == 1) {
                             String safeComment = XssSafeUtil.xssSafeString(additionalParams[0]);
@@ -194,4 +196,5 @@ public class OrderServiceImpl implements OrderService {
         }
         return ordersWithSum;
     }
+
 }

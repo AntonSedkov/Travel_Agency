@@ -38,8 +38,10 @@ public class ToursByTypeCommand implements Command {
             }
             session.setAttribute(AttributeName.TOURS_BY_TYPES, tours);
             page = PathManager.getProperty(PathManager.PAGE_GUEST_TYPE_TOURS);
+            logger.info("Tours by types page created.");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

@@ -25,9 +25,10 @@ public class AddPassportPageCommand implements Command {
             Set<String> countries = tourService.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);
             page = PathManager.getProperty(PathManager.PAGE_USER_ADD_PASSPORT);
-            logger.info("User add passport page reload.");
+            logger.info("User add passport page created.");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

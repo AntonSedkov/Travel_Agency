@@ -43,15 +43,15 @@ public class LoginCommand implements Command {
                 session.setAttribute(AttributeName.ID_USER, idUser);
                 switch (role) {
                     case USER -> {
+                        TourService tourService = TourServiceImpl.getInstance();
+                        List<Tour> hotTours = tourService.findAllHotTours();
                         SheetService sheetService = SheetServiceImpl.getInstance();
                         ClientSheet sheet = sheetService.findSheetByIdUser(idUser);
                         session.setAttribute(AttributeName.SHEET, sheet);
-                        TourService tourService = TourServiceImpl.getInstance();
-                        List<Tour> hotTours = tourService.findAllHotTours();
                         if (hotTours.size() > 0) {
                             session.setAttribute(AttributeName.HOT_TOURS, hotTours);
                         } else {
-                            session.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
+                            request.setAttribute(AttributeName.HOT_TOURS_NOTHING, true);
                         }
                         Set<String> countries = tourService.findAvailableCountries();
                         session.setAttribute(AttributeName.COUNTRIES, countries);
@@ -71,8 +71,10 @@ public class LoginCommand implements Command {
                         logger.info("Admin log in successfully.");
                     }
                     default -> {
+                        String errorMessage = "Wrong user type from database.";
+                        logger.error(errorMessage);
+                        request.setAttribute(AttributeName.ERROR_INFO, errorMessage);
                         page = PathManager.getProperty(PathManager.PAGE_ERROR);
-                        logger.error("Wrong user type from database.");
                     }
                 }
             } else {
@@ -81,6 +83,7 @@ public class LoginCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

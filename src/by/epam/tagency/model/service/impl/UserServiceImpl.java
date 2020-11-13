@@ -79,7 +79,6 @@ public class UserServiceImpl implements UserService {
                 }
                 role = UserType.valueOf(strRole.toUpperCase());
                 logger.info("User type has been defined successfully");
-
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

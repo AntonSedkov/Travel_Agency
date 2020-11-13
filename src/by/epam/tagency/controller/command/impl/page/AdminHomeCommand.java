@@ -29,9 +29,10 @@ public class AdminHomeCommand implements Command {
             session.setAttribute(AttributeName.USERS_BY_ROLES, usersByRoles);
             session.setAttribute(AttributeName.QUANTITY_USERS, quantityUsers);
             page = PathManager.getProperty(PathManager.PAGE_ADMIN_HOME);
-            logger.info("Admin home page forward.");
+            logger.info("Admin home page created.");
         } catch (ServiceException e) {
             logger.error(e);
+            request.setAttribute(AttributeName.ERROR_INFO, e);
             page = PathManager.getProperty(PathManager.PAGE_ERROR);
         }
         return page;

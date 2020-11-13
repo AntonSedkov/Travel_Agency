@@ -53,3 +53,21 @@ Caused by: java.io.FileNotFoundException: configuration\mail.properties (Сис�
 	... 3 more
 2020-10-06 21:38:33 [main] INFO  MailSessionConfigurer:30 - Properties for mail sender has been loaded.
 2020-10-06 21:38:35 [main] INFO  SendMailManager:32 - Email has sent successfully.
+2020-11-13 12:47:36 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 12:47:38 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 12:49:54 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 12:49:56 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 12:54:09 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 12:56:43 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 12:56:44 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 12:57:12 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 12:57:13 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 12:58:59 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 13:00:14 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 13:00:15 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 13:01:53 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 13:01:55 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 13:03:51 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 13:04:23 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 2020
+2020-11-13 13:04:43 [main] INFO  ConnectorDB:33 - Driver MySql has been loaded. 
+2020-11-13 13:04:44 [main] INFO  OperationServiceImpl:31 - Find operations for sheet 0

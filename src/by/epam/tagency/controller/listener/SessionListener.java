@@ -20,7 +20,7 @@ public class SessionListener implements HttpSessionListener {
         session.setAttribute(AttributeName.USER, DEFAULT_USER);
         session.setAttribute(AttributeName.ROLE, DEFAULT_ROLE);
         session.setAttribute(AttributeName.LANGUAGE, DEFAULT_LANGUAGE);
-        session.setAttribute(AttributeName.CURRENT_PAGE, PathManager.PAGE_GUEST_HOME);
+        session.setAttribute(AttributeName.CURRENT_PAGE, PathManager.PAGE_INDEX);
     }
 
 }

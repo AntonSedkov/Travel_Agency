@@ -20,7 +20,7 @@ public class ActionProvider {
                 currentCommand = currentType.getCommand();
             }
         } catch (IllegalArgumentException e) {
-            logger.error("Wrong command parameter: " + action, e);      // TODO: 25.10.2020 ErrorPageCommand
+            logger.error("Wrong command parameter: " + action, e);
         }
         return currentCommand;
     }
