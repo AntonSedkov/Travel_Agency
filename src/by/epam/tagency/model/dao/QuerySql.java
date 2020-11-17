@@ -1,5 +1,11 @@
 package by.epam.tagency.model.dao;
 
+/**
+ * Class stores SQL queries
+ *
+ * @author Anton Sedkov
+ * @version 1.0
+ */
 public class QuerySql {
 
     // UserDao

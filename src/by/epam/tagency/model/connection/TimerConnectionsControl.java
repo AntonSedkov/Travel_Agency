@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.TimerTask;
 
-public class TimerConnectionsControl extends TimerTask {
+class TimerConnectionsControl extends TimerTask {
     private static Logger logger = LogManager.getLogger(TimerConnectionsControl.class);
 
     @Override

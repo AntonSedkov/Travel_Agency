@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
         if (UserValidator.isValidLogin(login)) {
             try {
                 idUser = UserDaoImpl.getInstance().findIdUserByLogin(login.strip());
-                logger.info("User type has been defined successfully");
+                logger.info("User id has been found successfully");
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

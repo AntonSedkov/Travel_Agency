@@ -7,10 +7,10 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/jsp/*"})
 
 public class DirectPathFilter implements Filter {
-    private static final String DIRECT_REDIRECT_COMMAND = "/controller/command=guest_in";
+    private static final String INDEX_JSP = "/index.jsp";
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(DIRECT_REDIRECT_COMMAND);
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(INDEX_JSP);
         dispatcher.forward(request, response);
         chain.doFilter(request, response);
     }

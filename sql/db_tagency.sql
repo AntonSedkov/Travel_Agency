@@ -70,27 +70,27 @@ create table tours
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
 VALUES ('rest', 'Belarus', 'Zvezda', 'three', 'bus', 1827648000, 14, 950, 17, 'belarusrest',
-        'default.jpg');
+        'belOne.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path, discount)
 VALUES ('excursion', 'Belarus', 'Nyasvizh', 'four', 'bus', 1627648000, 7, 450, 30, 'belarusexcursion',
-        'default.jpg', 10);
+        'belTwo.jpg', 10);
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
 VALUES ('shopping', 'Belarus', 'Cosmos', 'hostel', 'bus', 1727648000, 2, 300, 10, 'belarusshopping',
-        'default.jpg');
+        'belThree.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path, discount)
 VALUES ('rest', 'Chile', 'Remota', 'five', 'airplane', 1927648000, 16, 4500, 21, 'chilerest',
-        'default.jpg', 7);
+        'chileThree.jpg', 7);
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path)
 VALUES ('excursion', 'Chile', 'Takarua Lodge', 'hostel', 'airplane', 1670648000, 10, 3200, 14, 'chileexcursion',
-        'default.jpg');
+        'chileOne.jpg');
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path, discount)
 VALUES ('shopping', 'Chile', 'UGO Hotel', 'four', 'airplane', 1740648000, 6, 2700, 7, 'chileshopping',
-        'default.jpg', 5);
+        'chileTwo.jpg', 5);
 INSERT INTO tours(tour_purpose, country, hotel_name, hotel_stars, transport, date_start, quantity_of_days,
                   price, quantity_tours, description, image_path, discount)
 VALUES ('rest', 'Chile', 'Remota', 'five', 'airplane', 21927648000, 16, 45000, 21, 'chilerest',
@@ -117,20 +117,20 @@ create table passport
     FOREIGN KEY (id_user_fk) REFERENCES users (id_user)
 );
 
-INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
-VALUES (3, 'Ivanov', 'Ivan', 1600000000, 'HE8975899');
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
+VALUES (3, 'Ivanov', 'Ivan', 1600000000, 'HE8975899', 'defaultPassport.pdf');
 
-INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
-VALUES (3, 'Ivanova', 'Olga', 1600100000, 'LG1564689');
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
+VALUES (3, 'Ivanova', 'Olga', 1600100000, 'LG1564689', 'defaultPassport.pdf');
 
-INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
-VALUES (3, 'Ivanov', 'Igor', 1600200000, 'IK0009998');
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
+VALUES (3, 'Ivanov', 'Igor', 1600200000, 'IK0009998', 'defaultPassport.pdf');
 
-INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
-VALUES (4, 'Merier', 'Luis', 1600300000, 'JU8484949');
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
+VALUES (4, 'Merier', 'Luis', 1600300000, 'JU8484949', 'defaultPassport.pdf');
 
-INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number)
-VALUES (4, 'Buijuer', 'Anette', 1600400000, 'EW8798546');
+INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
+VALUES (4, 'Buijuer', 'Anette', 1600400000, 'EW8798546', 'defaultPassport.pdf');
 
 INSERT INTO passport (id_user_fk, surname, name, birth_date, passport_number, passport_image)
 VALUES (5, 'Norris', 'Chuck', 1600500000, 'US9999888', 'defaultPassport.pdf');
@@ -181,7 +181,7 @@ VALUES (4, 1500000, '0');
 INSERT INTO sheet(id_user_fk, sheet_sum, customer_discount)
 VALUES (5, 50000000, '15');
 
-/*one sheet - many operations*/
+/*one operation - many sheets*/
 create table sheet_operation
 (
     id_operation      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -251,10 +251,11 @@ INSERT INTO paycards(card_number, card_sum, card_quantity)
 VALUES (3339333, 300000, 5);
 
 
-select * from users;
+select * from orders;
+select * from passport;
+select * from paycards;
 select * from sheet;
 select * from sheet_operation;
-select * from passport;
-select * from travel_docs;
-select * from orders;
 select * from tours;
+select * from travel_docs;
+select * from users;

@@ -66,9 +66,8 @@ public class OrderDaoImpl implements OrderDao {
                     psOrder.setInt(3, idTravelDocs);
                     psOrder.setLong(4, dateTimeOrder);
                     result = psOrder.executeUpdate() > 0;
-                }
-                if (result) {
                     connection.commit();
+                    logger.info("TravelDocs created " + idTravelDocs);
                 }
             } catch (SQLException e) {
                 connection.rollback();
@@ -100,10 +99,8 @@ public class OrderDaoImpl implements OrderDao {
                 if (idDocs > 0) {
                     psDocs.setInt(1, idDocs);
                     result = psDocs.executeUpdate() > 0;
-                    logger.info("Deleted docs " + idDocs);
-                }
-                if (result) {
                     connection.commit();
+                    logger.info("Deleted docs " + idDocs);
                 }
             } catch (SQLException e) {
                 connection.rollback();
@@ -298,8 +295,6 @@ public class OrderDaoImpl implements OrderDao {
                 if (isPaidSheet) {
                     psOrder.setInt(1, idOrder);
                     result = psOrder.executeUpdate() > 0;
-                }
-                if (result) {
                     connection.commit();
                 }
             } catch (SQLException e) {

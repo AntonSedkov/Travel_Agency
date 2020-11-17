@@ -1,5 +1,11 @@
 package by.epam.tagency.model.dao;
 
+/**
+ * Class stores column names of database tables
+ *
+ * @author Anton Sedkov
+ * @version 1.0
+ */
 public class ColumnName {
 
     //users

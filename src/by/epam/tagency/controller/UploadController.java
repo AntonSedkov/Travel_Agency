@@ -19,7 +19,6 @@ import java.util.Optional;
 public class UploadController extends HttpServlet {
     private static Logger logger = LogManager.getLogger(UploadController.class);
     private static final String NEXT_CONTROLLER = "/controller";
-    private static final String ABSOLUTE_PATH = "E:\\Epam_Web\\_Final_Web_Project\\Travel_Agency\\web";
     private static final String UPPER_DIRECTORY = "pics";
     private static final String TOUR_INFO_DIRECTORY = "tours";
     private static final String PERSONAL_DOC_DIRECTORY = "persdoc";
@@ -44,7 +43,6 @@ public class UploadController extends HttpServlet {
             };
             if (!UPLOAD_DIR.equals(UPLOAD_DIR_DEFAULT)) {
                 String applicationDir = request.getServletContext().getRealPath("");
-                // String applicationDir = ABSOLUTE_PATH;
                 String uploadFileDir = applicationDir + File.separator + UPLOAD_DIR + File.separator;
                 File fileSaveDir = new File(uploadFileDir);
                 if (!fileSaveDir.exists()) {

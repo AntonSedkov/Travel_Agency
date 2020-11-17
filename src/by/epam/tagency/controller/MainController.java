@@ -2,7 +2,6 @@ package by.epam.tagency.controller;
 
 import by.epam.tagency.controller.command.Command;
 import by.epam.tagency.model.connection.ConnectionPool;
-import by.epam.tagency.model.connection.TimerConnectionsControl;
 import by.epam.tagency.util.PathManager;
 
 import javax.servlet.RequestDispatcher;
@@ -13,18 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Timer;
 
 @WebServlet(urlPatterns = {"/controller"})
 public class MainController extends HttpServlet {
-    private Timer timer;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        timer = new Timer();
-        timer.schedule(new TimerConnectionsControl(), 60000, 60000);
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,7 +44,6 @@ public class MainController extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        timer.cancel();
         ConnectionPool.INSTANCE.destroyPool();
     }
 

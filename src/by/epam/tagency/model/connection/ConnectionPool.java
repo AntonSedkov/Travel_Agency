@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.Timer;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -18,6 +19,7 @@ public enum ConnectionPool {
     private final Logger logger = LogManager.getLogger(ConnectionPool.class);
     private BlockingDeque<ProxyConnection> freeConnections;
     private Queue<ProxyConnection> givenConnections;
+    private Timer timer;
     private final static int DEFAULT_POOL_SIZE = 10;
 
     ConnectionPool() {
@@ -42,6 +44,8 @@ public enum ConnectionPool {
                 }
             }
         }
+        timer = new Timer();
+        timer.schedule(new TimerConnectionsControl(), 60000, 120000);
     }
 
     public Connection getConnection() {
@@ -73,6 +77,7 @@ public enum ConnectionPool {
             }
         }
         deregisterDriver();
+        timer.cancel();
         logger.info("Connection Pool was destroyed, drivers were deregistered");
     }
 
