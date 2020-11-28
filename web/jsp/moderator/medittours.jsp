@@ -32,7 +32,7 @@
                 <c:if test="${requestScope.closetour}">
                     <h4 style="color: darkgreen"><fmt:message key="statement.closetoursuccess"/></h4>
                 </c:if>
-                <c:if test="${not requestScope.closetour eq false}">
+                <c:if test="${requestScope.closetour eq false}">
                     <h4 style="color: red"><fmt:message key="statement.closetourfail"/></h4>
                 </c:if>
             </div>

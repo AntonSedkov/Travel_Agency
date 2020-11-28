@@ -180,7 +180,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Map<ClientOrder, Integer> createOrdersWithSumToPay(int idUser, List<ClientOrder> orders, int sheetDiscount) {
+    public Map<ClientOrder, Integer> createOrdersWithSumToPay(List<ClientOrder> orders, int sheetDiscount) {
         Map<ClientOrder, Integer> ordersWithSum = new HashMap<>();
         if (orders != null) {
             List<ClientOrder> ordersToPay = orders.stream()

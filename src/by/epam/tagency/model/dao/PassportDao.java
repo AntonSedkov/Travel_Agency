@@ -26,10 +26,10 @@ public interface PassportDao extends BaseDao<Integer, ClientPassport> {
     /**
      * Create the passport for the concrete user in database
      *
-     * @param idUser   idUser reference to the identifier of the concrete user
+     * @param idUser   reference to the identifier of the concrete user
      * @param passport {@code ClientPassport} for insertion into database
      * @return {@code true} if passport creation is successful; {@code false} otherwise
-     * @throws DaoException DaoException when {@link java.sql.SQLException} has happened
+     * @throws DaoException when {@link java.sql.SQLException} has happened
      * @see by.epam.tagency.model.entity.User
      */
     boolean createPassport(int idUser, ClientPassport passport) throws DaoException;

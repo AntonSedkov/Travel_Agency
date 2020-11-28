@@ -71,7 +71,7 @@ public class ChangeOrderStateCommand implements Command {
                 List<ClientOrder> orders = orderService.findActualOrdersWithValues(idUser);
                 session.setAttribute(AttributeName.ORDERS, orders);
                 int sheetDiscount = sheet.getDiscount().getValue();
-                var ordersToPayWithSumToPay = orderService.createOrdersWithSumToPay(idUser, orders, sheetDiscount);
+                var ordersToPayWithSumToPay = orderService.createOrdersWithSumToPay(orders, sheetDiscount);
                 session.setAttribute(AttributeName.ORDERS_WITH_SUM_TO_PAY, ordersToPayWithSumToPay);
                 SheetService sheetService = SheetServiceImpl.getInstance();
                 sheet = sheetService.findSheetByIdUser(idUser);

@@ -27,9 +27,9 @@
         <h2><fmt:message key="label.addstaff"/></h2>
     </div>
 
-    <div class="text-uppercase text-center" style="color: darkred">
-        <p><c:if test="${requestScope.registererror}"> <fmt:message key="statement.registererror"/></c:if></p>
-        <p><c:if test="${requestScope.registersuccess}"> <fmt:message key="statement.registersuccess"/></c:if></p>
+    <div class="text-uppercase text-center">
+        <p style="color: darkred"><c:if test="${requestScope.registererror}"> <fmt:message key="statement.registererror"/></c:if></p>
+        <p style="color: darkgreen"><c:if test="${requestScope.registersuccess}"> <fmt:message key="statement.registersuccess"/></c:if></p>
     </div>
 
     <div class="container text-center pb-3" style="max-width: 25%">

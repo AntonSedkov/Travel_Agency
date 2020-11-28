@@ -33,7 +33,7 @@ public class AllOrdersCommand implements Command {
             session.setAttribute(AttributeName.ORDERS, orders);
             ClientSheet sheet = (ClientSheet) session.getAttribute(AttributeName.SHEET);
             int sheetDiscount = sheet.getDiscount().getValue();
-            var ordersToPayWithSumToPay = orderService.createOrdersWithSumToPay(idUser, orders, sheetDiscount);
+            var ordersToPayWithSumToPay = orderService.createOrdersWithSumToPay(orders, sheetDiscount);
             session.setAttribute(AttributeName.ORDERS_WITH_SUM_TO_PAY, ordersToPayWithSumToPay);
             Set<String> countries = tourService.findAvailableCountries();
             session.setAttribute(AttributeName.COUNTRIES, countries);

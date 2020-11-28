@@ -4,10 +4,12 @@ import by.epam.tagency.model.entity.HotelType;
 import by.epam.tagency.model.entity.TourType;
 import by.epam.tagency.model.entity.TransportType;
 
+import java.util.regex.Pattern;
+
 public class TourValidator {
-    private static final String DIGITS_VALUE_PARAM = "\\d{1,7}";
-    private static final String DIGITS_VALUE_DAYS = "\\d{1,3}";
-    private static final String DIGITS_VALUE_DISCOUNT = "\\d{1,2}";
+    private static final Pattern DIGITS_VALUE_PARAM = Pattern.compile("\\d{1,7}");
+    private static final Pattern DIGITS_VALUE_DAYS = Pattern.compile("\\d{1,3}");
+    private static final Pattern DIGITS_VALUE_DISCOUNT = Pattern.compile("\\d{1,2}");
 
     private TourValidator() {
     }
@@ -26,17 +28,17 @@ public class TourValidator {
     }
 
     public static boolean isDigitParamValue(String value) {
-        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_PARAM));
+        boolean result = (value != null && !value.isBlank() && DIGITS_VALUE_PARAM.matcher(value.strip()).matches());
         return result;
     }
 
     public static boolean isDaysValue(String value) {
-        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_DAYS));
+        boolean result = (value != null && !value.isBlank() && DIGITS_VALUE_DAYS.matcher(value.strip()).matches());
         return result;
     }
 
     public static boolean isDiscountValue(String value) {
-        boolean result = (value != null && !value.isBlank() && value.strip().matches(DIGITS_VALUE_DISCOUNT));
+        boolean result = (value != null && !value.isBlank() && DIGITS_VALUE_DISCOUNT.matcher(value.strip()).matches());
         return result;
     }
 
